@@ -13,10 +13,10 @@
         <location>/jsp/404.jsp</location>
     </error-page>
 
-    <!-- <error-page>
+    <error-page>
          <error-code>500</error-code>
          <location>/jsp/500.jsp</location>
-     </error-page>-->
+     </error-page>
 
     <session-config>
         <session-timeout>5</session-timeout>
