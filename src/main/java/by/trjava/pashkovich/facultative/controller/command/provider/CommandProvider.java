@@ -33,6 +33,7 @@ public class CommandProvider {
         commands.put(CommandVariety.EDIT_STUDENT_FORM, new ShowEditStudentFormCommand());
         commands.put(CommandVariety.ADD_CLASS_FORM, new ShowAddClassFormCommand());
         commands.put(CommandVariety.ADD_WORK_FORM, new ShowAddWorkFormCommand());
+        commands.put(CommandVariety.VIEW_SEARCH_COURSE_RESULT, new ViewSearchCourseResultCommand());
     }
 
     public static CommandProvider getInstance() {
