@@ -2,7 +2,9 @@ package by.trjava.pashkovich.facultative.entity;
 
 import by.trjava.pashkovich.facultative.entity.characteristic.UserRole;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private int id;
     private String login;
     private String email;

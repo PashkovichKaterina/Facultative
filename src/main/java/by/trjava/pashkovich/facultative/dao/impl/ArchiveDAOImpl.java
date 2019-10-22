@@ -8,7 +8,7 @@ import by.trjava.pashkovich.facultative.dao.exception.DAOException;
 import by.trjava.pashkovich.facultative.dao.pool.impl.BaseConnectionPool;
 import by.trjava.pashkovich.facultative.entity.ArchiveCourse;
 import by.trjava.pashkovich.facultative.entity.Course;
-import by.trjava.pashkovich.facultative.entity.CustomFormatForDate;
+import by.trjava.pashkovich.facultative.util.CustomFormatForDate;
 import by.trjava.pashkovich.facultative.entity.exception.InstallerException;
 import by.trjava.pashkovich.facultative.entity.installation.CourseInstaller;
 

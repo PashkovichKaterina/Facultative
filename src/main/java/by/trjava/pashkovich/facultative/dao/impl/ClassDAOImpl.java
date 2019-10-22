@@ -6,7 +6,7 @@ import by.trjava.pashkovich.facultative.dao.ClassDAO;
 import by.trjava.pashkovich.facultative.dao.exception.ConnectionPoolException;
 import by.trjava.pashkovich.facultative.dao.exception.DAOException;
 import by.trjava.pashkovich.facultative.dao.pool.impl.BaseConnectionPool;
-import by.trjava.pashkovich.facultative.entity.CustomFormatForDate;
+import by.trjava.pashkovich.facultative.util.CustomFormatForDate;
 
 import java.sql.*;
 import java.util.*;

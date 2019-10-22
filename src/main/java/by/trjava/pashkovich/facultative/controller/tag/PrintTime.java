@@ -1,6 +1,6 @@
 package by.trjava.pashkovich.facultative.controller.tag;
 
-import by.trjava.pashkovich.facultative.entity.CustomFormatForDate;
+import by.trjava.pashkovich.facultative.util.CustomFormatForDate;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;

@@ -1,6 +1,8 @@
 package by.trjava.pashkovich.facultative.entity;
 
-public class Person extends User {
+import java.io.Serializable;
+
+public class Person extends User implements Serializable {
     private String surname;
     private String name;
     private String patronymic;

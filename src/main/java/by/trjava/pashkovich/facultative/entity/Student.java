@@ -1,18 +1,18 @@
 package by.trjava.pashkovich.facultative.entity;
 
-import java.text.SimpleDateFormat;
+import by.trjava.pashkovich.facultative.util.CustomFormatForDate;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class Student extends Person {
-    public static final SimpleDateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-
+public class Student extends Person implements Serializable {
     private Date dateOfBirth;
+
     private String address;
 
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
-
 
     public String getAddress() {
         return address;

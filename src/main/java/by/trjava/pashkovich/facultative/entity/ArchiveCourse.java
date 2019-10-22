@@ -1,8 +1,9 @@
 package by.trjava.pashkovich.facultative.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ArchiveCourse {
+public class ArchiveCourse implements Serializable {
     private Course course;
     private Date beginDate;
     private Date endDate;
@@ -54,7 +55,7 @@ public class ArchiveCourse {
 
     @Override
     public String toString() {
-        return getClass().getName() + "@COURSE=" + course + " ;BEGIN_DATE=" + beginDate
-                + " ;END_DATE=" + endDate;
+        return getClass().getName() + "@Course=" + course + "; Begin_date=" + beginDate
+                + "; End_date=" + endDate;
     }
 }

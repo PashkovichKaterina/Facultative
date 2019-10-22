@@ -1,4 +1,4 @@
-package by.trjava.pashkovich.facultative.entity;
+package by.trjava.pashkovich.facultative.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -1,6 +1,8 @@
 package by.trjava.pashkovich.facultative.entity;
 
-public class Apply {
+import java.io.Serializable;
+
+public class Apply implements Serializable {
     private User user;
     private Course course;
     private String status;
@@ -51,6 +53,6 @@ public class Apply {
 
     @Override
     public String toString() {
-        return getClass().getName() + "@USER=" + user + " ;COURSE=" + course + " ;STATUS=" + status;
+        return getClass().getName() + "@User=" + user + "; Course=" + course + "; Status=" + status;
     }
 }

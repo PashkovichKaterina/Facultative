@@ -1,9 +1,8 @@
 package by.trjava.pashkovich.facultative.entity;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.Serializable;
 
-public class Course {
+public class Course implements Serializable {
     private int id;
     private String title;
     private String teacher;
@@ -95,6 +94,6 @@ public class Course {
     public String toString() {
         return getClass().getName() + "@Id=" + id + "; Title=" + title + "; Teacher=" + teacher
                 + "; Number_of_classes=" + classesNumber + "; Category=" + category + "; Availability=" + availability
-                + "; Desription=" + description;
+                + "; Description=" + description;
     }
 }

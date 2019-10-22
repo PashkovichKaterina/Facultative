@@ -3,7 +3,7 @@ package by.trjava.pashkovich.facultative.controller.command.impl.student;
 import by.trjava.pashkovich.facultative.constants.JspPath;
 import by.trjava.pashkovich.facultative.constants.Variable;
 import by.trjava.pashkovich.facultative.controller.command.Command;
-import by.trjava.pashkovich.facultative.entity.CustomFormatForDate;
+import by.trjava.pashkovich.facultative.util.CustomFormatForDate;
 import by.trjava.pashkovich.facultative.entity.Student;
 
 import javax.servlet.ServletException;
