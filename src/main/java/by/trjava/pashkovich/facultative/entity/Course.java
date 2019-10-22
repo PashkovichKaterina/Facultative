@@ -85,7 +85,7 @@ public class Course implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31 * id + 31 * classesNumber + Boolean.hashCode(availability) + ((title == null) ? 0 : title.hashCode())
+        return 31 * id + 31 * classesNumber + ((title == null) ? 0 : title.hashCode())
                 + ((teacher == null) ? 0 : teacher.hashCode()) + ((description == null) ? 0 : description.hashCode()) +
                 ((category == null) ? 0 : category.hashCode());
     }

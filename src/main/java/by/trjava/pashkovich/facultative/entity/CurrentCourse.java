@@ -41,14 +41,14 @@ public class CurrentCourse implements Serializable {
             return false;
         }
         CurrentCourse currentCourse = (CurrentCourse) obj;
-        return super.equals(currentCourse) && mark == currentCourse.mark
+        return mark == currentCourse.mark
                 && (course == null ? course == currentCourse.course : course.equals(currentCourse.course))
                 && (beginDate == null ? beginDate == currentCourse.beginDate : beginDate.equals(currentCourse.beginDate));
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode() + mark + ((course == null) ? 0 : course.hashCode())
+        return 31 * mark + ((course == null) ? 0 : course.hashCode())
                 + ((beginDate == null) ? 0 : beginDate.hashCode());
     }
 
