@@ -127,8 +127,8 @@
                                 <td><custom:outDate date="${classElement}"/></td>
                                 <td><custom:outTime date="${classElement}"/></td>
                             </tr>
+                            <c:set var="i" value="${i + 1}"/>
                         </c:forEach>
-                        <c:set var="i" value="${i + 1}"/>
                         </tbody>
                     </table>
                 </c:if>

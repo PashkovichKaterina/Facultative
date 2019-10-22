@@ -3,6 +3,8 @@ package by.trjava.pashkovich.facultative.controller;
 import by.trjava.pashkovich.facultative.constants.Variable;
 import by.trjava.pashkovich.facultative.controller.command.Command;
 import by.trjava.pashkovich.facultative.controller.command.provider.CommandProvider;
+import by.trjava.pashkovich.facultative.dao.exception.ConnectionPoolException;
+import by.trjava.pashkovich.facultative.dao.pool.ConnectionPool;
 import by.trjava.pashkovich.facultative.dao.pool.impl.BaseConnectionPool;
 import org.apache.log4j.Logger;
 
@@ -15,6 +17,16 @@ import java.io.IOException;
 
 public class Controller extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(Controller.class);
+
+    @Override
+    public void init() throws ServletException {
+        ConnectionPool connectionPool = BaseConnectionPool.getInstance();
+        try {
+            connectionPool.initPoolData();
+        } catch (ConnectionPoolException e) {
+            LOGGER.fatal("Cannot create Connection Pool: " + e.getMessage());
+        }
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,6 +51,10 @@ public class Controller extends HttpServlet {
 
     @Override
     public void destroy() {
-        BaseConnectionPool.getInstance().destroyPool();
+        try {
+            BaseConnectionPool.getInstance().destroyPool();
+        } catch (ConnectionPoolException e) {
+            LOGGER.info("Connection pool cannot destroy: " + e.getMessage());
+        }
     }
 }

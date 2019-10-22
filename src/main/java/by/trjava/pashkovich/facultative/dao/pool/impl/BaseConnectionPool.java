@@ -4,7 +4,6 @@ import by.trjava.pashkovich.facultative.dao.exception.ConnectionPoolException;
 import by.trjava.pashkovich.facultative.dao.parameter.DBResourceManager;
 import by.trjava.pashkovich.facultative.dao.parameter.DBParameter;
 import by.trjava.pashkovich.facultative.dao.pool.ConnectionPool;
-import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,8 +12,6 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 public class BaseConnectionPool implements ConnectionPool {
-    private static final Logger LOGGER = Logger.getLogger(BaseConnectionPool.class);
-
     public static final int POOL_SIZE = 20;
 
     private static final BaseConnectionPool instance = new BaseConnectionPool();
@@ -33,15 +30,13 @@ public class BaseConnectionPool implements ConnectionPool {
         url = resourceManager.getValue(DBParameter.DB_URL);
         user = resourceManager.getValue(DBParameter.DB_USER);
         password = resourceManager.getValue(DBParameter.DB_PASSWORD);
-
-        initPoolData();
     }
 
     public static BaseConnectionPool getInstance() {
         return instance;
     }
 
-    public void initPoolData() {
+    public void initPoolData() throws ConnectionPoolException {
         try {
             Class.forName(driverName);
             connectionQueue = new ArrayBlockingQueue<>(POOL_SIZE);
@@ -51,11 +46,10 @@ public class BaseConnectionPool implements ConnectionPool {
                 connectionQueue.add(connection);
             }
         } catch (ClassNotFoundException e) {
-            LOGGER.fatal("Can't find database driver class");
+            throw new ConnectionPoolException("Can't find database driver class");
         } catch (SQLException e) {
-            LOGGER.fatal("Database access error while creating connection");
+            throw new ConnectionPoolException("Database access error while creating connection");
         }
-        LOGGER.info("Connection Pool created successfully");
     }
 
     @Override
@@ -83,14 +77,13 @@ public class BaseConnectionPool implements ConnectionPool {
     }
 
     @Override
-    public void destroyPool() {
+    public void destroyPool() throws ConnectionPoolException {
         for (Connection connection : connectionQueue) {
             try {
                 connection.close();
             } catch (SQLException e) {
-                LOGGER.error("Cannot close connection");
+                throw new ConnectionPoolException("Cannot close connection");
             }
         }
-        LOGGER.info("Connection pool successfully destroy");
     }
 }
