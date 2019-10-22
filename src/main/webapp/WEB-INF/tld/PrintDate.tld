@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<taglib version="2.1" xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd">
+
+    <tlib-version>1.0</tlib-version>
+    <short-name>mytag</short-name>
+    <uri>http://trjava.by/pashkovich/facultative</uri>
+    <tag>
+        <name>outDate</name>
+        <tag-class>by.trjava.pashkovich.facultative.controller.tag.PrintDate</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>date</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
+        <name>outTime</name>
+        <tag-class>by.trjava.pashkovich.facultative.controller.tag.PrintTime</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>date</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+</taglib>

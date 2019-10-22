@@ -2,9 +2,11 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="custom" uri="http://trjava.by/pashkovich/facultative" %>
 
 <%@ page import="by.trjava.pashkovich.facultative.constants.JspPath" %>
 <%@ page import="by.trjava.pashkovich.facultative.controller.command.variety.CommandVariety" %>
+<%@ page import="by.trjava.pashkovich.facultative.util.ReplacingEscapedCharacter" %>
 
 <fmt:setLocale value="${sessionScope.local}"/>
 <fmt:setBundle basename="local" var="loc"/>
@@ -78,7 +80,10 @@
                             <th>#</th>
                             <th><fmt:message key="local.student.name" bundle="${loc}"/></th>
                             <c:forEach var="work" items="${works}">
-                                <th class="table-student">${work} <i class="fa fa-pencil" aria-hidden="true"></i></th>
+                                <th class="table-student">${work}
+                                    <i class="fa fa-pencil" aria-hidden="true"
+                                       onclick="location.href='${pageContext.request.contextPath}/mainController?command=${CommandVariety.SHOW_EDIT_MARK_FORM}&id=${course.getId()}&work=${ReplacingEscapedCharacter.replace(work)}'"></i>
+                                </th>
                             </c:forEach>
                         </tr>
                         <tbody>
@@ -116,11 +121,11 @@
                         </tr>
                         <tbody>
                         <c:set var="i" value="${1}"/>
-                        <c:forEach var="classElement" items="${classes.entrySet()}">
+                        <c:forEach var="classElement" items="${classes}">
                             <tr>
                                 <th scope="row">${i}</th>
-                                <td>${classElement.key}</td>
-                                <td>${classElement.value}</td>
+                                <td><custom:outDate date="${classElement}"/></td>
+                                <td><custom:outTime date="${classElement}"/></td>
                             </tr>
                         </c:forEach>
                         <c:set var="i" value="${i + 1}"/>

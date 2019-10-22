@@ -94,15 +94,15 @@
                 </tr>
                 <tbody>
                 <c:set var="i" value="${1}"/>
-                <c:forEach var="num" items="${courses}">
+                <c:forEach var="course" items="${courses.entrySet()}">
                     <tr>
                         <th scope="row">${i}</th>
                         <td>
-                            <a href="${pageContext.request.contextPath}/mainController?command=${CommandVariety.FIXED_COURSE}&id=${num.id}">
-                                    ${num.title}
+                            <a href="${pageContext.request.contextPath}/mainController?command=${CommandVariety.FIXED_COURSE}&id=${course.key.id}">
+                                    ${course.key.title}
                             </a>
                         </td>
-                        <td>Статус</td>
+                        <td>${course.value}</td>
                     </tr>
                     <c:set var="i" value="${i + 1}"/>
                 </c:forEach>

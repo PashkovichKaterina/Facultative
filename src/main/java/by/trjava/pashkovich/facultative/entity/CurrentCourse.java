@@ -1,11 +1,13 @@
 package by.trjava.pashkovich.facultative.entity;
 
+import java.util.Date;
+
 public class CurrentCourse {
     private Course course;
-    private String beginDate;
+    private Date beginDate;
     private int mark;
 
-    public String getBeginDate() {
+    public Date getBeginDate() {
         return beginDate;
     }
 
@@ -21,7 +23,7 @@ public class CurrentCourse {
         this.course = course;
     }
 
-    public void setBeginDate(String beginDate) {
+    public void setBeginDate(Date beginDate) {
         this.beginDate = beginDate;
     }
 

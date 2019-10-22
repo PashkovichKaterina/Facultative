@@ -3,7 +3,7 @@ package by.trjava.pashkovich.facultative.entity.factory;
 import by.trjava.pashkovich.facultative.entity.Student;
 import by.trjava.pashkovich.facultative.entity.Teacher;
 import by.trjava.pashkovich.facultative.entity.User;
-import by.trjava.pashkovich.facultative.entity.characteristics.UserRole;
+import by.trjava.pashkovich.facultative.entity.characteristic.UserRole;
 
 public class UserFactory {
     private UserFactory() {

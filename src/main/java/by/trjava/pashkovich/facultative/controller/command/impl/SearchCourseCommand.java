@@ -9,7 +9,8 @@ import by.trjava.pashkovich.facultative.service.ServiceFactory;
 import by.trjava.pashkovich.facultative.service.exception.NoSuchCategoryException;
 import by.trjava.pashkovich.facultative.service.exception.NoSuchCourseException;
 import by.trjava.pashkovich.facultative.service.exception.ServiceException;
-import by.trjava.pashkovich.facultative.service.manager.MessageManager;
+import by.trjava.pashkovich.facultative.util.MessageManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class SearchCourseCommand implements Command {
+    private static final Logger LOGGER = Logger.getLogger(SearchCourseCommand.class);
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         CourseService courseService = ServiceFactory.getCourseService();
@@ -24,14 +27,18 @@ public class SearchCourseCommand implements Command {
         String local = (String) request.getSession().getAttribute(Variable.LOCAL);
         String courseTitle = request.getParameter(Variable.TITLE);
         String category = request.getParameter(Variable.CATEGORY);
+        LOGGER.debug("Search courses with title = " + courseTitle + " and category = " + category);
         try {
-            request.setAttribute(Variable.CATEGORIES, courseService.getAllCategory());
-            request.setAttribute(Variable.COURSES, courseService.searchCourse(courseTitle, category));
+            request.setAttribute(Variable.CATEGORIES, courseService.getAllCategory(local));
+            request.setAttribute(Variable.COURSES, courseService.searchCourse(courseTitle, category, local));
+            request.setAttribute(Variable.TITLE, courseTitle);
             request.getRequestDispatcher(JspPath.COURSE_PAGE).forward(request, response);
         } catch (NoSuchCourseException | NoSuchCategoryException e) {
+            LOGGER.debug("Unsuccessful course search: " + e.getMessage());
             request.setAttribute(Variable.INFORM_MESSAGE, messageManager.getMessage(InformMessage.NO_SUCH_COURSE, local));
             request.getRequestDispatcher(JspPath.COURSE_PAGE).forward(request, response);
         } catch (ServiceException e) {
+            LOGGER.error("Error when searching course: " + e.getMessage());
             response.sendError(505);
         }
     }

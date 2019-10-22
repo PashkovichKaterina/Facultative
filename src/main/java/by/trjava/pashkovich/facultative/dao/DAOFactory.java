@@ -10,6 +10,8 @@ public class DAOFactory {
     private static final WorkDAO workDAO = new WorkDAOImpl();
     private static final MarkDAO markDAO = new MarkDAOImpl();
     private static final ArchiveDAO archiveDAO = new ArchiveDAOImpl();
+    private static final SkillDAO skillDAO = new SkillDAOImpl();
+    private static final CategoryDAO categoryDAO = new CategoryDAOImpl();
 
     private DAOFactory() {
     }
@@ -40,5 +42,13 @@ public class DAOFactory {
 
     public static ArchiveDAO getArchiveDAO() {
         return archiveDAO;
+    }
+
+    public static SkillDAO getSkillDAO() {
+        return skillDAO;
+    }
+
+    public static CategoryDAO getCategoryDAO() {
+        return categoryDAO;
     }
 }

@@ -2,8 +2,9 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="custom" uri="http://trjava.by/pashkovich/facultative" %>
 
-<%@ page import="by.trjava.pashkovich.facultative.entity.characteristics.UserRole" %>
+<%@ page import="by.trjava.pashkovich.facultative.entity.characteristic.UserRole" %>
 <%@ page import="by.trjava.pashkovich.facultative.controller.command.variety.CommandVariety" %>
 <%@ page import="by.trjava.pashkovich.facultative.constants.JspPath" %>
 
@@ -62,7 +63,7 @@
                     <div class="qa-element">
                         <p class="question"><fmt:message key="local.form.birth.date" bundle="${loc}"/>: </p>
                         <p class="answer">
-                            ${user.dateOfBirthString}
+                            <custom:outDate date="${user.dateOfBirth}"/>
                             <c:if test="${user.dateOfBirth==null}">
                                 -
                             </c:if>
@@ -131,7 +132,7 @@
                                             ${current.course.title}
                                     </a>
                                 </td>
-                                <td>${current.beginDate}</td>
+                                <td><custom:outDate date="${current.beginDate}"/></td>
                                 <td>${current.mark}</td>
                             </tr>
                             <c:set var="i" value="${i + 1}"/>
@@ -165,8 +166,8 @@
                                         ${archiveCourse.course.title}
                                 </a>
                             </td>
-                            <td>${archiveCourse.beginDate}</td>
-                            <td>${archiveCourse.endDate}</td>
+                            <td><custom:outDate date="${archiveCourse.beginDate}"/></td>
+                            <td><custom:outDate date="${archiveCourse.endDate}"/></td>
                             <td>0</td>
                         </tr>
                         <c:set var="i" value="${i + 1}"/>
@@ -190,15 +191,15 @@
                         </tr>
                         <tbody>
                         <c:set var="i" value="${1}"/>
-                        <c:forEach var="num" items="${apply}">
+                        <c:forEach var="num" items="${apply.entrySet()}">
                             <tr>
                                 <th scope="row">${i}</th>
                                 <td>
-                                    <a href="${pageContext.request.contextPath}/mainController?command=${CommandVariety.VIEW_COURSE_INFO}&id=${num.course.id}">
-                                            ${num.course.title}
+                                    <a href="${pageContext.request.contextPath}/mainController?command=${CommandVariety.VIEW_COURSE_INFO}&id=${num.key.id}">
+                                            ${num.key.title}
                                     </a>
                                 </td>
-                                <td>${num.status}</td>
+                                <td>${num.value}</td>
                             </tr>
                             <c:set var="i" value="${i + 1}"/>
                         </c:forEach>

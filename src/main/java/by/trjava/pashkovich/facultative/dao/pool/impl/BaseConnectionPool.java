@@ -1,8 +1,10 @@
 package by.trjava.pashkovich.facultative.dao.pool.impl;
 
-import by.trjava.pashkovich.facultative.dao.manager.DBResourceManager;
+import by.trjava.pashkovich.facultative.dao.exception.ConnectionPoolException;
+import by.trjava.pashkovich.facultative.dao.parameter.DBResourceManager;
 import by.trjava.pashkovich.facultative.dao.parameter.DBParameter;
 import by.trjava.pashkovich.facultative.dao.pool.ConnectionPool;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,6 +13,8 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 public class BaseConnectionPool implements ConnectionPool {
+    private static final Logger LOGGER = Logger.getLogger(BaseConnectionPool.class);
+
     public static final int POOL_SIZE = 20;
 
     private static final BaseConnectionPool instance = new BaseConnectionPool();
@@ -46,32 +50,47 @@ public class BaseConnectionPool implements ConnectionPool {
                 Connection connection = DriverManager.getConnection(url, user, password);
                 connectionQueue.add(connection);
             }
-        } catch (SQLException e) {
-            //throw new ConnectionPoolException("Database access error while creating connection", e);
         } catch (ClassNotFoundException e) {
-            //throw new ConnectionPoolException("Can't find database driver class", e);
+            LOGGER.fatal("Can't find database driver class");
+        } catch (SQLException e) {
+            LOGGER.fatal("Database access error while creating connection");
         }
+        LOGGER.info("Connection Pool created successfully");
     }
 
     @Override
-    public Connection getConnection(){
+    public Connection getConnection() throws ConnectionPoolException {
         Connection connection = null;
         if (connectionQueue.size() != 0) {
             try {
                 connection = connectionQueue.take();
                 usingQueue.add(connection);
             } catch (InterruptedException e) {
-                //throw new ConnectionPoolException("Error connecting to the data source.", e);
+                throw new ConnectionPoolException("Free connection timeout is over", e);
             }
         }
         return connection;
     }
 
     @Override
-    public void releaseConnection(Connection connection) {
+    public void releaseConnection(Connection connection) throws ConnectionPoolException {
         if (usingQueue.contains(connection)) {
             usingQueue.remove(connection);
             connectionQueue.add(connection);
+        } else {
+            throw new ConnectionPoolException("Cannot put connection which was created outside the pool");
         }
+    }
+
+    @Override
+    public void destroyPool() {
+        for (Connection connection : connectionQueue) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                LOGGER.error("Cannot close connection");
+            }
+        }
+        LOGGER.info("Connection pool successfully destroy");
     }
 }

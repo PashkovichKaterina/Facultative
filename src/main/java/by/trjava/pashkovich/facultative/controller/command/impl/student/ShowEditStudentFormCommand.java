@@ -3,6 +3,7 @@ package by.trjava.pashkovich.facultative.controller.command.impl.student;
 import by.trjava.pashkovich.facultative.constants.JspPath;
 import by.trjava.pashkovich.facultative.constants.Variable;
 import by.trjava.pashkovich.facultative.controller.command.Command;
+import by.trjava.pashkovich.facultative.entity.CustomFormatForDate;
 import by.trjava.pashkovich.facultative.entity.Student;
 
 import javax.servlet.ServletException;
@@ -20,7 +21,7 @@ public class ShowEditStudentFormCommand implements Command {
         request.setAttribute(Variable.NAME, student.getName());
         request.setAttribute(Variable.PATRONYMIC, student.getPatronymic());
         request.setAttribute(Variable.PHONE, student.getPhone());
-        request.setAttribute(Variable.DATE, student.getDateOfBirthString());
+        request.setAttribute(Variable.DATE, CustomFormatForDate.getUseServerDateFormat(student.getDateOfBirth()));
         request.setAttribute(Variable.ADDRESS, student.getAddress());
         request.getRequestDispatcher(JspPath.EDIT_STUDENT_PAGE).forward(request, response);
     }

@@ -6,5 +6,5 @@ import by.trjava.pashkovich.facultative.service.exception.ServiceException;
 import java.util.Set;
 
 public interface ArchiveService {
-    Set<ArchiveCourse> getArchiveCourseByStudent(int studentId) throws ServiceException;
+    Set<ArchiveCourse> getArchiveCourseByStudent(int studentId, String local) throws ServiceException;
 }

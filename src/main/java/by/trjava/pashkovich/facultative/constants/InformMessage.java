@@ -14,4 +14,10 @@ public class InformMessage {
     public static final String UNAVAILABLE_OPERATION = "local.message.unavailable";
     public static final String SUCCESS_APPLY = "local.message.apply.success";
     public static final String NO_SUCH_COURSE = "local.message.courses.empty";
+    public static final String COURSE_IN_PROGRESS = "local.course.status.progress";
+    public static final String COURSE_NOT_STARTED = "local.course.status.not.started";
+    public static final String COURSE_UNAVAILABLE = "local.course.unavailable";
+    public static final String TEXT_FIELD_INVALID_TYPE = "local.message.text.invalid.type";
+    public static final String COURSE_EXIST = "local.message.course.exist";
+    public static final String INVALID_DESCRIPTION = "local.message.description.requirement";
 }

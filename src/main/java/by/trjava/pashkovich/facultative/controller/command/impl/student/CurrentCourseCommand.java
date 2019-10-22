@@ -12,6 +12,7 @@ import by.trjava.pashkovich.facultative.service.CourseService;
 import by.trjava.pashkovich.facultative.service.MarkService;
 import by.trjava.pashkovich.facultative.service.ServiceFactory;
 import by.trjava.pashkovich.facultative.service.exception.ServiceException;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class CurrentCourseCommand implements Command {
+    private static final Logger LOGGER = Logger.getLogger(CurrentCourseCommand.class);
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         CourseService courseService = ServiceFactory.getCourseService();
@@ -27,14 +30,16 @@ public class CurrentCourseCommand implements Command {
         MarkService markService = ServiceFactory.getMarkService();
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(Variable.USER);
+        String local = (String) session.getAttribute(Variable.LOCAL);
         try {
             int courseId = new Integer(request.getParameter(Variable.ID));
-            request.setAttribute(Variable.COURSE, courseService.getCourseById(courseId));
+            request.setAttribute(Variable.COURSE, courseService.getCourseById(courseId, local));
             request.setAttribute(Variable.CLASSES_COUNT, classService.getClassesCountByCourse(courseId));
             request.setAttribute(Variable.MARK, markService.getStudentAverageMarkByCourse(user.getId(), courseId));
             request.setAttribute(Variable.MARKS, markService.getStudentMarkWithWorkTitleByCourse(user.getId(), courseId));
             request.getRequestDispatcher(JspPath.COURSE_STUDENT_PAGE).forward(request, response);
-        } catch (ServiceException e) {
+        } catch (NumberFormatException | ServiceException e) {
+            LOGGER.error("Unsuccessful to show current course for student " + user.getLogin() + ": " + e.getMessage());
             response.sendError(500);
         }
     }

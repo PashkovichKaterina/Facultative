@@ -14,12 +14,12 @@
     </error-page>
 
     <error-page>
-         <error-code>500</error-code>
-         <location>/jsp/500.jsp</location>
-     </error-page>
+        <error-code>500</error-code>
+        <location>/jsp/500.jsp</location>
+    </error-page>
 
     <session-config>
-        <session-timeout>5</session-timeout>
+        <session-timeout>1</session-timeout>
     </session-config>
 
     <servlet>
@@ -56,5 +56,4 @@
         <filter-name>cachecontrolfilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
 </web-app>

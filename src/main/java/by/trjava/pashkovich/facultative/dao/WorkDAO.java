@@ -13,4 +13,8 @@ public interface WorkDAO {
     Set<String> getWorkTitleByCourse(int courseId) throws DAOException;
 
     int getWorkId(int courseId, String title) throws DAOException;
+
+    boolean isWorkAvailableForTeacher(int workId, int teacherId) throws DAOException;
+
+    boolean isWorkAvailableForStudent(int workId, int studentId) throws DAOException;
 }

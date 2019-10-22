@@ -26,6 +26,12 @@ public class FieldValidator {
         return false;
     }
 
+    public static boolean isWholeNumber(String str){
+        Pattern p = Pattern.compile("[-+]?\\d+");
+        Matcher m = p.matcher(str);
+        return m.matches();
+    }
+
     public static boolean checkTextFieldFormat(String str) {
         Pattern p = Pattern.compile("^[a-zA-Zа-яА-Я]+$");
         Matcher m = p.matcher(str);
@@ -42,5 +48,15 @@ public class FieldValidator {
         Pattern p = Pattern.compile("\\+375\\(\\d{2}\\)\\d{3}\\-\\d{2}\\-\\d{2}");
         Matcher m = p.matcher(phone);
         return m.matches();
+    }
+
+    public static boolean checkTime(String phone) {
+        Pattern p = Pattern.compile("^[0-5][0-9]\\:[0-5][0-9]$");
+        Matcher m = p.matcher(phone);
+        return m.matches();
+    }
+
+    public static  boolean checkFormatForTextField(String s){
+        return !s.contains("\'");
     }
 }

@@ -10,6 +10,8 @@ public class ServiceFactory {
     private static final ClassService classService = new ClassServiceImpl();
     private static final MarkService markService = new MarkServiceImpl();
     private static final WorkService workService = new WorkServiceImpl();
+    private static final SkillService skillService = new SkillServiceImpl();
+    private static final CategoryService categoryService = new CategoryServiceImpl();
 
     private ServiceFactory() {
     }
@@ -40,5 +42,13 @@ public class ServiceFactory {
 
     public static WorkService getWorkService() {
         return workService;
+    }
+
+    public static SkillService getSkillService() {
+        return skillService;
+    }
+
+    public static CategoryService getCategoryService() {
+        return categoryService;
     }
 }

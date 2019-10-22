@@ -6,7 +6,7 @@ import by.trjava.pashkovich.facultative.dao.DAOFactory;
 import by.trjava.pashkovich.facultative.dao.UserDAO;
 import by.trjava.pashkovich.facultative.dao.exception.DAOException;
 import by.trjava.pashkovich.facultative.service.exception.ServiceException;
-import by.trjava.pashkovich.facultative.service.manager.MessageManager;
+import by.trjava.pashkovich.facultative.util.MessageManager;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,12 +20,12 @@ public class UserValidator {
             return false;
         }
         try {
-            if (userDAO.getUserByLogin(login) != null) {
+            if (userDAO.getUserByLoginOnEn(login) != null) {
                 request.setAttribute(Variable.LOGIN_ERROR, messageManager.getMessage(InformMessage.BUSY_LOGIN, local));
                 return false;
             }
         } catch (DAOException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e.getMessage(), e);
         }
         return true;
     }
@@ -39,12 +39,12 @@ public class UserValidator {
             return false;
         }
         try {
-            if (userDAO.getUserByEmail(email) != null) {
+            if (userDAO.getUserByEmailOnEn(email) != null) {
                 request.setAttribute(Variable.EMAIL_ERROR, messageManager.getMessage(InformMessage.BUSY_EMAIL, local));
                 return false;
             }
         } catch (DAOException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e.getMessage(), e);
         }
         if (!FieldValidator.checkEmail(email)) {
             request.setAttribute(Variable.EMAIL_ERROR, messageManager.getMessage(InformMessage.INVALID_DATA_TYPE, local));

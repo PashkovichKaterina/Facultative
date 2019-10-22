@@ -7,7 +7,6 @@ $(document).ready(function () {
     }
 });
 
-
 $(window).scroll(function () {
     if ($("#navbar-main") != null) {
         var top = $(window).scrollTop(),
@@ -15,47 +14,25 @@ $(window).scroll(function () {
         $("#navbar-main").css("background-color", "rgba(0,0,0," + opacity + ")");
     }
 });
-if (document.getElementById("add-skill")!= null) {
+if (document.getElementById("add-skill") != null) {
+    var i = 2;
     document.getElementById("add-skill").onclick = function () {
-        var newSelect = document.createElement("select");
-        newSelect.className = "selected-column";
-        for (var i = 0; i < 5; i++) {
-            var newOptional = document.createElement("option");
-            newOptional.innerHTML = "навык";
-            newSelect.appendChild(newOptional);
-        }
-        document.getElementById("skills-require").appendChild(newSelect);
-        var newSelect = document.createElement("select")
-        newSelect.className = "selected-column";
-        for (var i = 0; i < 5; i++) {
-            var newOptional = document.createElement("option");
-            newOptional.innerHTML = "уровень";
-            newSelect.appendChild(newOptional);
-        }
-        document.getElementById("skills-require").appendChild(newSelect);
+        var elem = $("#require-element").clone().appendTo(".skills-require");
+        elem.children(":first").attr("name", "skill" + i);
+        elem.children(":last").attr("name", "level" + i);
+        ++i;
     }
 }
 if (document.getElementById("add-timetable") != null) {
+    var i = 2;
     document.getElementById("add-timetable").onclick = function () {
-        var newSelect = document.createElement("select")
-        newSelect.className = "selected-column";
-        for (var i = 0; i < 5; i++) {
-            var newOptional = document.createElement("option");
-            newOptional.innerHTML = "день недели";
-            newSelect.appendChild(newOptional);
+        var i = 2;
+        document.getElementById("add-timetable").onclick = function () {
+            var elem = $("#timetable-element").clone().appendTo(".timetable");
+            elem.children(":first").attr("name", "day" + i);
+            elem.children(":last").attr("name", "time" + i);
+            ++i;
+            $(".time").mask("99:99");
         }
-        document.getElementById("timetable").appendChild(newSelect);
-        var newSelect = document.createElement("select")
-        newSelect.className = "selected-column";
-        for (var i = 0; i < 5; i++) {
-            var newOptional = document.createElement("option");
-            newOptional.innerHTML = "уровень";
-            newSelect.appendChild(newOptional);
-        }
-        var newInput = document.createElement("input");
-        newInput.className = "selected-column time";
-        newInput.setAttribute("type", "text");
-        document.getElementById("timetable").appendChild(newInput);
-        $(".time").mask("99:99");
     }
 }

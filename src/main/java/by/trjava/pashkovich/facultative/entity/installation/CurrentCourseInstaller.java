@@ -18,7 +18,7 @@ public class CurrentCourseInstaller {
             Course course = new Course();
             CourseInstaller.install(course, resultSet);
             currentCourse.setCourse(course);
-            currentCourse.setBeginDate(resultSet.getString(Variable.START_DATE));
+            currentCourse.setBeginDate(resultSet.getDate(Variable.START_DATE));
             currentCourse.setMark(resultSet.getInt(Variable.MARK));
         } catch (SQLException e) {
             throw new InstallerException("Invalid sql result", e);

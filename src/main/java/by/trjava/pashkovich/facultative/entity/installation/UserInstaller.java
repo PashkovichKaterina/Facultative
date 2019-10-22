@@ -5,7 +5,7 @@ import by.trjava.pashkovich.facultative.entity.Person;
 import by.trjava.pashkovich.facultative.entity.Student;
 import by.trjava.pashkovich.facultative.entity.Teacher;
 import by.trjava.pashkovich.facultative.entity.User;
-import by.trjava.pashkovich.facultative.entity.characteristics.UserRole;
+import by.trjava.pashkovich.facultative.entity.characteristic.UserRole;
 import by.trjava.pashkovich.facultative.entity.exception.InstallerException;
 
 import java.sql.ResultSet;
@@ -22,6 +22,7 @@ public class UserInstaller {
             user.setLogin(resultSet.getString(Variable.LOGIN));
             user.setEmail(resultSet.getString(Variable.EMAIL));
             user.setPassword(resultSet.getString(Variable.PASSWORD));
+            user.setRole(UserRole.ADMINISTRATOR);
             if (user instanceof Person) {
                 ((Person) user).setSurname(resultSet.getString(Variable.SURNAME));
                 ((Person) user).setName(resultSet.getString(Variable.NAME));
@@ -30,7 +31,7 @@ public class UserInstaller {
             }
             if (user instanceof Student) {
                 ((Student) user).setAddress(resultSet.getString(Variable.ADDRESS));
-                ((Student) user).setDateOfBirth(resultSet.getString(Variable.DATE_OF_BIRTH));
+                ((Student) user).setDateOfBirth(resultSet.getDate(Variable.DATE_OF_BIRTH));
                 user.setRole(UserRole.STUDENT);
             }
             if (user instanceof Teacher) {

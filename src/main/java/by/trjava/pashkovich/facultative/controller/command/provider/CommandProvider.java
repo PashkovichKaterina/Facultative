@@ -2,6 +2,7 @@ package by.trjava.pashkovich.facultative.controller.command.provider;
 
 import by.trjava.pashkovich.facultative.controller.command.Command;
 import by.trjava.pashkovich.facultative.controller.command.impl.*;
+import by.trjava.pashkovich.facultative.controller.command.impl.admin.*;
 import by.trjava.pashkovich.facultative.controller.command.impl.student.CurrentCourseCommand;
 import by.trjava.pashkovich.facultative.controller.command.impl.student.EditStudentCommand;
 import by.trjava.pashkovich.facultative.controller.command.impl.student.ApplyCommand;
@@ -32,8 +33,21 @@ public class CommandProvider {
         commands.put(CommandVariety.CHANGE_LANGUAGE, new ChangeLanguageCommand());
         commands.put(CommandVariety.EDIT_STUDENT_FORM, new ShowEditStudentFormCommand());
         commands.put(CommandVariety.ADD_CLASS_FORM, new ShowAddClassFormCommand());
+        commands.put(CommandVariety.ADD_CLASS, new AddClassCommand());
         commands.put(CommandVariety.ADD_WORK_FORM, new ShowAddWorkFormCommand());
+        commands.put(CommandVariety.ADD_WORK, new AddWorkCommand());
         commands.put(CommandVariety.VIEW_SEARCH_COURSE_RESULT, new ViewSearchCourseResultCommand());
+        commands.put(CommandVariety.SHOW_EDIT_MARK_FORM, new ShowEditMarkFormCommand());
+        commands.put(CommandVariety.EDIT_STUDENT_MARK, new EditStudentMarkCommand());
+        commands.put(CommandVariety.SHOW_ALL_SKILL, new ShowAllSkillCommand());
+        commands.put(CommandVariety.SHOW_ALL_CATEGORY, new ShowAllCategoryCommand());
+        commands.put(CommandVariety.SHOW_ALL_COURSE_FOR_ADMIN, new ShowAllCourseForAdmin());
+        commands.put(CommandVariety.SHOW_ALL_STUDENT, new ShowAllStudentCommand());
+        commands.put(CommandVariety.SEARCH_STUDENT, new SearchStudentCommand());
+        commands.put(CommandVariety.SHOW_ALL_TEACHER, new ShowAllTeacherCommand());
+        commands.put(CommandVariety.SEARCH_TEACHER, new SearchTeacherCommand());
+        commands.put(CommandVariety.SHOW_ADD_COURSE_FORM, new ShowAddCourseFormCommand());
+        commands.put(CommandVariety.ADD_COURSE, new AddCourseCommand());
     }
 
     public static CommandProvider getInstance() {

@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ page import="by.trjava.pashkovich.facultative.controller.command.variety.CommandVariety" %>
+<%@ page import="by.trjava.pashkovich.facultative.constants.JspPath" %>
 
 <fmt:setLocale value="${sessionScope.local}"/>
 <fmt:setBundle basename="local" var="loc"/>
@@ -76,6 +77,8 @@
                 </div>
                 <input type="hidden" name="command" value="${CommandVariety.EDIT_STUDENT}">
                 <input type="submit" value="<fmt:message key="local.button.save" bundle="${loc}"/>" class="button">
+                <input type="button" value="<fmt:message key="local.button.skip" bundle="${loc}"/>" class="button"
+                       onclick="location.href='${pageContext.request.contextPath}/mainController?command=${CommandVariety.ACCOUNT}'">
             </form>
         </div>
         <div class="col-md-3"></div>

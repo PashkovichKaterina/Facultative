@@ -6,6 +6,7 @@ import by.trjava.pashkovich.facultative.controller.command.variety.CommandVariet
 import by.trjava.pashkovich.facultative.service.UserService;
 import by.trjava.pashkovich.facultative.service.exception.ServiceException;
 import by.trjava.pashkovich.facultative.service.impl.UserServiceImpl;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class EditStudentCommand implements Command {
+    private static final Logger LOGGER = Logger.getLogger(EditStudentCommand.class);
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -21,6 +23,7 @@ public class EditStudentCommand implements Command {
             userService.editStudent(request);
             response.sendRedirect(request.getContextPath() + "/mainController?command=" + CommandVariety.ACCOUNT);
         } catch (ServiceException e) {
+            LOGGER.info("Unsuccessful to edit student data: " + e.getMessage());
             request.getRequestDispatcher(JspPath.EDIT_STUDENT_PAGE).forward(request, response);
         }
     }

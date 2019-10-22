@@ -1,18 +1,15 @@
 package by.trjava.pashkovich.facultative.entity;
 
-
-import by.trjava.pashkovich.facultative.entity.characteristics.ApplyStatus;
-
 public class Apply {
     private User user;
     private Course course;
-    private ApplyStatus status;
+    private String status;
 
     public User getUser() {
         return user;
     }
 
-    public ApplyStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
@@ -24,7 +21,7 @@ public class Apply {
         this.user = user;
     }
 
-    public void setStatus(ApplyStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

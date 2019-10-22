@@ -1,6 +1,6 @@
 package by.trjava.pashkovich.facultative.entity;
 
-import by.trjava.pashkovich.facultative.entity.characteristics.UserRole;
+import by.trjava.pashkovich.facultative.entity.characteristic.UserRole;
 
 public class User {
     private int id;

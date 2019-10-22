@@ -31,20 +31,19 @@
                     <label>
                         <fmt:message key="local.form.date" bundle="${loc}"/>
                         <span class="error-text">
-                            *${dataError}
+                            *${dateError}
                         </span>
                     </label>
-                    <input type="date" name="${Variable.DATE}" value="${data}">
+                    <input type="date" name="${Variable.DATE}" value="${date}">
                 </div>
                 <div class="form-element">
                     <label>
                         <fmt:message key="local.form.time" bundle="${loc}"/>
                         <span class="error-text">
-                            *{timeError}
+                            *${timeError}
                         </span>
                     </label>
-                    <input type="text" class="${Variable.TIME}" name="time"
-                           value="${time}">
+                    <input type="text" class="${Variable.TIME}" name="time" value="${time}">
                 </div>
                 <label class="error-text">
                     ${error}

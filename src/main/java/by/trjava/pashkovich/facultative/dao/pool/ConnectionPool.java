@@ -1,9 +1,14 @@
 package by.trjava.pashkovich.facultative.dao.pool;
 
+import by.trjava.pashkovich.facultative.dao.exception.ConnectionPoolException;
+
 import java.sql.Connection;
 
 public interface ConnectionPool {
-    Connection getConnection();
 
-    void releaseConnection(Connection connection);
+    Connection getConnection() throws ConnectionPoolException;
+
+    void releaseConnection(Connection connection) throws ConnectionPoolException;
+
+    void destroyPool();
 }

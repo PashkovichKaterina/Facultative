@@ -13,12 +13,6 @@ public class Student extends Person {
         return dateOfBirth;
     }
 
-    public String getDateOfBirthString() {
-        if (dateOfBirth == null) {
-            return null;
-        }
-        return FORMAT.format(dateOfBirth);
-    }
 
     public String getAddress() {
         return address;
@@ -26,14 +20,6 @@ public class Student extends Person {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
-    }
-
-    public void setDateOfBirth(String dateOfBirth) {
-        try {
-            this.dateOfBirth = FORMAT.parse(dateOfBirth);
-        } catch (Exception e) {
-
-        }
     }
 
     public void setAddress(String address) {
@@ -62,6 +48,7 @@ public class Student extends Person {
 
     @Override
     public String toString() {
-        return super.toString() + "; Date_of_birth=" + getDateOfBirthString() + "; Address=" + address;
+        return super.toString() + "; Date_of_birth=" + CustomFormatForDate.getUseClientDateFormat(dateOfBirth)
+                + "; Address=" + address;
     }
 }

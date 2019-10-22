@@ -2,6 +2,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="custom" uri="http://trjava.by/pashkovich/facultative" %>
 
 <%@ page import="by.trjava.pashkovich.facultative.controller.command.variety.CommandVariety" %>
 <%@ page import="by.trjava.pashkovich.facultative.constants.JspPath" %>
@@ -83,7 +84,7 @@
                     <p class="font-weight-bold"><fmt:message key="local.course.info.timetable" bundle="${loc}"/>:</p>
                     <ul>
                         <c:forEach var="timetableElement" items="${timetable.entrySet()}">
-                            <li class="ml-5">${timetableElement.key} - ${timetableElement.value}</li>
+                            <li class="ml-5">${timetableElement.key} - <custom:outTime date="${timetableElement.value}"/></li>
                         </c:forEach>
                     </ul>
                 </div>

@@ -5,6 +5,10 @@
     font-family: "Montserrat";
 }
 
+.dropdown-item:active {
+    background-color: #8560a8;
+}
+
 body {
     background-color: #f1f1f1;
 }
@@ -18,10 +22,12 @@ a:hover {
     color: #573f6e;
     cursor: pointer;
 }
-nav, .lang{
+
+nav, .lang {
     color: #fff;
     size: 15px;
 }
+
 .navbar {
     background: #000;
     font-family: "Montserrat";
@@ -182,6 +188,10 @@ a > i {
     color: #fff;
 }
 
+i:hover {
+    cursor: pointer;
+}
+
 .btn-social {
     display: inline;
     font-size: 20px;
@@ -259,7 +269,7 @@ input[type=submit], input[type=button] {
     transition: 0.3s;
 }
 
-input[type=submit], input[type=button]:hover {
+input[type=submit]:hover, input[type=button]:hover {
     background: #fff;
     color: #000;
     transition: 0.3s;
@@ -371,7 +381,7 @@ table {
     display: block;
 }
 
-.table-student{
+.table-student {
     min-width: 300px;
 }
 
@@ -411,6 +421,24 @@ table {
 .empty-collection {
     padding: 40px 0;
 }
-.error-text{
-    color: red;
+
+.error-text {
+    color: #FF0000;
+}
+
+.form-control {
+    width: 20%;
+}
+
+.admin-panel-button, .admin-panel-active {
+    padding: 10px;
+}
+
+.admin-panel-button:hover {
+    cursor: pointer;
+    background: #dbd0ff;
+}
+
+.admin-panel-active {
+    background: #8560a8;
 }
