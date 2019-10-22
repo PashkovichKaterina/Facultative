@@ -17,46 +17,39 @@ import java.util.Map;
 public class CategoryDAOImpl implements CategoryDAO {
     @Override
     public Map<String, Integer> getAllCategoryWithCourseCountOnRu() throws DAOException {
+        return getAllCategoryWithCourseCount(SqlQuery.GET_ALL_CATEGORY_WITH_COURSE_COUNT_RU);
+    }
+
+    @Override
+    public Map<String, Integer> getAllCategoryWithCourseCountOnEn() throws DAOException {
+        return getAllCategoryWithCourseCount(SqlQuery.GET_ALL_CATEGORY_WITH_COURSE_COUNT_EN);
+    }
+
+    public Map<String, Integer> getAllCategoryWithCourseCount(String query) throws DAOException {
+        Connection connection;
         try {
-            Connection connection = BaseConnectionPool.getInstance().getConnection();
-            Map<String, Integer> categories = new HashMap<>();
-            try (Statement statement = connection.createStatement()) {
-                try (ResultSet resultSet = statement.executeQuery(SqlQuery.GET_ALL_CATEGORY_WITH_COURSE_COUNT_RU)) {
-                    while (resultSet.next()) {
-                        String skillTitle = resultSet.getString(Variable.TITLE);
-                        int count = resultSet.getInt(Variable.COUNT);
-                        categories.put(skillTitle,count);
-                    }
-                }
-            } catch (SQLException e) {
-                throw new DAOException("Exception in SQL: " + e.getMessage(), e);
-            }
-            BaseConnectionPool.getInstance().releaseConnection(connection);
-            return categories;
+            connection = BaseConnectionPool.getInstance().getConnection();
         } catch (ConnectionPoolException e) {
             throw new DAOException("Exception in Connection Pool: " + e.getMessage(), e);
         }
-    }
-    @Override
-    public Map<String, Integer> getAllCategoryWithCourseCountOnEn() throws DAOException {
-        try {
-            Connection connection = BaseConnectionPool.getInstance().getConnection();
-            Map<String, Integer> categories = new HashMap<>();
-            try (Statement statement = connection.createStatement()) {
-                try (ResultSet resultSet = statement.executeQuery(SqlQuery.GET_ALL_CATEGORY_WITH_COURSE_COUNT_EN)) {
-                    while (resultSet.next()) {
-                        String skillTitle = resultSet.getString(Variable.TITLE);
-                        int count = resultSet.getInt(Variable.COUNT);
-                        categories.put(skillTitle,count);
-                    }
+        Map<String, Integer> categories = new HashMap<>();
+        try (Statement statement = connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery(query)) {
+                while (resultSet.next()) {
+                    String skillTitle = resultSet.getString(Variable.TITLE);
+                    int count = resultSet.getInt(Variable.COUNT);
+                    categories.put(skillTitle, count);
                 }
-            } catch (SQLException e) {
-                throw new DAOException("Exception in SQL: " + e.getMessage(), e);
+                return categories;
             }
-            BaseConnectionPool.getInstance().releaseConnection(connection);
-            return categories;
-        } catch (ConnectionPoolException e) {
-            throw new DAOException("Exception in Connection Pool: " + e.getMessage(), e);
+        } catch (SQLException e) {
+            throw new DAOException("Exception in SQL: " + e.getMessage(), e);
+        } finally {
+            try {
+                BaseConnectionPool.getInstance().releaseConnection(connection);
+            } catch (ConnectionPoolException e) {
+                throw new DAOException("Exception in Connection Pool: " + e.getMessage(), e);
+            }
         }
     }
 }

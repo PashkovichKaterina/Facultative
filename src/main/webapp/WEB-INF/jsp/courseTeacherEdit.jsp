@@ -75,7 +75,7 @@
                         <c:set var="i" value="${1}"/>
                         <c:forEach var="student" items="${students}">
                             <tr>
-                                <th scope="row">1</th>
+                                <th scope="row">${i}</th>
                                 <td>
                                         ${student.key.surname} ${student.key.name} ${student.key.patronymic}
                                 </td>

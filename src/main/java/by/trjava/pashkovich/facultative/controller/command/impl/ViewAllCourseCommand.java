@@ -29,6 +29,7 @@ public class ViewAllCourseCommand implements Command {
             request.setAttribute(Variable.CATEGORIES, courseService.getAllCategory(local));
             request.getRequestDispatcher(JspPath.COURSE_PAGE).forward(request, response);
         } catch (ServiceException e) {
+            System.out.println(e.getMessage());
             LOGGER.error("Exception when viewing the entire courses: " + e.getMessage());
             response.sendError(500);
         }
