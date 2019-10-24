@@ -1,17 +1,17 @@
-package by.trjava.pashkovich.facultative.entity.installation;
+package by.trjava.pashkovich.facultative.dao.creator;
 
 import by.trjava.pashkovich.facultative.constants.Variable;
 import by.trjava.pashkovich.facultative.entity.Course;
-import by.trjava.pashkovich.facultative.entity.exception.InstallerException;
+import by.trjava.pashkovich.facultative.dao.exception.CreatorException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class CourseInstaller {
-    public static void install(Course course, ResultSet resultSet) throws InstallerException {
+public class CourseCreator {
+    public static void install(Course course, ResultSet resultSet) throws CreatorException {
         if (!Optional.ofNullable(course).isPresent() || !Optional.ofNullable(resultSet).isPresent()) {
-            throw new InstallerException("Empty data for install Course");
+            throw new CreatorException("Empty data for install Course");
         }
         try {
             course.setId(resultSet.getInt(Variable.COURSE_ID));
@@ -22,7 +22,7 @@ public class CourseInstaller {
             course.setDescription(resultSet.getString(Variable.DESCRIPTION));
             course.setAvailability(resultSet.getBoolean(Variable.AVAILABILITY));
         } catch (SQLException e) {
-            throw new InstallerException("Invalid sql result", e);
+            throw new CreatorException("Invalid sql result", e);
         }
     }
 }

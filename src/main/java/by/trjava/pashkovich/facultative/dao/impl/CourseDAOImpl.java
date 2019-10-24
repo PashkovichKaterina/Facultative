@@ -7,9 +7,9 @@ import by.trjava.pashkovich.facultative.dao.exception.ConnectionPoolException;
 import by.trjava.pashkovich.facultative.dao.exception.DAOException;
 import by.trjava.pashkovich.facultative.dao.pool.impl.BaseConnectionPool;
 import by.trjava.pashkovich.facultative.entity.*;
-import by.trjava.pashkovich.facultative.entity.exception.InstallerException;
-import by.trjava.pashkovich.facultative.entity.installation.CourseInstaller;
-import by.trjava.pashkovich.facultative.entity.installation.CurrentCourseInstaller;
+import by.trjava.pashkovich.facultative.dao.exception.CreatorException;
+import by.trjava.pashkovich.facultative.dao.creator.CourseCreator;
+import by.trjava.pashkovich.facultative.dao.creator.CurrentCourseCreator;
 
 import java.sql.*;
 import java.util.*;
@@ -39,12 +39,12 @@ public class CourseDAOImpl implements CourseDAO {
             try (ResultSet resultSet = statement.executeQuery(query)) {
                 while (resultSet.next()) {
                     Course course = new Course();
-                    CourseInstaller.install(course, resultSet);
+                    CourseCreator.install(course, resultSet);
                     courses.add(course);
                 }
                 return courses;
             }
-        } catch (SQLException | InstallerException e) {
+        } catch (SQLException | CreatorException e) {
             throw new DAOException("Exception in SQL: " + e.getMessage(), e);
         } finally {
             try {
@@ -78,7 +78,7 @@ public class CourseDAOImpl implements CourseDAO {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     course = new Course();
-                    CourseInstaller.install(course, resultSet);
+                    CourseCreator.install(course, resultSet);
                 }
                 return course;
             }
@@ -116,7 +116,7 @@ public class CourseDAOImpl implements CourseDAO {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Course course = new Course();
-                    CourseInstaller.install(course, resultSet);
+                    CourseCreator.install(course, resultSet);
                     courses.add(course);
                 }
                 return courses;
@@ -155,7 +155,7 @@ public class CourseDAOImpl implements CourseDAO {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Course course = new Course();
-                    CourseInstaller.install(course, resultSet);
+                    CourseCreator.install(course, resultSet);
                     courses.add(course);
                 }
                 return courses;
@@ -194,7 +194,7 @@ public class CourseDAOImpl implements CourseDAO {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Course course = new Course();
-                    CourseInstaller.install(course, resultSet);
+                    CourseCreator.install(course, resultSet);
                     courses.add(course);
                 }
                 return courses;
@@ -418,12 +418,12 @@ public class CourseDAOImpl implements CourseDAO {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     CurrentCourse currentCourse = new CurrentCourse();
-                    CurrentCourseInstaller.install(currentCourse, resultSet);
+                    CurrentCourseCreator.install(currentCourse, resultSet);
                     currentCourses.add(currentCourse);
                 }
                 return currentCourses;
             }
-        } catch (SQLException | InstallerException e) {
+        } catch (SQLException | CreatorException e) {
             throw new DAOException("Exception in SQL: " + e.getMessage(), e);
         } finally {
             try {

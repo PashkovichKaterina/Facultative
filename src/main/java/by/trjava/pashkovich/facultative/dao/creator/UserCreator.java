@@ -1,4 +1,4 @@
-package by.trjava.pashkovich.facultative.entity.installation;
+package by.trjava.pashkovich.facultative.dao.creator;
 
 import by.trjava.pashkovich.facultative.constants.Variable;
 import by.trjava.pashkovich.facultative.entity.Person;
@@ -6,16 +6,16 @@ import by.trjava.pashkovich.facultative.entity.Student;
 import by.trjava.pashkovich.facultative.entity.Teacher;
 import by.trjava.pashkovich.facultative.entity.User;
 import by.trjava.pashkovich.facultative.entity.characteristic.UserRole;
-import by.trjava.pashkovich.facultative.entity.exception.InstallerException;
+import by.trjava.pashkovich.facultative.dao.exception.CreatorException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class UserInstaller {
-    public static void install(User user, ResultSet resultSet) throws InstallerException {
+public class UserCreator {
+    public static void install(User user, ResultSet resultSet) throws CreatorException {
         if (!Optional.ofNullable(user).isPresent() || !Optional.ofNullable(resultSet).isPresent()) {
-            throw new InstallerException("Empty data for install User");
+            throw new CreatorException("Empty data for install User");
         }
         try {
             user.setId(resultSet.getInt(Variable.USER_ID));
@@ -39,7 +39,7 @@ public class UserInstaller {
                 user.setRole(UserRole.TEACHER);
             }
         } catch (SQLException e) {
-            throw new InstallerException("Invalid sql result", e);
+            throw new CreatorException("Invalid sql result", e);
         }
     }
 }

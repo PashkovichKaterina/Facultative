@@ -6,14 +6,13 @@ import by.trjava.pashkovich.facultative.dao.ApplyDAO;
 import by.trjava.pashkovich.facultative.dao.exception.ConnectionPoolException;
 import by.trjava.pashkovich.facultative.dao.exception.DAOException;
 import by.trjava.pashkovich.facultative.dao.pool.impl.BaseConnectionPool;
-import by.trjava.pashkovich.facultative.entity.ArchiveCourse;
 import by.trjava.pashkovich.facultative.entity.Course;
 import by.trjava.pashkovich.facultative.entity.Apply;
 import by.trjava.pashkovich.facultative.entity.Student;
 import by.trjava.pashkovich.facultative.entity.characteristic.ApplyStatus;
-import by.trjava.pashkovich.facultative.entity.exception.InstallerException;
-import by.trjava.pashkovich.facultative.entity.installation.CourseInstaller;
-import by.trjava.pashkovich.facultative.entity.installation.UserInstaller;
+import by.trjava.pashkovich.facultative.dao.exception.CreatorException;
+import by.trjava.pashkovich.facultative.dao.creator.CourseCreator;
+import by.trjava.pashkovich.facultative.dao.creator.UserCreator;
 
 import java.sql.*;
 import java.util.HashMap;
@@ -167,13 +166,13 @@ public class ApplyDAOImpl implements ApplyDAO {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Course course = new Course();
-                    CourseInstaller.install(course, resultSet);
+                    CourseCreator.install(course, resultSet);
                     String status = resultSet.getString(Variable.STATUS);
                     applies.put(course, status);
                 }
             }
             return applies;
-        } catch (SQLException | InstallerException e) {
+        } catch (SQLException | CreatorException e) {
             throw new DAOException("Exception in SQL: " + e.getMessage(), e);
         } finally {
             try {
@@ -207,17 +206,17 @@ public class ApplyDAOImpl implements ApplyDAO {
                 while (resultSet.next()) {
                     Apply apply = new Apply();
                     Student student = new Student();
-                    UserInstaller.install(student, resultSet);
+                    UserCreator.install(student, resultSet);
                     apply.setStudent(student);
                     Course course = new Course();
-                    CourseInstaller.install(course, resultSet);
+                    CourseCreator.install(course, resultSet);
                     apply.setCourse(course);
                     apply.setStatus(resultSet.getString(Variable.STATUS));
                     applies.add(apply);
                 }
                 return applies;
             }
-        } catch (SQLException | InstallerException e) {
+        } catch (SQLException | CreatorException e) {
             throw new DAOException("Exception in SQL: " + e.getMessage(), e);
         } finally {
             try {
@@ -262,17 +261,17 @@ public class ApplyDAOImpl implements ApplyDAO {
                 while (resultSet.next()) {
                     Apply apply = new Apply();
                     Student student = new Student();
-                    UserInstaller.install(student, resultSet);
+                    UserCreator.install(student, resultSet);
                     apply.setStudent(student);
                     Course course = new Course();
-                    CourseInstaller.install(course, resultSet);
+                    CourseCreator.install(course, resultSet);
                     apply.setCourse(course);
                     apply.setStatus(resultSet.getString(Variable.STATUS));
                     applies.add(apply);
                 }
                 return applies;
             }
-        } catch (SQLException | InstallerException e) {
+        } catch (SQLException | CreatorException e) {
             throw new DAOException("Exception in SQL: " + e.getMessage(), e);
         } finally {
             try {

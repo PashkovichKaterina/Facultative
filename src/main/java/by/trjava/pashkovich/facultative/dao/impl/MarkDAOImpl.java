@@ -7,8 +7,8 @@ import by.trjava.pashkovich.facultative.dao.exception.ConnectionPoolException;
 import by.trjava.pashkovich.facultative.dao.exception.DAOException;
 import by.trjava.pashkovich.facultative.dao.pool.impl.BaseConnectionPool;
 import by.trjava.pashkovich.facultative.entity.Student;
-import by.trjava.pashkovich.facultative.entity.exception.InstallerException;
-import by.trjava.pashkovich.facultative.entity.installation.UserInstaller;
+import by.trjava.pashkovich.facultative.dao.exception.CreatorException;
+import by.trjava.pashkovich.facultative.dao.creator.UserCreator;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -194,13 +194,13 @@ public class MarkDAOImpl implements MarkDAO {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Student student = new Student();
-                    UserInstaller.install(student, resultSet);
+                    UserCreator.install(student, resultSet);
                     int mark = resultSet.getInt(Variable.MARK);
                     students.put(student, mark);
                 }
                 return students;
             }
-        } catch (SQLException | InstallerException e) {
+        } catch (SQLException | CreatorException e) {
             throw new DAOException("Exception in SQL: " + e.getMessage(), e);
         } finally {
             try {

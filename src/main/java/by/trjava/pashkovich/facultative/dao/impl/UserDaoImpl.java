@@ -10,9 +10,9 @@ import by.trjava.pashkovich.facultative.entity.Student;
 import by.trjava.pashkovich.facultative.entity.Teacher;
 import by.trjava.pashkovich.facultative.entity.User;
 import by.trjava.pashkovich.facultative.entity.characteristic.UserRole;
-import by.trjava.pashkovich.facultative.entity.exception.InstallerException;
+import by.trjava.pashkovich.facultative.dao.exception.CreatorException;
 import by.trjava.pashkovich.facultative.entity.factory.UserFactory;
-import by.trjava.pashkovich.facultative.entity.installation.UserInstaller;
+import by.trjava.pashkovich.facultative.dao.creator.UserCreator;
 
 import java.sql.*;
 import java.util.*;
@@ -138,11 +138,11 @@ public class UserDaoImpl implements UserDAO {
                 if (resultSet.next()) {
                     UserRole role = UserRole.getRole(resultSet.getInt(Variable.ROLE_ID));
                     user = UserFactory.createUser(role);
-                    UserInstaller.install(user, resultSet);
+                    UserCreator.install(user, resultSet);
                 }
                 return user;
             }
-        } catch (SQLException | InstallerException e) {
+        } catch (SQLException | CreatorException e) {
             throw new DAOException("Exception in SQL: " + e.getMessage(), e);
         } finally {
             try {
@@ -177,11 +177,11 @@ public class UserDaoImpl implements UserDAO {
                 if (resultSet.next()) {
                     UserRole role = UserRole.getRole(resultSet.getInt(Variable.ROLE_ID));
                     user = UserFactory.createUser(role);
-                    UserInstaller.install(user, resultSet);
+                    UserCreator.install(user, resultSet);
                 }
                 return user;
             }
-        } catch (SQLException | InstallerException e) {
+        } catch (SQLException | CreatorException e) {
             throw new DAOException("Exception in SQL: " + e.getMessage(), e);
         } finally {
             try {
@@ -259,12 +259,12 @@ public class UserDaoImpl implements UserDAO {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Student student = new Student();
-                    UserInstaller.install(student, resultSet);
+                    UserCreator.install(student, resultSet);
                     students.add(student);
                 }
                 return students;
             }
-        } catch (SQLException | InstallerException e) {
+        } catch (SQLException | CreatorException e) {
             throw new DAOException("Exception in SQL: " + e.getMessage(), e);
         } finally {
             try {
@@ -288,12 +288,12 @@ public class UserDaoImpl implements UserDAO {
             try (ResultSet resultSet = statement.executeQuery(SqlQuery.GET_ALL_STUDENT)) {
                 while (resultSet.next()) {
                     Student student = new Student();
-                    UserInstaller.install(student, resultSet);
+                    UserCreator.install(student, resultSet);
                     students.add(student);
                 }
                 return students;
             }
-        } catch (SQLException | InstallerException e) {
+        } catch (SQLException | CreatorException e) {
             throw new DAOException("Exception in SQL: " + e.getMessage(), e);
         } finally {
             try {
@@ -318,12 +318,12 @@ public class UserDaoImpl implements UserDAO {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Student student = new Student();
-                    UserInstaller.install(student, resultSet);
+                    UserCreator.install(student, resultSet);
                     students.add(student);
                 }
                 return students;
             }
-        } catch (SQLException | InstallerException e) {
+        } catch (SQLException | CreatorException e) {
             throw new DAOException("Exception in SQL: " + e.getMessage(), e);
         } finally {
             try {
@@ -356,12 +356,12 @@ public class UserDaoImpl implements UserDAO {
             try (ResultSet resultSet = statement.executeQuery(query)) {
                 while (resultSet.next()) {
                     Teacher teacher = new Teacher();
-                    UserInstaller.install(teacher, resultSet);
+                    UserCreator.install(teacher, resultSet);
                     teachers.add(teacher);
                 }
                 return teachers;
             }
-        } catch (SQLException | InstallerException e) {
+        } catch (SQLException | CreatorException e) {
             throw new DAOException("Exception in SQL: " + e.getMessage(), e);
         } finally {
             try {
@@ -394,13 +394,13 @@ public class UserDaoImpl implements UserDAO {
             try (ResultSet resultSet = statement.executeQuery(query)) {
                 while (resultSet.next()) {
                     Teacher teacher = new Teacher();
-                    UserInstaller.install(teacher, resultSet);
+                    UserCreator.install(teacher, resultSet);
                     int courseCount = resultSet.getInt(Variable.COUNT);
                     teachers.put(teacher, courseCount);
                 }
                 return teachers;
             }
-        } catch (SQLException | InstallerException e) {
+        } catch (SQLException | CreatorException e) {
             throw new DAOException("Exception in SQL: " + e.getMessage(), e);
         } finally {
             try {
@@ -434,13 +434,13 @@ public class UserDaoImpl implements UserDAO {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Teacher teacher = new Teacher();
-                    UserInstaller.install(teacher, resultSet);
+                    UserCreator.install(teacher, resultSet);
                     int courseCount = resultSet.getInt(Variable.COUNT);
                     teachers.put(teacher, courseCount);
                 }
                 return teachers;
             }
-        } catch (SQLException | InstallerException e) {
+        } catch (SQLException | CreatorException e) {
             throw new DAOException("Exception in SQL: " + e.getMessage(), e);
         } finally {
             try {

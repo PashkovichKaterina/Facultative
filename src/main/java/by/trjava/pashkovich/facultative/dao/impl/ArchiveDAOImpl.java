@@ -9,8 +9,8 @@ import by.trjava.pashkovich.facultative.dao.pool.impl.BaseConnectionPool;
 import by.trjava.pashkovich.facultative.entity.ArchiveCourse;
 import by.trjava.pashkovich.facultative.entity.Course;
 import by.trjava.pashkovich.facultative.util.CustomFormatForDate;
-import by.trjava.pashkovich.facultative.entity.exception.InstallerException;
-import by.trjava.pashkovich.facultative.entity.installation.CourseInstaller;
+import by.trjava.pashkovich.facultative.dao.exception.CreatorException;
+import by.trjava.pashkovich.facultative.dao.creator.CourseCreator;
 
 import java.sql.*;
 import java.util.*;
@@ -175,7 +175,7 @@ public class ArchiveDAOImpl implements ArchiveDAO {
                 while (resultSet.next()) {
                     ArchiveCourse archiveCourse = new ArchiveCourse();
                     Course course = new Course();
-                    CourseInstaller.install(course, resultSet);
+                    CourseCreator.install(course, resultSet);
                     archiveCourse.setCourse(course);
                     archiveCourse.setBeginDate(resultSet.getDate(Variable.START_DATE));
                     archiveCourse.setEndDate(resultSet.getDate(Variable.END_DATE));
@@ -184,7 +184,7 @@ public class ArchiveDAOImpl implements ArchiveDAO {
                 }
                 return archives;
             }
-        } catch (SQLException | InstallerException e) {
+        } catch (SQLException | CreatorException e) {
             throw new DAOException("Exception in SQL: " + e.getMessage(), e);
         } finally {
             try {
