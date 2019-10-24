@@ -1,12 +1,13 @@
 package by.trjava.pashkovich.facultative.service.comparator;
 
+import by.trjava.pashkovich.facultative.entity.Person;
 import by.trjava.pashkovich.facultative.entity.Student;
 
 import java.util.Comparator;
 
-public class StudentComparator implements Comparator<Student> {
+public class PersonComparator<T extends Person> implements Comparator<T> {
     @Override
-    public int compare(Student o1, Student o2) {
+    public int compare(T o1, T o2) {
         if (o1 != null && o2 != null) {
             if (o1.getSurname() != null && o2.getSurname() != null
                     && !o1.getSurname().equals(o2.getSurname()))

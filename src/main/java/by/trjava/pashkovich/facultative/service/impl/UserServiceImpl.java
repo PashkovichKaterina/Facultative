@@ -9,7 +9,7 @@ import by.trjava.pashkovich.facultative.entity.Teacher;
 import by.trjava.pashkovich.facultative.entity.User;
 import by.trjava.pashkovich.facultative.entity.characteristic.UserRole;
 import by.trjava.pashkovich.facultative.service.UserService;
-import by.trjava.pashkovich.facultative.service.comparator.StudentComparator;
+import by.trjava.pashkovich.facultative.service.comparator.PersonComparator;
 import by.trjava.pashkovich.facultative.service.encrypting.Encrypt;
 import by.trjava.pashkovich.facultative.service.exception.EditStudentDataException;
 import by.trjava.pashkovich.facultative.service.exception.RegistrationException;
@@ -137,7 +137,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Set<Student> getAllStudent() throws ServiceException {
         UserDAO userDAO = DAOFactory.getUserDAO();
-        Set<Student> students = new TreeSet<>(new StudentComparator());
+        Set<Student> students = new TreeSet<>(new PersonComparator());
         try {
             for (Student student : userDAO.getAllStudent()) {
                 students.add(student);
@@ -151,7 +151,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Set<Student> getStudentByPartialMatch(String studentName) throws ServiceException {
         UserDAO userDAO = DAOFactory.getUserDAO();
-        Set<Student> students = new TreeSet<>(new StudentComparator());
+        Set<Student> students = new TreeSet<>(new PersonComparator());
         try {
             for (Student student : userDAO.getStudentByPartialMatch(studentName)) {
                 students.add(student);
