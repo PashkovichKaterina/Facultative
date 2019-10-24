@@ -73,7 +73,7 @@ public class CourseDAOImpl implements CourseDAO {
             throw new DAOException("Exception in Connection Pool: " + e.getMessage(), e);
         }
         Course course = null;
-        try (PreparedStatement statement = connection.prepareStatement(SqlQuery.GET_COURSE_BY_ID_EN)) {
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {

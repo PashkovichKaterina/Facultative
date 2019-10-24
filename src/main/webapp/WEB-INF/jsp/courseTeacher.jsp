@@ -51,6 +51,10 @@
                         <p class="question"><fmt:message key="local.course.info.classes" bundle="${loc}"/>: </p>
                         <p class="answer">${course.classesNumber}</p>
                     </div>
+                    <c:if test="${endCourseButton == true}">
+                        <input type="button" value="Закончить курс"
+                               onclick="location.href='${pageContext.request.contextPath}/mainController?command=${CommandVariety.END_COURSE}&id=${course.getId()}'">
+                    </c:if>
                 </div>
             </div>
         </div>
@@ -77,8 +81,8 @@
                 <c:if test="${marks != null && marks.size() != 0}">
                     <table class="table simulacion mx-auto">
                         <tr>
-                            <th>#</th>
-                            <th><fmt:message key="local.student.name" bundle="${loc}"/></th>
+                            <th class="table-student-number">#</th>
+                            <th class="table-student"><fmt:message key="local.student.name" bundle="${loc}"/></th>
                             <c:forEach var="work" items="${works}">
                                 <th class="table-student">${work}
                                     <i class="fa fa-pencil" aria-hidden="true"
@@ -90,10 +94,16 @@
                         <c:set var="i" value="${1}"/>
                         <c:forEach var="markElement" items="${marks.entrySet()}">
                             <tr>
-                                <th scope="row">${i}</th>
+                                <th scope="row">
+                                        ${i}
+                                    <i class="fa fa-comment" aria-hidden="true" title="Написать отзыв"
+                                       onclick="location.href='${pageContext.request.contextPath}/mainController?command=${CommandVariety.SHOW_LEAVE_REVIEW_FORM}&student=${markElement.key.id}&course=${course.id}'"></i>
+
+                                </th>
                                 <td>
                                     <a href="#">
                                             ${markElement.key.surname} ${markElement.key.name} ${markElement.key.patronymic}
+
                                     </a>
                                 </td>
                                 <c:forEach var="mark" items="${markElement.value}">
@@ -134,7 +144,7 @@
                 </c:if>
                 <c:if test="${marks != null && marks.size() != 0 && classes.size() < course.getClassesNumber()}">
                     <input type="button" value="<fmt:message key="local.class.add" bundle="${loc}"/>"
-                           onclick="location.href='${pageContext.request.contextPath}/mainController?command=${CommandVariety.ADD_CLASS_FORM}&id=${course.getId()}'">
+                           onclick="location.href='${pageContext.request.contextPath}/mainController?command=${CommandVariety.ADD_CLASS_FORM}&id=${course.id}'">
                 </c:if>
             </div>
             <div id=content-3 class="student-table-change">

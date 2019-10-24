@@ -20,4 +20,5 @@ public class InformMessage {
     public static final String TEXT_FIELD_INVALID_TYPE = "local.message.text.invalid.type";
     public static final String COURSE_EXIST = "local.message.course.exist";
     public static final String INVALID_DESCRIPTION = "local.message.description.requirement";
+    public static final String SUCCESSFULLY_OPERATION = "local.message.successfully";
 }

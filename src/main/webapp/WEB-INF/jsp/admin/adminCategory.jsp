@@ -45,7 +45,8 @@
                onclick="location.href='${pageContext.request.contextPath}/mainController?command=${CommandVariety.SHOW_ALL_STUDENT}'">
                 <fmt:message key="local.header.students" bundle="${loc}"/>
             </p>
-            <p class="admin-panel-button">
+            <p class="admin-panel-button"
+               onclick="location.href='${pageContext.request.contextPath}/mainController?command=${CommandVariety.SHOW_ALL_APPLY}'">
                 <fmt:message key="local.header.applies" bundle="${loc}"/>
             </p>
         </div>

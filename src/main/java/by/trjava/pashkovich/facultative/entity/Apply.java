@@ -3,12 +3,12 @@ package by.trjava.pashkovich.facultative.entity;
 import java.io.Serializable;
 
 public class Apply implements Serializable {
-    private User user;
+    private Student student;
     private Course course;
     private String status;
 
-    public User getUser() {
-        return user;
+    public Student getStudent() {
+        return student;
     }
 
     public String getStatus() {
@@ -19,8 +19,8 @@ public class Apply implements Serializable {
         return course;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public void setStatus(String status) {
@@ -40,19 +40,19 @@ public class Apply implements Serializable {
             return false;
         }
         Apply request = (Apply) obj;
-        return (user == null ? user == request.user : user.equals(request.user))
+        return (student == null ? student == request.student : student.equals(request.student))
                 && (status == null ? status == request.status : status.equals(request.status))
                 && (course == null ? course == request.course : course.equals(request.course));
     }
 
     @Override
     public int hashCode() {
-        return ((user == null) ? 0 : user.hashCode()) + ((course == null) ? 0 : course.hashCode())
+        return ((student == null) ? 0 : student.hashCode()) + ((course == null) ? 0 : course.hashCode())
                 + ((status == null) ? 0 : status.hashCode());
     }
 
     @Override
     public String toString() {
-        return getClass().getName() + "@User=" + user + "; Course=" + course + "; Status=" + status;
+        return getClass().getName() + "@Student=" + student + "; Course=" + course + "; Status=" + status;
     }
 }

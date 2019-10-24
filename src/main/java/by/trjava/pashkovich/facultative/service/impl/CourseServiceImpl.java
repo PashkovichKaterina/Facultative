@@ -2,14 +2,13 @@ package by.trjava.pashkovich.facultative.service.impl;
 
 import by.trjava.pashkovich.facultative.constants.InformMessage;
 import by.trjava.pashkovich.facultative.constants.Variable;
-import by.trjava.pashkovich.facultative.dao.ClassDAO;
-import by.trjava.pashkovich.facultative.dao.CourseDAO;
-import by.trjava.pashkovich.facultative.dao.DAOFactory;
-import by.trjava.pashkovich.facultative.dao.UserDAO;
+import by.trjava.pashkovich.facultative.dao.*;
 import by.trjava.pashkovich.facultative.dao.exception.DAOException;
+import by.trjava.pashkovich.facultative.dao.impl.UserDaoImpl;
 import by.trjava.pashkovich.facultative.entity.Course;
 import by.trjava.pashkovich.facultative.entity.CurrentCourse;
 import by.trjava.pashkovich.facultative.entity.Student;
+import by.trjava.pashkovich.facultative.entity.User;
 import by.trjava.pashkovich.facultative.service.CourseService;
 import by.trjava.pashkovich.facultative.service.comparator.CurrentCourseComparator;
 import by.trjava.pashkovich.facultative.service.exception.*;
@@ -53,8 +52,8 @@ public class CourseServiceImpl implements CourseService {
     public Set<String> getAllCategory(String local) throws ServiceException {
         CourseDAO courseDAO = DAOFactory.getCourseDAO();
         try {
-            Set<String> categories = MessageManager.enLocal.equals(local) ? courseDAO.getAllCategoryOnEn() :
-                    courseDAO.getAllCategoryOnRu();
+            Set<String> categories = MessageManager.enLocal.equals(local) ? courseDAO.getAllCategoryOnEn()
+                    : courseDAO.getAllCategoryOnRu();
             return new TreeSet<>(categories);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
@@ -239,6 +238,29 @@ public class CourseServiceImpl implements CourseService {
         }
     }
 
+    @Override
+    public boolean isEndCourseButtonAvailable(int courseId) throws ServiceException {
+        CourseDAO courseDAO = DAOFactory.getCourseDAO();
+        ClassDAO classDAO = DAOFactory.getClassDAO();
+        UserDAO userDAO = DAOFactory.getUserDAO();
+        ArchiveDAO archiveDAO = DAOFactory.getArchiveDAO();
+        try {
+            int courseClassCount = courseDAO.getCourseByIdOnEn(courseId).getClassesNumber();
+            int classCount = classDAO.getClassesCountByCourse(courseId);
+            if (classCount < courseClassCount) {
+                return false;
+            }
+            for (Student student : userDAO.getAllStudentByCourse(courseId)) {
+                if (!archiveDAO.isContains(student.getId(), courseId)) {
+                    return false;
+                }
+            }
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+        return true;
+    }
+
     private Map<String, String> requirementSkills(HttpServletRequest request) {
         String skill = "skill\\d+";
         String level = "level\\d+";
@@ -290,5 +312,30 @@ public class CourseServiceImpl implements CourseService {
             return messageManager.getMessage(InformMessage.COURSE_NOT_STARTED, local);
         }
         return messageManager.getMessage(InformMessage.COURSE_UNAVAILABLE, local);
+    }
+
+    @Override
+    public void endCourse(int courseId) throws ServiceException {
+        ClassDAO classDAO = DAOFactory.getClassDAO();
+        MarkDAO markDAO = DAOFactory.getMarkDAO();
+        UserDAO userDAO = DAOFactory.getUserDAO();
+        ArchiveDAO archiveDAO = DAOFactory.getArchiveDAO();
+        WorkDAO workDAO = DAOFactory.getWorkDAO();
+        ApplyDAO applyDAO = DAOFactory.getApplyDAO();
+        try {
+            for (Student student : userDAO.getAllStudentByCourse(courseId)) {
+                Date beginDate = classDAO.getBeginDateByCourse(courseId);
+                Date endDate = classDAO.getEndDateByCourse(courseId);
+                int averageMark = markDAO.getStudentAverageMarkByCourse(student.getId(), courseId);
+                archiveDAO.updateArchive(student.getId(), courseId, averageMark, beginDate, endDate);
+            }
+            markDAO.deleteMarkByCourse(courseId);
+            workDAO.deleteWorkByCourse(courseId);
+            classDAO.deleteClassByCourse(courseId);
+            applyDAO.deleteAllLearnApplyByCourse(courseId);
+        } catch (DAOException e) {
+            System.out.println(e.getMessage());
+            throw new ServiceException(e.getMessage(), e);
+        }
     }
 }

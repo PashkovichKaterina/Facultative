@@ -158,17 +158,17 @@
                     </tr>
                     <tbody>
                     <c:set var="i" value="${1}"/>
-                    <c:forEach var="archiveCourse" items="${archive}">
+                    <c:forEach var="archiveCourse" items="${archive.entrySet()}">
                         <tr>
                             <th scope="row">${i}</th>
                             <td>
-                                <a href="${pageContext.request.contextPath}/mainController?command=${CommandVariety.VIEW_COURSE_INFO}&id=${archiveCourse.course.id}">
-                                        ${archiveCourse.course.title}
+                                <a href="${pageContext.request.contextPath}/mainController?command=${CommandVariety.VIEW_COURSE_INFO}&id=${archiveCourse.key.course.id}">
+                                        ${archiveCourse.key.course.title}
                                 </a>
                             </td>
-                            <td><custom:outDate date="${archiveCourse.beginDate}"/></td>
-                            <td><custom:outDate date="${archiveCourse.endDate}"/></td>
-                            <td>0</td>
+                            <td><custom:outDate date="${archiveCourse.key.beginDate}"/></td>
+                            <td><custom:outDate date="${archiveCourse.key.endDate}"/></td>
+                            <td>${archiveCourse.value}</td>
                         </tr>
                         <c:set var="i" value="${i + 1}"/>
                     </c:forEach>

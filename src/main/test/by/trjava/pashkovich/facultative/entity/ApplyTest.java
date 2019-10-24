@@ -9,7 +9,7 @@ public class ApplyTest {
     public void testEqualsReflexivity() {
         Apply apply = new Apply();
         apply.setCourse(new Course());
-        apply.setUser(new User());
+        apply.setStudent(new Student());
         apply.setStatus("status");
         assertTrue(apply.equals(apply));
     }
@@ -18,12 +18,12 @@ public class ApplyTest {
     public void testEqualsSymmetry() {
         Apply apply1 = new Apply();
         apply1.setCourse(new Course());
-        apply1.setUser(new User());
+        apply1.setStudent(new Student());
         apply1.setStatus("status");
 
         Apply apply2 = new Apply();
         apply2.setCourse(new Course());
-        apply2.setUser(new User());
+        apply2.setStudent(new Student());
         apply2.setStatus("status");
 
         assertEquals(apply1.equals(apply2), apply2.equals(apply1));
@@ -33,17 +33,17 @@ public class ApplyTest {
     public void testEqualsTransitivity() {
         Apply apply1 = new Apply();
         apply1.setCourse(new Course());
-        apply1.setUser(new User());
+        apply1.setStudent(new Student());
         apply1.setStatus("status");
 
         Apply apply2 = new Apply();
         apply2.setCourse(new Course());
-        apply2.setUser(new User());
+        apply2.setStudent(new Student());
         apply2.setStatus("status");
 
         Apply apply3 = new Apply();
         apply3.setCourse(new Course());
-        apply3.setUser(new User());
+        apply3.setStudent(new Student());
         apply3.setStatus("status");
 
         assertEquals(apply1.equals(apply2) == apply2.equals(apply3),
@@ -54,12 +54,12 @@ public class ApplyTest {
     public void testEqualsCoherence() {
         Apply apply1 = new Apply();
         apply1.setCourse(new Course());
-        apply1.setUser(new User());
+        apply1.setStudent(new Student());
         apply1.setStatus("status");
 
         Apply apply2 = new Apply();
         apply2.setCourse(new Course());
-        apply2.setUser(new User());
+        apply2.setStudent(new Student());
         apply2.setStatus("status");
 
         assertEquals(apply1.equals(apply2), apply1.equals(apply2));
@@ -69,7 +69,7 @@ public class ApplyTest {
     public void testEqualsNull() {
         Apply apply1 = new Apply();
         apply1.setCourse(new Course());
-        apply1.setUser(new User());
+        apply1.setStudent(new Student());
         apply1.setStatus("status");
 
         Apply apply2 = null;
@@ -81,7 +81,7 @@ public class ApplyTest {
     public void testHashCodeRepeat() {
         Apply apply1 = new Apply();
         apply1.setCourse(new Course());
-        apply1.setUser(new User());
+        apply1.setStudent(new Student());
         apply1.setStatus("status");
         assertEquals(apply1.hashCode(), apply1.hashCode());
     }
@@ -90,12 +90,12 @@ public class ApplyTest {
     public void testHashCodeSame() {
         Apply apply1 = new Apply();
         apply1.setCourse(new Course());
-        apply1.setUser(new User());
+        apply1.setStudent(new Student());
         apply1.setStatus("status");
 
         Apply apply2 = new Apply();
         apply2.setCourse(new Course());
-        apply2.setUser(new User());
+        apply2.setStudent(new Student());
         apply2.setStatus("status");
 
         assertEquals(apply1.hashCode(), apply2.hashCode());
@@ -105,12 +105,12 @@ public class ApplyTest {
     public void testHashCodeDifferent() {
         Apply apply1 = new Apply();
         apply1.setCourse(new Course());
-        apply1.setUser(new User());
+        apply1.setStudent(new Student());
         apply1.setStatus("status");
 
         Apply apply2 = new Apply();
         apply2.setCourse(new Course());
-        apply2.setUser(new User());
+        apply2.setStudent(new Student());
         apply2.setStatus("status2");
         assertNotEquals(apply1.hashCode(), apply2.hashCode());
     }

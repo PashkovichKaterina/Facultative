@@ -2,7 +2,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="custom" uri="http://trjava.by/pashkovich/facultative" %>
 
 <%@ page import="by.trjava.pashkovich.facultative.constants.JspPath" %>
 <%@ page import="by.trjava.pashkovich.facultative.controller.command.variety.CommandVariety" %>
@@ -43,51 +42,70 @@
                onclick="location.href='${pageContext.request.contextPath}/mainController?command=${CommandVariety.SHOW_ALL_TEACHER}'">
                 <fmt:message key="local.header.teachers" bundle="${loc}"/>
             </p>
-            <p class="admin-panel-active"
+            <p class="admin-panel-button"
                onclick="location.href='${pageContext.request.contextPath}/mainController?command=${CommandVariety.SHOW_ALL_STUDENT}'">
                 <fmt:message key="local.header.students" bundle="${loc}"/>
             </p>
-            <p class="admin-panel-button"
+            <p class="admin-panel-active"
                onclick="location.href='${pageContext.request.contextPath}/mainController?command=${CommandVariety.SHOW_ALL_APPLY}'">
                 <fmt:message key="local.header.applies" bundle="${loc}"/>
             </p>
         </div>
         <div class="col-md-10  mt-5">
             <div class="admin-title">
-                <h1><fmt:message key="local.header.students" bundle="${loc}"/></h1>
-                <form class="search-line d1">
-                    <input type="hidden" name="command" value="${CommandVariety.SEARCH_STUDENT}">
-                    <input type="text" name="name"
-                           placeholder="<fmt:message key="local.student.name" bundle="${loc}"/>...">
+                <h1><fmt:message key="local.header.applies" bundle="${loc}"/></h1>
+                <form class="search-line d1" method="post" action="mainController">
+                    <input type="hidden" name="command" value="${CommandVariety.VIEW_SEARCH_APPLY_RESULT}">
+                    <input type="text" placeholder="<fmt:message key="local.student.name" bundle="${loc}"/>..."
+                           name="name">
+                    <button type="submit"></button>
+                </form>
+                <form class="search-line d1" method="post" action="mainController">
+                    <input type="hidden" name="command" value="${CommandVariety.VIEW_SEARCH_APPLY_RESULT}">
+                    <input type="text" placeholder="<fmt:message key="local.course.title" bundle="${loc}"/>..."
+                           name="course">
                     <button type="submit"></button>
                 </form>
             </div>
-            <table class="table">
-                <tr>
-                    <th>#</th>
-                    <th><fmt:message key="local.student.name" bundle="${loc}"/></th>
-                    <th><fmt:message key="local.form.address" bundle="${loc}"/></th>
-                    <th><fmt:message key="local.form.phone" bundle="${loc}"/></th>
-                    <th><fmt:message key="local.form.birth.date" bundle="${loc}"/></th>
-                </tr>
-                <tbody>
-                <c:set var="i" value="${1}"/>
-                <c:forEach var="student" items="${students}">
+            <form action="mainController" method="post">
+                <button type="submit" class="button" name="command" value="${CommandVariety.ENROLL_IN_COURSE}">
+                    <fmt:message key="local.button.course.enroll" bundle="${loc}"/>
+                </button>
+                <button type="submit" class="button" name="command" value="${CommandVariety.ENROLL_IN_LEARNING}">
+                    <fmt:message key="local.button.course.learn" bundle="${loc}"/>
+                </button>
+                <div>
+                    <span class="error-text">${informMessage}</span>
+                </div>
+                <table class="table">
                     <tr>
-                        <th scope="row">${i}</th>
-                        <td>${student.surname} ${student.name} ${student.patronymic}</td>
-                        <td>${student.address}</td>
-                        <td>${student.phone}</td>
-                        <td><custom:outDate date="${student.dateOfBirth}"/></td>
+                        <th>#</th>
+                        <th></th>
+                        <th><fmt:message key="local.student.name" bundle="${loc}"/></th>
+                        <th><fmt:message key="local.course.title" bundle="${loc}"/></th>
+                        <th><fmt:message key="local.course.status" bundle="${loc}"/></th>
                     </tr>
-                    <c:set var="i" value="${i + 1}"/>
-                </c:forEach>
-                </tbody>
-            </table>
+                    <tbody>
+                    <c:set var="i" value="${1}"/>
+                    <c:forEach var="apply" items="${applies}">
+                        <tr>
+                            <th scope="row">${i}
+                                <i class="fa fa-ban" aria-hidden="true" title="Отклонить заявку"
+                                   onclick="location.href='${pageContext.request.contextPath}/mainController?command=${CommandVariety.SHOW_REJECT_APPLY_FORM}&student=${apply.student.id}&course=${apply.course.id}'"></i>
+                            </th>
+                            <td><input type="checkbox" name="${apply.student.id}-${apply.course.id}"></td>
+                            <td>${apply.student.surname} ${apply.student.name} ${apply.student.patronymic}</td>
+                            <td>${apply.course.title}</td>
+                            <td>${apply.status}</td>
+                        </tr>
+                        <c:set var="i" value="${i + 1}"/>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </form>
         </div>
     </div>
 </div>
-
 
 <c:import url="${JspPath.FOOTER}"/>
 

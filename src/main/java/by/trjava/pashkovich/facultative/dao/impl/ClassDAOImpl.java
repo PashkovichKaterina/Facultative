@@ -200,6 +200,43 @@ public class ClassDAOImpl implements ClassDAO {
         return getAllDays(SqlQuery.GET_ALL_DAYS_EN);
     }
 
+    @Override
+    public Date getBeginDateByCourse(int courseId) throws DAOException {
+        return getDateByCourse(courseId, SqlQuery.GET_BEGIN_DATE_BY_COURSE);
+    }
+
+    @Override
+    public Date getEndDateByCourse(int courseId) throws DAOException {
+        return getDateByCourse(courseId, SqlQuery.GET_END_DATE_BY_COURSE);
+    }
+
+    private Date getDateByCourse(int courseId, String query) throws DAOException {
+        Connection connection;
+        try {
+            connection = BaseConnectionPool.getInstance().getConnection();
+        } catch (ConnectionPoolException e) {
+            throw new DAOException("Exception in Connection Pool: " + e.getMessage(), e);
+        }
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, courseId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                Date result = null;
+                if (resultSet.next()) {
+                    result = resultSet.getTimestamp(Variable.DATE);
+                }
+                return result;
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Exception in SQL: " + e.getMessage(), e);
+        } finally {
+            try {
+                BaseConnectionPool.getInstance().releaseConnection(connection);
+            } catch (ConnectionPoolException e) {
+                throw new DAOException("Exception in Connection Pool: " + e.getMessage(), e);
+            }
+        }
+    }
+
     private Set<String> getAllDays(String query) throws DAOException {
         Connection connection;
         try {

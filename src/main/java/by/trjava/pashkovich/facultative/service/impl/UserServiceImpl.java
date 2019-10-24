@@ -59,6 +59,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserById(int userId, String local) throws ServiceException {
+        UserDAO userDAO = DAOFactory.getUserDAO();
+        try {
+            return MessageManager.enLocal.equals(local) ? userDAO.getUserByIdOnRu(userId)
+                    : userDAO.getUserByIdOnRu(userId);
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+    }
+
+    @Override
     public void registration(HttpServletRequest request) throws ServiceException {
         UserDAO userDAO = DAOFactory.getUserDAO();
 

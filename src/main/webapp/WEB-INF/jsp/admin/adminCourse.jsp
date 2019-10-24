@@ -46,7 +46,8 @@
                onclick="location.href='${pageContext.request.contextPath}/mainController?command=${CommandVariety.SHOW_ALL_STUDENT}'">
                 <fmt:message key="local.header.students" bundle="${loc}"/>
             </p>
-            <p class="admin-panel-button">
+            <p class="admin-panel-button"
+               onclick="location.href='${pageContext.request.contextPath}/mainController?command=${CommandVariety.SHOW_ALL_APPLY}'">
                 <fmt:message key="local.header.applies" bundle="${loc}"/>
             </p>
         </div>
@@ -54,17 +55,15 @@
             <div class="admin-title">
                 <h1><fmt:message key="local.header.courses" bundle="${loc}"/></h1>
                 <form class="search-line d1">
-                    <input type="text" placeholder="<fmt:message key="local.course.title" bundle="${loc}"/>">
+                    <input type="text" placeholder="<fmt:message key="local.course.title" bundle="${loc}"/>...">
                     <button type="submit"></button>
                 </form>
             </div>
             <input type="button" class="admin-button" value="<fmt:message key="local.button.add" bundle="${loc}"/>"
                    onclick="location.href='${pageContext.request.contextPath}/mainController?command=${CommandVariety.SHOW_ADD_COURSE_FORM}'">
-            <input type="button" class="admin-button" value="<fmt:message key="local.button.delete" bundle="${loc}"/>">
             <table class="table">
                 <tr>
                     <th>#</th>
-                    <th></th>
                     <th><fmt:message key="local.course.title" bundle="${loc}"/></th>
                     <th><fmt:message key="local.course.info.teacher" bundle="${loc}"/></th>
                     <th><fmt:message key="local.course.status" bundle="${loc}"/></th>
@@ -74,7 +73,6 @@
                 <c:forEach var="course" items="${courses.entrySet()}">
                     <tr>
                         <th scope="row">${i} <i class="fa fa-pencil" aria-hidden="true"></i></th>
-                        <td><input type="checkbox" name="adminCourse"></td>
                         <td>${course.key.title}</td>
                         <td>${course.key.teacher}</td>
                         <td>${course.value}</td>

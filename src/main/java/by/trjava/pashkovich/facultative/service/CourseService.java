@@ -1,6 +1,5 @@
 package by.trjava.pashkovich.facultative.service;
 
-import by.trjava.pashkovich.facultative.dao.exception.DAOException;
 import by.trjava.pashkovich.facultative.entity.Course;
 import by.trjava.pashkovich.facultative.entity.CurrentCourse;
 import by.trjava.pashkovich.facultative.entity.Student;
@@ -35,4 +34,8 @@ public interface CourseService {
     int getCategoryIdByCategoryTitle(String categoryTitle, String local) throws ServiceException;
 
     void insertCourse(HttpServletRequest request) throws ServiceException;
+
+    boolean isEndCourseButtonAvailable(int courseId) throws ServiceException;
+
+    void endCourse(int courseId) throws ServiceException;
 }

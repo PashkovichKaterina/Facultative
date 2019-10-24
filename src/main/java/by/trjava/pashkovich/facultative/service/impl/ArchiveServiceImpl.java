@@ -9,20 +9,22 @@ import by.trjava.pashkovich.facultative.service.comparator.ArchiveComparator;
 import by.trjava.pashkovich.facultative.service.exception.ServiceException;
 import by.trjava.pashkovich.facultative.util.MessageManager;
 
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class ArchiveServiceImpl implements ArchiveService {
     @Override
-    public Set<ArchiveCourse> getArchiveCourseByStudent(int studentId, String local) throws ServiceException {
+    public Map<ArchiveCourse, Integer> getArchiveCourseWithMarkByStudent(int studentId, String local) throws ServiceException {
         ArchiveDAO archiveDAO = DAOFactory.getArchiveDAO();
-        Set<ArchiveCourse> courses = new TreeSet<>(new ArchiveComparator());
+        Map<ArchiveCourse, Integer> courses = new TreeMap<>(new ArchiveComparator());
         try {
-            Set<ArchiveCourse> archiveCourses = MessageManager.enLocal.equals(local)
-                    ? archiveDAO.getArchiveCourseByStudentOnEn(studentId)
-                    : archiveDAO.getArchiveCourseByStudentOnRu(studentId);
-            for (ArchiveCourse archive : archiveCourses) {
-                courses.add(archive);
+            Map<ArchiveCourse, Integer> archiveCourses = MessageManager.enLocal.equals(local)
+                    ? archiveDAO.getArchiveCourseWithMarkByStudentOnEn(studentId)
+                    : archiveDAO.getArchiveCourseWithMarkByStudentOnRu(studentId);
+            for (Map.Entry<ArchiveCourse, Integer> archive : archiveCourses.entrySet()) {
+                courses.put(archive.getKey(), archive.getValue());
             }
             return courses;
         } catch (DAOException e) {

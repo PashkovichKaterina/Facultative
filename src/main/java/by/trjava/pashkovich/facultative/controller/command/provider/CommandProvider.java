@@ -48,6 +48,16 @@ public class CommandProvider {
         commands.put(CommandVariety.SEARCH_TEACHER, new SearchTeacherCommand());
         commands.put(CommandVariety.SHOW_ADD_COURSE_FORM, new ShowAddCourseFormCommand());
         commands.put(CommandVariety.ADD_COURSE, new AddCourseCommand());
+        commands.put(CommandVariety.SHOW_ALL_APPLY, new ShowAllApplyCommand());
+        commands.put(CommandVariety.SEARCH_APPLY, new SearchApplyCommand());
+        commands.put(CommandVariety.VIEW_SEARCH_APPLY_RESULT, new ViewSearchApplyResultCommand());
+        commands.put(CommandVariety.ENROLL_IN_COURSE, new EnrollInCourseCommand());
+        commands.put(CommandVariety.ENROLL_IN_LEARNING, new EnrollInLearningCommand());
+        commands.put(CommandVariety.SHOW_REJECT_APPLY_FORM, new ShowRejectApplyFormCommand());
+        commands.put(CommandVariety.REJECT_APPLY, new RejectApplyCommand());
+        commands.put(CommandVariety.SHOW_LEAVE_REVIEW_FORM, new ShowLeaveReviewFormCommand());
+        commands.put(CommandVariety.LEAVE_REVIEW, new LeaveReviewCommand());
+        commands.put(CommandVariety.END_COURSE, new EndCourseCommand());
     }
 
     public static CommandProvider getInstance() {

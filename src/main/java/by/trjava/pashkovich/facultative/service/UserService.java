@@ -18,6 +18,8 @@ public interface UserService {
 
     User getUserByLogin(String login, String local) throws ServiceException;
 
+    User getUserById(int userId, String local) throws ServiceException;
+
     Set<Student> getAllStudent() throws ServiceException;
 
     Set<Student> getStudentByPartialMatch(String studentName) throws ServiceException;

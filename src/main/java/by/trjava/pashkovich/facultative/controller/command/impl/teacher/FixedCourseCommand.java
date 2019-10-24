@@ -2,7 +2,6 @@ package by.trjava.pashkovich.facultative.controller.command.impl.teacher;
 
 import by.trjava.pashkovich.facultative.constants.JspPath;
 import by.trjava.pashkovich.facultative.constants.Variable;
-import by.trjava.pashkovich.facultative.dao.MarkDAO;
 import by.trjava.pashkovich.facultative.entity.Course;
 import by.trjava.pashkovich.facultative.controller.command.Command;
 import by.trjava.pashkovich.facultative.service.*;
@@ -33,6 +32,7 @@ public class FixedCourseCommand implements Command {
             request.setAttribute(Variable.CLASSES, classService.getClassDateTimeByCourse(courseId));
             request.setAttribute(Variable.WORKS, workService.getWorkTitleByCourse(courseId));
             request.setAttribute(Variable.MARKS, markService.getStudentWithMarkByCourse(courseId));
+            request.setAttribute(Variable.END_COURSE_BUTTON, courseService.isEndCourseButtonAvailable(courseId));
             request.getRequestDispatcher(JspPath.COURSE_TEACHER_PAGE).forward(request, response);
         } catch (ServiceException e) {
             response.sendError(500);

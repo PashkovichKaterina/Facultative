@@ -24,6 +24,7 @@ public class Variable {
     public static final String TEACHERS = "teachers";
     public static final String COURSE_ID = "course_id";
     public static final String STUDENTS = "students";
+    public static final String STUDENT = "student";
     public static final String AVERAGE_MARK = "average_mark";
     public static final String START_DATE = "start_date";
     public static final String END_DATE = "end_date";
@@ -77,6 +78,7 @@ public class Variable {
     public static final String REFERER = "referer";
     public static final String ARCHIVE = "archive";
     public static final String APPLY = "apply";
+    public static final String APPLIES = "applies";
     public static final String CURRENT_COURSE = "currentCourse";
     public static final String COMMAND = "command";
     public static final String CLASSES_COUNT = "classesCount";
@@ -89,4 +91,5 @@ public class Variable {
     public static final String TITLE_RU_ERROR = "titleRuError";
     public static final String TITLE_EN_ERROR = "titleEnError";
     public static final String COUNT_ERROR = "countError";
+    public static final String END_COURSE_BUTTON = "endCourseButton";
 }

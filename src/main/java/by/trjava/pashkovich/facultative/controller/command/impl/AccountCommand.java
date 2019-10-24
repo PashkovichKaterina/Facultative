@@ -36,7 +36,7 @@ public class AccountCommand implements Command {
                     response.sendRedirect(request.getContextPath() + "/mainController?command=" + CommandVariety.SHOW_ALL_SKILL);
                     break;
                 case STUDENT:
-                    request.setAttribute(Variable.ARCHIVE, archiveService.getArchiveCourseByStudent(user.getId(), local));
+                    request.setAttribute(Variable.ARCHIVE, archiveService.getArchiveCourseWithMarkByStudent(user.getId(), local));
                     request.setAttribute(Variable.APPLY, applyService.getApplyByStudent(user.getId(), local));
                     request.setAttribute(Variable.CURRENT_COURSE, courseService.getStudentCurrentCourse(user.getId(), local));
                     request.getRequestDispatcher(JspPath.ACCOUNT_STUDENT_PAGE).forward(request, response);

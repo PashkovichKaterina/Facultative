@@ -24,4 +24,8 @@ public interface ClassDAO {
     Set<String> getAllDaysOnRu() throws DAOException;
 
     Set<String> getAllDaysOnEn() throws DAOException;
+
+    Date getBeginDateByCourse(int courseId) throws DAOException;
+
+    Date getEndDateByCourse(int courseId) throws DAOException;
 }
