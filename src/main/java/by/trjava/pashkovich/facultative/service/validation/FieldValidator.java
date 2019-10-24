@@ -51,7 +51,7 @@ public class FieldValidator {
     }
 
     public static boolean checkTime(String phone) {
-        Pattern p = Pattern.compile("^[0-5][0-9]\\:[0-5][0-9]$");
+        Pattern p = Pattern.compile("^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$");
         Matcher m = p.matcher(phone);
         return m.matches();
     }
