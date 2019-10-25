@@ -1,5 +1,13 @@
 package by.trjava.pashkovich.facultative.constants;
 
+/**
+ * Class contains all constants used used in the application
+ * like public static final String fields.
+ *
+ * @author Katsiaryna Pashkovich
+ * @version 1.0
+ * @since JDK 1.0
+ */
 public class Variable {
     public static final String LOGIN = "login";
     public static final String USER_ID = "user_id";
@@ -18,8 +26,6 @@ public class Variable {
     public static final String ADDRESS = "address";
     public static final String PHONE = "phone";
     public static final String POSITION = "position";
-    public static final String STUDENT_ID = "student_id";
-    public static final String TEACHER_ID = "teacher_id";
     public static final String TEACHER = "teacher";
     public static final String TEACHERS = "teachers";
     public static final String COURSE_ID = "course_id";
@@ -47,10 +53,7 @@ public class Variable {
     public static final String DATE_TIME = "date_time";
     public static final String MARK = "mark";
     public static final String TIME_ERROR = "timeError";
-    public static final String TITLE_OF_WORK = "title_of_work";
-    public static final String CLASS_ID = "class_id";
     public static final String WORK_ID = "work_id";
-    public static final String POSITION_ID = "position_id";
     public static final String TIME = "time";
     public static final String DAY = "day";
     public static final String DAYS = "days";

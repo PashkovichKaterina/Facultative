@@ -10,11 +10,18 @@ import by.trjava.pashkovich.facultative.service.exception.ServiceException;
 import by.trjava.pashkovich.facultative.util.MessageManager;
 
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 public class ArchiveServiceImpl implements ArchiveService {
+    /**
+     * Returns all courses that the specified student has passed along
+     * like class {@code ArchiveCourse} with his average mark.
+     *
+     * @param studentId student id.
+     * @param local     language used by the user.
+     * @return all courses that the specified student has passed along with his average mark.
+     * @throws ServiceException if an exception occurred in the DAO layer.
+     */
     @Override
     public Map<ArchiveCourse, Integer> getArchiveCourseWithMarkByStudent(int studentId, String local) throws ServiceException {
         ArchiveDAO archiveDAO = DAOFactory.getArchiveDAO();

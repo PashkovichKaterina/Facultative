@@ -4,7 +4,26 @@ import by.trjava.pashkovich.facultative.entity.ArchiveCourse;
 
 import java.util.Comparator;
 
+/**
+ * A comparison function, which imposes a total ordering on some collection of {@code ArchiveCourse} object.
+ *
+ * @author Katsiaryna Pashkovich
+ * @version 1.0
+ * @see Comparator
+ * @see ArchiveCourse
+ * @since JDK 1.0
+ */
 public class ArchiveComparator implements Comparator<ArchiveCourse> {
+    /**
+     * Compares two objects first by course end date, then by course begin date in decreasing order
+     * and course title in alphabetical order.
+     *
+     * @param o1 the first ArchiveCourse object to be compared.
+     * @param o2 the second ArchiveCourse object to be compared.
+     * @return a negative integer, zero, or a positive integer as the
+     * first argument is less than, equal to, or greater than the
+     * second.
+     */
     @Override
     public int compare(ArchiveCourse o1, ArchiveCourse o2) {
         if (o1 != null && o2 != null) {

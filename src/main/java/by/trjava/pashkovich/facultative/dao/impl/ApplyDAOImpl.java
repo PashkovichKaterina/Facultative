@@ -9,7 +9,6 @@ import by.trjava.pashkovich.facultative.dao.pool.impl.BaseConnectionPool;
 import by.trjava.pashkovich.facultative.entity.Course;
 import by.trjava.pashkovich.facultative.entity.Apply;
 import by.trjava.pashkovich.facultative.entity.Student;
-import by.trjava.pashkovich.facultative.entity.characteristic.ApplyStatus;
 import by.trjava.pashkovich.facultative.dao.exception.CreatorException;
 import by.trjava.pashkovich.facultative.dao.creator.CourseCreator;
 import by.trjava.pashkovich.facultative.dao.creator.UserCreator;
@@ -23,7 +22,7 @@ import java.util.Set;
 public class ApplyDAOImpl implements ApplyDAO {
 
     @Override
-    public void insertApply(int userId, int courseId) throws DAOException {
+    public void insertApply(int userId, int courseId, int applyStatus) throws DAOException {
         Connection connection;
         try {
             connection = BaseConnectionPool.getInstance().getConnection();
@@ -33,7 +32,7 @@ public class ApplyDAOImpl implements ApplyDAO {
         try (PreparedStatement statement = connection.prepareStatement(SqlQuery.INSERT_APPLY)) {
             statement.setInt(1, userId);
             statement.setInt(2, courseId);
-            statement.setInt(3, ApplyStatus.FIELD_APPLIED.getStatusId());
+            statement.setInt(3, applyStatus);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Exception in SQL: " + e.getMessage(), e);

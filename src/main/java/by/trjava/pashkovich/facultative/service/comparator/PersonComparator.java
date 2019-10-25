@@ -4,7 +4,26 @@ import by.trjava.pashkovich.facultative.entity.Person;
 
 import java.util.Comparator;
 
+/**
+ * A comparison function, which imposes a total ordering on some collection
+ * of {@code Person} object and all the heirs from {@code Person} class.
+ *
+ * @author Katsiaryna Pashkovich
+ * @version 1.0
+ * @see Comparator
+ * @see Person
+ * @since JDK 1.0
+ */
 public class PersonComparator<T extends Person> implements Comparator<T> {
+    /**
+     * Compares two objects first by surname, then by name and patronymic.
+     *
+     * @param o1 the first object to be compared.
+     * @param o2 the second object to be compared.
+     * @return a negative integer, zero, or a positive integer as the
+     * first argument is less than, equal to, or greater than the
+     * second.
+     */
     @Override
     public int compare(T o1, T o2) {
         if (o1 != null && o2 != null) {

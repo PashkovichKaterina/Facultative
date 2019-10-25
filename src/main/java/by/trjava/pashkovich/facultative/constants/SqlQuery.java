@@ -1,7 +1,15 @@
 package by.trjava.pashkovich.facultative.constants;
 
+/**
+ * Class contains all the SQL queries used used in the application
+ * like public static final String fields.
+ *
+ * @author Katsiaryna Pashkovich
+ * @version 1.0
+ * @since JDK 1.0
+ */
 public class SqlQuery {
-    //ApplyDAO
+    //Queries for ApplyDAO
     public static final String INSERT_APPLY = "insert into applications values (?, ?, ?)";
     public static final String UPDATE_APPLY_STATUS = "update applications set applications.status_id = ? where user_id = ? and course_id = ?";
     public static final String DELETE_APPLY = "delete from applications where user_id = ? and course_id = ?";
@@ -17,7 +25,7 @@ public class SqlQuery {
     public static final String GET_REVIEW_ABOUT_STUDENT = "select review from archives where student_id = ? and course_id = ?";
     public static final String DELETE_LEARNING_APPLY = "delete from applications where course_id = ? and status_id = 3";
 
-    //ArchiveDAO
+    //Queries for ArchiveDAO
     public static final String INSERT_ARCHIVE = "insert into archives(student_id, course_id, average_mark, start_date, end_date, review) values (?, ?, ?, ?, ?, ?)";
     public static final String IS_CONTAINS_ARCHIVE = "select * from archives where student_id = ? and course_id = ?";
     public static final String GET_ARCHIVE_COURSE_BY_STUDENT_RU = "select start_date, end_date, average_mark, courses.course_id, courses.title_ru as title, categories.title_ru as category_title, concat(surname, ' ', name, ' ', patronymic) as teacher, number_of_classes, description_ru as description, availability from courses inner join archives on courses.course_id = archives.course_id inner join categories on categories.category_id = courses.category_id inner join user_details on user_details.user_id = courses.teacher_id where student_id = ? and (select count(*) from applications where applications.user_id = ? and course_id=archives.course_id ) = 0";
@@ -25,7 +33,7 @@ public class SqlQuery {
     public static final String UPDATE_REVIEW = "update archives set review = ? where student_id = ? and course_id = ?";
     public static final String UPDATE_ARCHIVE = "update archives set average_mark = ?, start_date = ?, end_date = ? where student_id = ? and course_id = ?";
 
-    //ClassDAO
+    //Queries for ClassDAO
     public static final String INSERT_CLASS = "insert into classes(course_id, date_time) values(?, ?)";
     public static final String IS_CONTAINS_CLASS = "select * from classes where course_id = ? and date_time like ?";
     public static final String DELETE_CLASS_BY_COURSE = "delete from classes where course_id = ?";
@@ -34,7 +42,7 @@ public class SqlQuery {
     public static final String GET_BEGIN_DATE_BY_COURSE = "select date_time as date from classes where course_id = ? order by date_time limit 1";
     public static final String GET_END_DATE_BY_COURSE = "select date_time as date from classes where course_id = ? order by date_time desc limit 1";
 
-    //CourseDAO
+    //Queries for CourseDAO
     public static final String GET_ALL_COURSE_RU = "select course_id, courses.title_ru as title, categories.title_ru as category_title, concat(surname, ' ', name, ' ', patronymic) as teacher, number_of_classes, description_ru as description, availability from courses inner join users on users.user_id = courses.teacher_id inner join user_details on users.user_id = user_details.user_id inner join categories on courses.category_id = categories.category_id";
     public static final String GET_ALL_COURSE_EN = "select course_id, courses.title_en as title, categories.title_en as category_title, concat(surname, ' ', name, ' ', patronymic) as teacher, number_of_classes, description_en as description, availability from courses inner join users on users.user_id = courses.teacher_id inner join user_details on users.user_id = user_details.user_id inner join categories on courses.category_id = categories.category_id";
     public static final String GET_COURSE_BY_CATEGORY_RU = "select course_id, courses.title_ru as title, categories.title_ru as category_title, concat(surname, ' ', name, ' ', patronymic) as teacher, number_of_classes, description_ru as description, availability from courses inner join users on users.user_id = courses.teacher_id inner join user_details on users.user_id = user_details.user_id inner join categories on courses.category_id = categories.category_id where categories.title_ru = ?";
@@ -66,7 +74,7 @@ public class SqlQuery {
     public static final String INSERT_REQUIREMENT_ELEMENT_RU = "insert into requirements values (?, (select skill_id from skills where title_ru = ?), (select level_id from levels where title_ru = ?))";
     public static final String INSERT_REQUIREMENT_ELEMENT_EN = "insert into requirements values (?, (select skill_id from skills where title_en = ?), (select level_id from levels where title_en = ?))";
 
-    //MarkDAO
+    //Queries for MarkDAO
     public static final String INSERT_MARK = "insert into marks(student_id, work_id, mark) values (?, ?, ?)";
     public static final String UPDATE_MARK = "update marks set mark = ? where student_id = ? and work_id = ?";
     public static final String DELETE_MARK_BY_COURSE = "delete marks from marks inner join works on works.work_id=marks.work_id where course_id = ?";
@@ -75,7 +83,7 @@ public class SqlQuery {
     public static final String GET_STUDENT_MARK_BY_COURSE = "select mark from marks inner join works on works.work_id = marks.work_id where student_id = ? and course_id = ?";
     public static final String GET_STUDENT_WITH_MARK_BY_COURSE_WORK = "select users.user_id, login, email, password, surname, name, patronymic, date_of_birth, address, phone, role_id, mark from users left join user_details on user_details.user_id = users.user_id left join positions on user_details.position = positions.position_id inner join marks on marks.student_id = users.user_id inner join works on works.work_id = marks.work_id where course_id = ? and works.title=?";
 
-    //UserDAO
+    //Queries for UserDAO
     public static final String INSERT_USER = "insert into users(login, email, password, role_id) values (?, ?, ?, ?)";
     public static final String INSERT_USER_DETAILS = "insert into user_details(user_id, surname, name, patronymic, phone, address, date_of_birth, position) values(?, ?, ?, ?, ?, ?, ?, ?)";
     public static final String UPDATE_USER_DETAILS = "update user_details set surname=?, name=?, patronymic=?, phone=?, date_of_birth=?, address=?, position=? where user_id = ?";
@@ -97,7 +105,7 @@ public class SqlQuery {
     public static final String GET_ALL_TEACHER_RU = "select users.user_id, login, email, password, surname, name, patronymic, phone, positions.title_ru as position from users inner join roles on users.role_id = roles.role_id inner join user_details on user_details.user_id = users.user_id inner join positions on positions.position_id = user_details.position where users.role_id = 2";
     public static final String GET_ALL_TEACHER_EN = "select users.user_id, login, email, password, surname, name, patronymic, phone, positions.title_en as position from users inner join roles on users.role_id = roles.role_id inner join user_details on user_details.user_id = users.user_id inner join positions on positions.position_id = user_details.position where users.role_id = 2";
 
-    //WorkDAO
+    //Queries for WorkDAO
     public static final String INSERT_WORK = "insert into works(course_id, title) values (?, ?)";
     public static final String DELETE_WORK_BY_COURSE = "delete from works where course_id = ?";
     public static final String GET_WORK_TITLE_BY_COURSE = "select title from works where course_id = ?";
@@ -105,7 +113,7 @@ public class SqlQuery {
     public static final String IS_WORK_AVAILABLE_FOR_TEACHER = "select * from works inner join courses on courses.course_id = works.course_id where teacher_id = ? and work_id = ?";
     public static final String IS_WORK_AVAILABLE_FOR_STUDENT = "select * from works inner join courses on courses.course_id = works.course_id inner join applications on applications.course_id = courses.course_id where applications.user_id = ? and work_id = ? and status_id = 3";
 
-    //SkillDAO
+    //Queries for SkillDAO
     public static final String GET_ALL_SKILL_WITH_COURSE_COUNT_RU = "select title_ru as title, count(course_id) as count from requirements inner join skills on skills.skill_id = requirements.skill_id group by title";
     public static final String GET_ALL_SKILL_WITH_COURSE_COUNT_EN = "select title_en as title, count(course_id) as count from requirements inner join skills on skills.skill_id = requirements.skill_id group by title";
     public static final String GET_ALL_SKILL_RU = "select title_ru as title from skills";
@@ -113,7 +121,7 @@ public class SqlQuery {
     public static final String GET_ALL_SKILL_LEVEL_RU = "select title_ru as title from levels";
     public static final String GET_ALL_SKILL_LEVEL_EN = "select title_en as title from levels";
 
-    //CategoryDAO
+    //Queries for CategoryDAO
     public static final String GET_ALL_CATEGORY_WITH_COURSE_COUNT_RU = "select categories.title_ru as title, count(course_id) as count from categories inner join courses on categories.category_id = courses.category_id group by title";
     public static final String GET_ALL_CATEGORY_WITH_COURSE_COUNT_EN = "select categories.title_en as title, count(course_id) as count from categories inner join courses on categories.category_id = courses.category_id group by title";
 }

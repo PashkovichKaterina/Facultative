@@ -11,6 +11,13 @@ import java.util.Map;
 import java.util.Set;
 
 public class SkillServiceImpl implements SkillService {
+    /**
+     * Returns all skills that are defined in the database.
+     *
+     * @param local language used by the user.
+     * @return all skills that are defined in the database.
+     * @throws ServiceException if an exception occurred in the DAO layer.
+     */
     @Override
     public Set<String> getAllSkill(String local) throws ServiceException {
         SkillDAO skillDAO = DAOFactory.getSkillDAO();
@@ -23,6 +30,13 @@ public class SkillServiceImpl implements SkillService {
         }
     }
 
+    /**
+     * Returns all skill levels that are defined in the database.
+     *
+     * @param local language used by the user.
+     * @return all skill levels that are defined in the database.
+     * @throws ServiceException if an exception occurred in the DAO layer.
+     */
     @Override
     public Set<String> getAllSkillLevel(String local) throws ServiceException {
         SkillDAO skillDAO = DAOFactory.getSkillDAO();
@@ -35,6 +49,13 @@ public class SkillServiceImpl implements SkillService {
         }
     }
 
+    /**
+     * Returns all skills that are defined in the database with the number of classes for each skill.
+     *
+     * @param local language used by the user.
+     * @return all skills that are defined in the database with the number of classes for each skill.
+     * @throws ServiceException if an exception occurred in the DAO layer.
+     */
     @Override
     public Map<String, Integer> getAllSkillWithCourseCount(String local) throws ServiceException {
         SkillDAO skillDAO = DAOFactory.getSkillDAO();

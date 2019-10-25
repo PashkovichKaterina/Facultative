@@ -4,14 +4,11 @@ import by.trjava.pashkovich.facultative.constants.InformMessage;
 import by.trjava.pashkovich.facultative.constants.Variable;
 import by.trjava.pashkovich.facultative.dao.*;
 import by.trjava.pashkovich.facultative.dao.exception.DAOException;
-import by.trjava.pashkovich.facultative.dao.impl.UserDaoImpl;
 import by.trjava.pashkovich.facultative.entity.Course;
 import by.trjava.pashkovich.facultative.entity.CurrentCourse;
 import by.trjava.pashkovich.facultative.entity.Student;
-import by.trjava.pashkovich.facultative.entity.User;
 import by.trjava.pashkovich.facultative.service.CourseService;
 import by.trjava.pashkovich.facultative.service.comparator.CurrentCourseComparator;
-import by.trjava.pashkovich.facultative.service.comparator.PersonComparator;
 import by.trjava.pashkovich.facultative.service.exception.*;
 import by.trjava.pashkovich.facultative.util.MessageManager;
 import by.trjava.pashkovich.facultative.service.validation.CourseValidator;
@@ -24,6 +21,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CourseServiceImpl implements CourseService {
+    /**
+     * Returns the course with id equal to the specified.
+     *
+     * @param id    course id
+     * @param local language used by the user.
+     * @return the course with id equal to the specified.
+     * @throws ServiceException if an exception occurred in the DAO layer.
+     */
     @Override
     public Course getCourseById(int id, String local) throws ServiceException {
         CourseDAO courseDAO = DAOFactory.getCourseDAO();
@@ -37,9 +42,15 @@ public class CourseServiceImpl implements CourseService {
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
         }
-
     }
 
+    /**
+     * Returns all courses defined in the database.
+     *
+     * @param local language used by the user.
+     * @return all courses defined in the database.
+     * @throws ServiceException if an exception occurred in the DAO layer.
+     */
     @Override
     public Set<Course> getAllCourse(String local) throws ServiceException {
         CourseDAO courseDAO = DAOFactory.getCourseDAO();
@@ -52,6 +63,13 @@ public class CourseServiceImpl implements CourseService {
         }
     }
 
+    /**
+     * Returns all course category defined in the database.
+     *
+     * @param local language used by the user.
+     * @return all course category defined in the database.
+     * @throws ServiceException if an exception occurred in the DAO layer.
+     */
     @Override
     public Set<String> getAllCategory(String local) throws ServiceException {
         CourseDAO courseDAO = DAOFactory.getCourseDAO();
@@ -65,6 +83,14 @@ public class CourseServiceImpl implements CourseService {
         }
     }
 
+    /**
+     * Returns the requirements for the specified course in the form of skill-level.
+     *
+     * @param id    course id.
+     * @param local language used by the user.
+     * @return the requirements for the specified course in the form of skill-level.
+     * @throws ServiceException if an exception occurred in the DAO layer.
+     */
     @Override
     public Map<String, String> getCourseRequirement(int id, String local) throws ServiceException {
         CourseDAO courseDAO = DAOFactory.getCourseDAO();
@@ -80,6 +106,14 @@ public class CourseServiceImpl implements CourseService {
         }
     }
 
+    /**
+     * Returns the timetable for the specified course in the form of day of week-time.
+     *
+     * @param id    course id.
+     * @param local language used by the user.
+     * @return the timetable for the specified course in the form of day of week-time.
+     * @throws ServiceException if an exception occurred in the DAO layer.
+     */
     @Override
     public Map<String, Date> getCourseTimetable(int id, String local) throws ServiceException {
         CourseDAO courseDAO = DAOFactory.getCourseDAO();
@@ -95,6 +129,19 @@ public class CourseServiceImpl implements CourseService {
         }
     }
 
+    /**
+     * Returns a set of courses on the specified parameters.
+     *
+     * <p>The search takes place according to only one parameter: category title or course title.
+     * If the course title is specified, then all courses that partially contain the transmitted string are returned.
+     * Otherwise, all courses that match the selected category are returned.</p>
+     *
+     * @param courseTitle course title.
+     * @param category    category title.
+     * @param local       language used by the user.
+     * @return a set of courses on the specified parameters.
+     * @throws ServiceException if an exception occurred in the DAO layer.
+     */
     @Override
     public Set<Course> searchCourse(String courseTitle, String category, String local) throws ServiceException {
         CourseDAO courseDAO = DAOFactory.getCourseDAO();
@@ -128,6 +175,14 @@ public class CourseServiceImpl implements CourseService {
         return courses;
     }
 
+    /**
+     * Returns all courses in which the student is currently studying.
+     *
+     * @param studentId student id.
+     * @param local     language used by the user.
+     * @return all courses in which the student is currently studying.
+     * @throws ServiceException if an exception occurred in the DAO layer.
+     */
     @Override
     public Set<CurrentCourse> getStudentCurrentCourse(int studentId, String local) throws ServiceException {
         CourseDAO courseDAO = DAOFactory.getCourseDAO();
@@ -136,15 +191,20 @@ public class CourseServiceImpl implements CourseService {
             Set<CurrentCourse> currentCourses = MessageManager.enLocal.equals(local)
                     ? courseDAO.getStudentCurrentCourseOnEn(studentId)
                     : courseDAO.getStudentCurrentCourseOnRu(studentId);
-            for (CurrentCourse c : currentCourses) {
-                courses.add(c);
-            }
+            courses.addAll(currentCourses);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
         }
         return courses;
     }
 
+    /**
+     * Returns all courses that are defined in the database with their current status.
+     *
+     * @param local language used by the user.
+     * @return all courses that are defined in the database with their current status.
+     * @throws ServiceException if an exception occurred in the DAO layer.
+     */
     @Override
     public Map<Course, String> getAllCourseWithStatus(String local) throws ServiceException {
         CourseDAO courseDAO = DAOFactory.getCourseDAO();
@@ -163,6 +223,16 @@ public class CourseServiceImpl implements CourseService {
         return courseWithStatus;
     }
 
+    /**
+     * Returns all courses that are defined in the database with their current status
+     * which fixed for the specific teacher.
+     *
+     * @param teacherId teacher id.
+     * @param local     language used by the user.
+     * @return all courses that are defined in the database with their current status
+     * which fixed for the specific teacher.
+     * @throws ServiceException if an exception occurred in the DAO layer.
+     */
     @Override
     public Map<Course, String> getCourseWithStatusByTeacher(int teacherId, String local) throws ServiceException {
         CourseDAO courseDAO = DAOFactory.getCourseDAO();
@@ -181,20 +251,14 @@ public class CourseServiceImpl implements CourseService {
         return courseWithStatus;
     }
 
-    @Override
-    public Set<Student> getAllStudentByCourse(int courseId) throws ServiceException {
-        UserDAO userDAO = DAOFactory.getUserDAO();
-        Set<Student> students = new TreeSet<>(new PersonComparator<>());
-        try {
-            for (Student student : userDAO.getAllStudentByCourse(courseId)) {
-                students.add(student);
-            }
-            return students;
-        } catch (DAOException e) {
-            throw new ServiceException(e.getMessage(), e);
-        }
-    }
-
+    /**
+     * Returns category id which title equals with specific.
+     *
+     * @param categoryTitle category title.
+     * @param local         language used by the user.
+     * @return category id which title equals with specific.
+     * @throws ServiceException if an exception occurred in the DAO layer.
+     */
     @Override
     public int getCategoryIdByCategoryTitle(String categoryTitle, String local) throws ServiceException {
         CourseDAO courseDAO = DAOFactory.getCourseDAO();
@@ -207,6 +271,15 @@ public class CourseServiceImpl implements CourseService {
         }
     }
 
+    /**
+     * Insert course in database if possible.
+     *
+     * <p>The course can be inserted if there are no courses
+     * with the same name, teacher and description are indicated.</p>
+     *
+     * @param request the {@code HttpServletRequest} object.
+     * @throws ServiceException if an exception occurred in the DAO layer.
+     */
     @Override
     public void insertCourse(HttpServletRequest request) throws ServiceException {
         HttpSession session = request.getSession();
@@ -253,6 +326,16 @@ public class CourseServiceImpl implements CourseService {
         }
     }
 
+    /**
+     * Checks whether it is currently possible to complete learning for this course.
+     *
+     * <p>It possible if the number of classes held is equal to the required number
+     * and a review is written for each student</p>
+     *
+     * @param courseId course id.
+     * @return {@code true} if there is available to end learning on this course.
+     * @throws ServiceException if an exception occurred in the DAO layer.
+     */
     @Override
     public boolean isEndCourseButtonAvailable(int courseId) throws ServiceException {
         CourseDAO courseDAO = DAOFactory.getCourseDAO();
@@ -276,19 +359,33 @@ public class CourseServiceImpl implements CourseService {
         return true;
     }
 
+    /**
+     * Returns map of the requirements which contains in the format skill*-level*
+     * where * is a whole number.
+     *
+     * @param request the {@code HttpServletRequest} object.
+     * @return map of the requirements like skill-level.
+     */
     private Map<String, String> requirementSkills(HttpServletRequest request) {
         String skill = "skill\\d+";
         String level = "level\\d+";
-        return method(request, skill, level);
+        return selectParameterFromRequest(request, skill, level);
     }
 
+    /**
+     * Returns map of the requirements which contains in the format day*-time*
+     * where * is a whole number.
+     *
+     * @param request the {@code HttpServletRequest} object.
+     * @return map of the requirements like day-time.
+     */
     private Map<String, String> timetableElements(HttpServletRequest request) {
         String day = "day\\d+";
         String time = "time\\d+";
-        return method(request, day, time);
+        return selectParameterFromRequest(request, day, time);
     }
 
-    private Map<String, String> method(HttpServletRequest request, String key, String value) {
+    private Map<String, String> selectParameterFromRequest(HttpServletRequest request, String key, String value) {
         Map<String, String> result = new HashMap<>();
         Pattern keyPatter = Pattern.compile(key);
         Pattern valuePattern = Pattern.compile(value);
@@ -313,6 +410,14 @@ public class CourseServiceImpl implements CourseService {
         return result;
     }
 
+    /**
+     * Return the course status.
+     *
+     * @param course {@code Course} object.
+     * @param local  language used by the user.
+     * @return the course status.
+     * @throws ServiceException if an exception occurred in the DAO layer.
+     */
     private String getCourseStatus(Course course, String local) throws ServiceException {
         ClassDAO classDAO = DAOFactory.getClassDAO();
         MessageManager messageManager = MessageManager.getInstance();
@@ -329,6 +434,16 @@ public class CourseServiceImpl implements CourseService {
         return messageManager.getMessage(InformMessage.COURSE_UNAVAILABLE, local);
     }
 
+    /**
+     * Graduates from the current course.
+     *
+     * <p>To end learning on the course, it is necessary for each student who has been leaning
+     * to write down the start and end dates and the average grade. Delete all grades, works,
+     * classes and applications with status "Learning" for the specified course.</p>
+     *
+     * @param courseId course id.
+     * @throws ServiceException if an exception occurred in the DAO layer.
+     */
     @Override
     public void endCourse(int courseId) throws ServiceException {
         ClassDAO classDAO = DAOFactory.getClassDAO();

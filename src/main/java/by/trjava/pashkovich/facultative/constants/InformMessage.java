@@ -1,5 +1,13 @@
 package by.trjava.pashkovich.facultative.constants;
 
+/**
+ * Class contains the keys from the properties file for displaying messages
+ * like public static final String fields.
+ *
+ * @author Katsiaryna Pashkovich
+ * @version 1.0
+ * @since JDK 1.0
+ */
 public class InformMessage {
     public static final String REQUIRE_FIELD = "local.message.require";
     public static final String INVALID_DATA_TYPE = "local.message.invalid.data";

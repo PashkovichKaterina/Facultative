@@ -3,14 +3,12 @@ package by.trjava.pashkovich.facultative.dao;
 import by.trjava.pashkovich.facultative.dao.exception.DAOException;
 import by.trjava.pashkovich.facultative.entity.Apply;
 import by.trjava.pashkovich.facultative.entity.Course;
-import by.trjava.pashkovich.facultative.entity.Student;
-import by.trjava.pashkovich.facultative.entity.characteristic.ApplyStatus;
 
 import java.util.Map;
 import java.util.Set;
 
 public interface ApplyDAO {
-    void insertApply(int studentId, int courseId) throws DAOException;
+    void insertApply(int studentId, int courseId, int applyStatus) throws DAOException;
 
     void updateApplyStatus(int studentId, int courseId, int applyStatus) throws DAOException;
 

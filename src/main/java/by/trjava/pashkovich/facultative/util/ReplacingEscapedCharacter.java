@@ -1,43 +1,57 @@
 package by.trjava.pashkovich.facultative.util;
 
+/**
+ * This class is need to replacing escaped characters.
+ * Used to insert text into the search bar.
+ *
+ * @author Katsiaryna Pashkovich
+ * @version 1.0
+ * @since JDK1.0
+ */
 public class ReplacingEscapedCharacter {
+    /**
+     * Returns a string in which all escaped characters are replaced.
+     *
+     * @param text text for replace escaped characters.
+     * @return a string in which all escaped characters are replaced.
+     */
     public static String replace(String text) {
         return text
-                .replaceAll("%", "%25")   // Процент
-                .replaceAll(" ", "%20")   // Пробел
-                .replaceAll("\t", "%20")  // Табуляция (заменяем на пробел)
-                .replaceAll("\n", "%20")  // Переход строки (заменяем на пробел)
-                .replaceAll("\r", "%20")  // Возврат каретки (заменяем на пробел)
-                .replaceAll("!", "%21")   // Восклицательный знак
-                .replaceAll("\"", "%22")  // Двойная кавычка
-                .replaceAll("#", "%23")   // Октоторп, решетка
-                .replaceAll("\\$", "%24") // Знак доллара
-                .replaceAll("&", "%26")   // Амперсанд
-                .replaceAll("'", "%27")   // Одиночная кавычка
-                .replaceAll("\\(", "%28") // Открывающаяся скобка
-                .replaceAll("\\)", "%29") // Закрывающаяся скобка
-                .replaceAll("\\*", "%2a") // Звездочка
-                .replaceAll("\\+", "%2b") // Знак плюс
-                .replaceAll(",", "%2c")   // Запятая
-                .replaceAll("-", "%2d")   // Дефис
-                .replaceAll("\\.", "%2e") // Точка
-                .replaceAll("/", "%2f")   // Слеш, косая черта
-                .replaceAll(":", "%3a")   // Двоеточие
-                .replaceAll(";", "%3b")   // Точка с запятой
-                .replaceAll("<", "%3c")   // Открывающаяся угловая скобка
-                .replaceAll("=", "%3d")   // Знак равно
-                .replaceAll(">", "%3e")   // Закрывающаяся угловая скобка
-                .replaceAll("\\?", "%3f") // Вопросительный знак
-                .replaceAll("@", "%40")   // At sign, по цене, собачка
-                .replaceAll("\\[", "%5b") // Открывающаяся квадратная скобка
-                .replaceAll("\\\\", "%5c") // Одиночный обратный слеш '\'
-                .replaceAll("\\]", "%5d") // Закрывающаяся квадратная скобка
-                .replaceAll("\\^", "%5e") // Циркумфлекс
-                .replaceAll("_", "%5f")   // Нижнее подчеркивание
-                .replaceAll("`", "%60")   // Гравис
-                .replaceAll("\\{", "%7b") // Открывающаяся фигурная скобка
-                .replaceAll("\\|", "%7c") // Вертикальная черта
-                .replaceAll("\\}", "%7d") // Закрывающаяся фигурная скобка
-                .replaceAll("~", "%7e");  // Тильда
+                .replaceAll("%", "%25")
+                .replaceAll(" ", "%20")
+                .replaceAll("\t", "%20")
+                .replaceAll("\n", "%20")
+                .replaceAll("\r", "%20")
+                .replaceAll("!", "%21")
+                .replaceAll("\"", "%22")
+                .replaceAll("#", "%23")
+                .replaceAll("\\$", "%24")
+                .replaceAll("&", "%26")
+                .replaceAll("'", "%27")
+                .replaceAll("\\(", "%28")
+                .replaceAll("\\)", "%29")
+                .replaceAll("\\*", "%2a")
+                .replaceAll("\\+", "%2b")
+                .replaceAll(",", "%2c")
+                .replaceAll("-", "%2d")
+                .replaceAll("\\.", "%2e")
+                .replaceAll("/", "%2f")
+                .replaceAll(":", "%3a")
+                .replaceAll(";", "%3b")
+                .replaceAll("<", "%3c")
+                .replaceAll("=", "%3d")
+                .replaceAll(">", "%3e")
+                .replaceAll("\\?", "%3f")
+                .replaceAll("@", "%40")
+                .replaceAll("\\[", "%5b")
+                .replaceAll("\\\\", "%5c")
+                .replaceAll("\\]", "%5d")
+                .replaceAll("\\^", "%5e")
+                .replaceAll("_", "%5f")
+                .replaceAll("`", "%60")
+                .replaceAll("\\{", "%7b")
+                .replaceAll("\\|", "%7c")
+                .replaceAll("\\}", "%7d")
+                .replaceAll("~", "%7e");
     }
 }

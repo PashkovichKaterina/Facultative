@@ -1,5 +1,13 @@
 package by.trjava.pashkovich.facultative.constants;
 
+/**
+ * Class contains all path to jsp-pages used in the application
+ * like public static final String fields.
+ *
+ * @author Katsiaryna Pashkovich
+ * @version 1.0
+ * @since JDK 1.0
+ */
 public class JspPath {
     public static final String INDEX_PAGE = "/index.jsp";
     public static final String LOGIN_PAGE = "/jsp/login.jsp";

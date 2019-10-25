@@ -4,7 +4,26 @@ import by.trjava.pashkovich.facultative.entity.CurrentCourse;
 
 import java.util.Comparator;
 
+/**
+ * A comparison function, which imposes a total ordering on some collection of {@code CurrentCourse} object.
+ *
+ * @author Katsiaryna Pashkovich
+ * @version 1.0
+ * @see Comparator
+ * @see CurrentCourse
+ * @since JDK 1.0
+ */
 public class CurrentCourseComparator implements Comparator<CurrentCourse> {
+    /**
+     * Compares two objects first by course begin date in decreasing order
+     * then by course title in alphabetical order.
+     *
+     * @param o1 the first CurrentCourse object to be compared.
+     * @param o2 the second CurrentCourse object to be compared.
+     * @return a negative integer, zero, or a positive integer as the
+     * first argument is less than, equal to, or greater than the
+     * second.
+     */
     @Override
     public int compare(CurrentCourse o1, CurrentCourse o2) {
         if (o1 != null && o2 != null) {
