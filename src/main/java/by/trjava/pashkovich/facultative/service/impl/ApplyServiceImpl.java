@@ -11,7 +11,6 @@ import by.trjava.pashkovich.facultative.entity.User;
 import by.trjava.pashkovich.facultative.service.ApplyService;
 import by.trjava.pashkovich.facultative.service.comparator.ApplyComparator;
 import by.trjava.pashkovich.facultative.service.exception.*;
-import by.trjava.pashkovich.facultative.service.validation.UserValidator;
 import by.trjava.pashkovich.facultative.util.MessageManager;
 import by.trjava.pashkovich.facultative.service.validation.CourseValidator;
 import by.trjava.pashkovich.facultative.service.validation.FieldValidator;
@@ -85,7 +84,8 @@ public class ApplyServiceImpl implements ApplyService {
         ApplyDAO applyDAO = DAOFactory.getApplyDAO();
         Set<Apply> applies = new TreeSet<>(new ApplyComparator());
         try {
-            for (Apply apply : MessageManager.enLocal.equals(local) ? applyDAO.getAllApplyOnEn()
+            for (Apply apply : MessageManager.enLocal.equals(local)
+                    ? applyDAO.getAllApplyOnEn()
                     : applyDAO.getAllApplyOnRu()) {
                 applies.add(apply);
             }

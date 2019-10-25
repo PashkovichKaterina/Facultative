@@ -27,6 +27,4 @@ public class CustomFormatForDate {
     public static String getUseClientTimeFormat(Date date) {
         return date == null ? null : CLIENT_FORMAT_TIME.format(date);
     }
-
-
 }

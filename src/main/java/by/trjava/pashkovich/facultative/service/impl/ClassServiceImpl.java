@@ -47,7 +47,6 @@ public class ClassServiceImpl implements ClassService {
         ClassDAO classDAO = DAOFactory.getClassDAO();
         Set<Date> classes = new TreeSet<>(Collections.reverseOrder());
         try {
-
             for (Date classElement : classDAO.getClassDateTimeByCourse(courseId)) {
                 classes.add(classElement);
             }

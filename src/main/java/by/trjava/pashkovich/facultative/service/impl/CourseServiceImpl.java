@@ -11,6 +11,7 @@ import by.trjava.pashkovich.facultative.entity.Student;
 import by.trjava.pashkovich.facultative.entity.User;
 import by.trjava.pashkovich.facultative.service.CourseService;
 import by.trjava.pashkovich.facultative.service.comparator.CurrentCourseComparator;
+import by.trjava.pashkovich.facultative.service.comparator.PersonComparator;
 import by.trjava.pashkovich.facultative.service.exception.*;
 import by.trjava.pashkovich.facultative.util.MessageManager;
 import by.trjava.pashkovich.facultative.service.validation.CourseValidator;
@@ -30,7 +31,8 @@ public class CourseServiceImpl implements CourseService {
             throw new NoSuchCourseException("Invalid course id");
         }
         try {
-            return MessageManager.enLocal.equals(local) ? courseDAO.getCourseByIdOnEn(id)
+            return MessageManager.enLocal.equals(local)
+                    ? courseDAO.getCourseByIdOnEn(id)
                     : courseDAO.getCourseByIdOnRu(id);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
@@ -42,7 +44,9 @@ public class CourseServiceImpl implements CourseService {
     public Set<Course> getAllCourse(String local) throws ServiceException {
         CourseDAO courseDAO = DAOFactory.getCourseDAO();
         try {
-            return MessageManager.enLocal.equals(local) ? courseDAO.getAllCourseOnEn() : courseDAO.getAllCourseOnRu();
+            return MessageManager.enLocal.equals(local)
+                    ? courseDAO.getAllCourseOnEn()
+                    : courseDAO.getAllCourseOnRu();
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
         }
@@ -52,7 +56,8 @@ public class CourseServiceImpl implements CourseService {
     public Set<String> getAllCategory(String local) throws ServiceException {
         CourseDAO courseDAO = DAOFactory.getCourseDAO();
         try {
-            Set<String> categories = MessageManager.enLocal.equals(local) ? courseDAO.getAllCategoryOnEn()
+            Set<String> categories = MessageManager.enLocal.equals(local)
+                    ? courseDAO.getAllCategoryOnEn()
                     : courseDAO.getAllCategoryOnRu();
             return new TreeSet<>(categories);
         } catch (DAOException e) {
@@ -67,7 +72,8 @@ public class CourseServiceImpl implements CourseService {
             throw new NoSuchCourseException("Invalid course id");
         }
         try {
-            return MessageManager.enLocal.equals(local) ? courseDAO.getCourseRequirementOnEn(id)
+            return MessageManager.enLocal.equals(local)
+                    ? courseDAO.getCourseRequirementOnEn(id)
                     : courseDAO.getCourseRequirementOnRu(id);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
@@ -81,7 +87,8 @@ public class CourseServiceImpl implements CourseService {
             throw new NoSuchCourseException("Invalid course id");
         }
         try {
-            return MessageManager.enLocal.equals(local) ? courseDAO.getCourseTimetableOnEn(id)
+            return MessageManager.enLocal.equals(local)
+                    ? courseDAO.getCourseTimetableOnEn(id)
                     : courseDAO.getCourseTimetableOnRu(id);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
@@ -97,7 +104,8 @@ public class CourseServiceImpl implements CourseService {
         }
         if (!FieldValidator.isEmpty(courseTitle)) {
             try {
-                courses = MessageManager.enLocal.equals(local) ? courseDAO.getCourseByPartialMatchTitleOnEn(courseTitle)
+                courses = MessageManager.enLocal.equals(local)
+                        ? courseDAO.getCourseByPartialMatchTitleOnEn(courseTitle)
                         : courseDAO.getCourseByPartialMatchTitleOnRu(courseTitle);
             } catch (DAOException e) {
                 throw new ServiceException(e.getMessage(), e);
@@ -107,7 +115,8 @@ public class CourseServiceImpl implements CourseService {
                 throw new NoSuchCategoryException("Invalid category");
             }
             try {
-                courses = MessageManager.enLocal.equals(local) ? courseDAO.getCourseByCategoryOnEn(category)
+                courses = MessageManager.enLocal.equals(local)
+                        ? courseDAO.getCourseByCategoryOnEn(category)
                         : courseDAO.getCourseByCategoryOnRu(category);
             } catch (DAOException e) {
                 throw new ServiceException(e.getMessage(), e);
@@ -141,7 +150,8 @@ public class CourseServiceImpl implements CourseService {
         CourseDAO courseDAO = DAOFactory.getCourseDAO();
         Map<Course, String> courseWithStatus = new HashMap<>();
         try {
-            Set<Course> courses = MessageManager.enLocal.equals(local) ? courseDAO.getAllCourseOnEn()
+            Set<Course> courses = MessageManager.enLocal.equals(local)
+                    ? courseDAO.getAllCourseOnEn()
                     : courseDAO.getAllCourseOnRu();
             for (Course course : courses) {
                 String status = getCourseStatus(course, local);
@@ -158,8 +168,9 @@ public class CourseServiceImpl implements CourseService {
         CourseDAO courseDAO = DAOFactory.getCourseDAO();
         Map<Course, String> courseWithStatus = new HashMap<>();
         try {
-            Set<Course> courses = MessageManager.enLocal.equals(local) ? courseDAO.getCourseByTeacherOnEn(teacherId) :
-                    courseDAO.getCourseByTeacherOnRu(teacherId);
+            Set<Course> courses = MessageManager.enLocal.equals(local)
+                    ? courseDAO.getCourseByTeacherOnEn(teacherId)
+                    : courseDAO.getCourseByTeacherOnRu(teacherId);
             for (Course course : courses) {
                 String status = getCourseStatus(course, local);
                 courseWithStatus.put(course, status);
@@ -173,8 +184,12 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Set<Student> getAllStudentByCourse(int courseId) throws ServiceException {
         UserDAO userDAO = DAOFactory.getUserDAO();
+        Set<Student> students = new TreeSet<>(new PersonComparator<>());
         try {
-            return userDAO.getAllStudentByCourse(courseId);
+            for (Student student : userDAO.getAllStudentByCourse(courseId)) {
+                students.add(student);
+            }
+            return students;
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
         }

@@ -1,7 +1,6 @@
 package by.trjava.pashkovich.facultative.service.comparator;
 
 import by.trjava.pashkovich.facultative.entity.Person;
-import by.trjava.pashkovich.facultative.entity.Student;
 
 import java.util.Comparator;
 

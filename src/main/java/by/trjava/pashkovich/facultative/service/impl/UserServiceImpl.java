@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class UserServiceImpl implements UserService {
@@ -51,7 +52,8 @@ public class UserServiceImpl implements UserService {
     public User getUserByLogin(String login, String local) throws ServiceException {
         UserDAO userDAO = DAOFactory.getUserDAO();
         try {
-            return MessageManager.enLocal.equals(local) ? userDAO.getUserByLoginOnEn(login)
+            return MessageManager.enLocal.equals(local)
+                    ? userDAO.getUserByLoginOnEn(login)
                     : userDAO.getUserByLoginOnRu(login);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
@@ -62,7 +64,8 @@ public class UserServiceImpl implements UserService {
     public User getUserById(int userId, String local) throws ServiceException {
         UserDAO userDAO = DAOFactory.getUserDAO();
         try {
-            return MessageManager.enLocal.equals(local) ? userDAO.getUserByIdOnRu(userId)
+            return MessageManager.enLocal.equals(local)
+                    ? userDAO.getUserByIdOnRu(userId)
                     : userDAO.getUserByIdOnRu(userId);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
@@ -137,7 +140,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Set<Student> getAllStudent() throws ServiceException {
         UserDAO userDAO = DAOFactory.getUserDAO();
-        Set<Student> students = new TreeSet<>(new PersonComparator());
+        Set<Student> students = new TreeSet<>(new PersonComparator<>());
         try {
             for (Student student : userDAO.getAllStudent()) {
                 students.add(student);
@@ -151,7 +154,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Set<Student> getStudentByPartialMatch(String studentName) throws ServiceException {
         UserDAO userDAO = DAOFactory.getUserDAO();
-        Set<Student> students = new TreeSet<>(new PersonComparator());
+        Set<Student> students = new TreeSet<>(new PersonComparator<>());
         try {
             for (Student student : userDAO.getStudentByPartialMatch(studentName)) {
                 students.add(student);
@@ -165,34 +168,48 @@ public class UserServiceImpl implements UserService {
     @Override
     public Set<Teacher> getAllTeacher(String local) throws ServiceException {
         UserDAO userDAO = DAOFactory.getUserDAO();
+        Set<Teacher> teachers = new TreeSet<>(new PersonComparator<>());
         try {
-            return MessageManager.enLocal.equals(local) ? userDAO.getAllTeacherOnEn()
-                    : userDAO.getAllTeacherOnRu();
+            for (Teacher teacher : MessageManager.enLocal.equals(local)
+                    ? userDAO.getAllTeacherOnEn()
+                    : userDAO.getAllTeacherOnRu()) {
+                teachers.add(teacher);
+            }
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
         }
+        return teachers;
     }
 
     @Override
     public Map<Teacher, Integer> getAllTeacherWithCourseCount(String local) throws ServiceException {
         UserDAO userDAO = DAOFactory.getUserDAO();
+        Map<Teacher, Integer> teachers = new TreeMap<>(new PersonComparator<>());
         try {
-            return MessageManager.enLocal.equals(local) ? userDAO.getAllTeacherWithCourseCountOnEn()
-                    : userDAO.getAllTeacherWithCourseCountOnRu();
+            for (Map.Entry<Teacher, Integer> teacher : MessageManager.enLocal.equals(local)
+                    ? userDAO.getAllTeacherWithCourseCountOnEn().entrySet()
+                    : userDAO.getAllTeacherWithCourseCountOnRu().entrySet()) {
+                teachers.put(teacher.getKey(), teacher.getValue());
+            }
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
         }
+        return teachers;
     }
 
     @Override
     public Map<Teacher, Integer> getTeacherWithCourseCountByPartialMatch(String teacherName, String local) throws ServiceException {
         UserDAO userDAO = DAOFactory.getUserDAO();
+        Map<Teacher, Integer> teachers = new TreeMap<>(new PersonComparator<>());
         try {
-            return MessageManager.enLocal.equals(local)
-                    ? userDAO.getTeacherWithCourseCountByPartialMatchOnEn(teacherName)
-                    : userDAO.getTeacherWithCourseCountByPartialMatchOnRu(teacherName);
+            for (Map.Entry<Teacher, Integer> teacher : MessageManager.enLocal.equals(local)
+                    ? userDAO.getTeacherWithCourseCountByPartialMatchOnEn(teacherName).entrySet()
+                    : userDAO.getTeacherWithCourseCountByPartialMatchOnRu(teacherName).entrySet()) {
+                teachers.put(teacher.getKey(), teacher.getValue());
+            }
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
         }
+        return teachers;
     }
 }

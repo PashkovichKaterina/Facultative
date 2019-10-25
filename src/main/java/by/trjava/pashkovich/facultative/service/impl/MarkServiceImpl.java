@@ -40,7 +40,7 @@ public class MarkServiceImpl implements MarkService {
     public Map<Student, List<Integer>> getStudentWithMarkByCourse(int courseId) throws ServiceException {
         MarkDAO markDAO = DAOFactory.getMarkDAO();
         UserDAO userDAO = DAOFactory.getUserDAO();
-        Map<Student, List<Integer>> studentWithMark = new TreeMap<>(new PersonComparator());
+        Map<Student, List<Integer>> studentWithMark = new TreeMap<>(new PersonComparator<>());
         try {
             for (Student student : userDAO.getAllStudentByCourse(courseId)) {
                 studentWithMark.put(student, markDAO.getStudentMarkByCourse(student.getId(), courseId));
@@ -54,7 +54,7 @@ public class MarkServiceImpl implements MarkService {
     @Override
     public Map<Student, Integer> getStudentWithMarkByCourseWork(int courseId, String workTitle) throws ServiceException {
         MarkDAO markDAO = DAOFactory.getMarkDAO();
-        Map<Student, Integer> students = new TreeMap<>(new PersonComparator());
+        Map<Student, Integer> students = new TreeMap<>(new PersonComparator<>());
         try {
             for (Map.Entry<Student, Integer> student : markDAO.getStudentWithMarkByCourseWork(courseId, workTitle).entrySet()) {
                 students.put(student.getKey(), student.getValue());

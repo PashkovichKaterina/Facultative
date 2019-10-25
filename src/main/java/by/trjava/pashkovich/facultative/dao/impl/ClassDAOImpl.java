@@ -200,6 +200,33 @@ public class ClassDAOImpl implements ClassDAO {
         return getAllDays(SqlQuery.GET_ALL_DAYS_EN);
     }
 
+    private Set<String> getAllDays(String query) throws DAOException {
+        Connection connection;
+        Set<String> days = new LinkedHashSet<>();
+        try {
+            connection = BaseConnectionPool.getInstance().getConnection();
+        } catch (ConnectionPoolException e) {
+            throw new DAOException("Exception in Connection Pool: " + e.getMessage(), e);
+        }
+        try (Statement statement = connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery(query)) {
+                while (resultSet.next()) {
+                    String day = resultSet.getString(Variable.TITLE);
+                    days.add(day);
+                }
+            }
+            return days;
+        } catch (SQLException e) {
+            throw new DAOException("Exception in SQL: " + e.getMessage(), e);
+        } finally {
+            try {
+                BaseConnectionPool.getInstance().releaseConnection(connection);
+            } catch (ConnectionPoolException e) {
+                throw new DAOException("Exception in Connection Pool: " + e.getMessage(), e);
+            }
+        }
+    }
+
     @Override
     public Date getBeginDateByCourse(int courseId) throws DAOException {
         return getDateByCourse(courseId, SqlQuery.GET_BEGIN_DATE_BY_COURSE);
@@ -225,33 +252,6 @@ public class ClassDAOImpl implements ClassDAO {
                     result = resultSet.getTimestamp(Variable.DATE);
                 }
                 return result;
-            }
-        } catch (SQLException e) {
-            throw new DAOException("Exception in SQL: " + e.getMessage(), e);
-        } finally {
-            try {
-                BaseConnectionPool.getInstance().releaseConnection(connection);
-            } catch (ConnectionPoolException e) {
-                throw new DAOException("Exception in Connection Pool: " + e.getMessage(), e);
-            }
-        }
-    }
-
-    private Set<String> getAllDays(String query) throws DAOException {
-        Connection connection;
-        try {
-            connection = BaseConnectionPool.getInstance().getConnection();
-        } catch (ConnectionPoolException e) {
-            throw new DAOException("Exception in Connection Pool: " + e.getMessage(), e);
-        }
-        Set<String> days = new HashSet<>();
-        try (Statement statement = connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery(query)) {
-                while (resultSet.next()) {
-                    String day = resultSet.getString(Variable.TITLE);
-                    days.add(day);
-                }
-                return days;
             }
         } catch (SQLException e) {
             throw new DAOException("Exception in SQL: " + e.getMessage(), e);
