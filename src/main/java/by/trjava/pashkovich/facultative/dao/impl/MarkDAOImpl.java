@@ -17,7 +17,15 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class MarkDAOImpl implements MarkDAO {
-
+    /**
+     * Inserts the grade to the specified student for the specified work in the database
+     * used {@code SqlQuery.INSERT_MARK} SQL query.
+     *
+     * @param studentId student id.
+     * @param workId    work id.
+     * @param mark      work mark.
+     * @throws DAOException if an SQL syntax or Connection Pool error occurred.
+     */
     @Override
     public void insertMark(int studentId, int workId, int mark) throws DAOException {
         Connection connection;
@@ -42,6 +50,15 @@ public class MarkDAOImpl implements MarkDAO {
         }
     }
 
+    /**
+     * Updates the grade to the specified student for the specified work in the database
+     * used {@code SqlQuery.UPDATE_MARK} SQL query.
+     *
+     * @param studentId student id.
+     * @param workId    work id.
+     * @param mark      work mark.
+     * @throws DAOException if an SQL syntax or Connection Pool error occurred.
+     */
     @Override
     public void updateMark(int studentId, int workId, int mark) throws DAOException {
         Connection connection;
@@ -66,6 +83,13 @@ public class MarkDAOImpl implements MarkDAO {
         }
     }
 
+    /**
+     * Deletes all marks for the specified course
+     * used {@code SqlQuery.DELETE_MARK_BY_COURSE} SQL query.
+     *
+     * @param courseId course id.
+     * @throws DAOException if an SQL syntax or Connection Pool error occurred.
+     */
     @Override
     public void deleteMarkByCourse(int courseId) throws DAOException {
         Connection connection;
@@ -88,6 +112,15 @@ public class MarkDAOImpl implements MarkDAO {
         }
     }
 
+    /**
+     * Returns the average mark of the specified student at the specified course
+     * used {@code SqlQuery.GET_STUDENT_AVERAGE_MARK_BY_COURSE} SQL query.
+     *
+     * @param studentId student id.
+     * @param courseId  course id.
+     * @return the average mark of the specified student at the specified course.
+     * @throws DAOException if an SQL syntax or Connection Pool error occurred.
+     */
     @Override
     public int getStudentAverageMarkByCourse(int studentId, int courseId) throws DAOException {
         Connection connection;
@@ -117,6 +150,15 @@ public class MarkDAOImpl implements MarkDAO {
         }
     }
 
+    /**
+     * Returns all student mark in the format work title-mark
+     * used {@code SqlQuery.GET_STUDENT_ALL_MARK_BY_COURSE} SQL query.
+     *
+     * @param studentId student id.
+     * @param courseId  course id.
+     * @return all student mark in the format work title-mark.
+     * @throws DAOException if an SQL syntax or Connection Pool error occurred.
+     */
     @Override
     public Map<String, Integer> getStudentMarkWithWorkTitleByCourse(int studentId, int courseId) throws DAOException {
         Connection connection;
@@ -148,7 +190,15 @@ public class MarkDAOImpl implements MarkDAO {
         }
     }
 
-
+    /**
+     * List of all student marks in the order they are added to the database
+     * used {@code SqlQuery.GET_STUDENT_MARK_BY_COURSE} SQL query.
+     *
+     * @param studentId student id.
+     * @param courseId  course id.
+     * @return a list of all student marks in the order they are added to the database.
+     * @throws DAOException if an SQL syntax or Connection Pool error occurred.
+     */
     @Override
     public List<Integer> getStudentMarkByCourse(int studentId, int courseId) throws DAOException {
         Connection connection;
@@ -179,6 +229,15 @@ public class MarkDAOImpl implements MarkDAO {
         }
     }
 
+    /**
+     * All students with an average mark at the specific course
+     * used {@code SqlQuery.GET_STUDENT_WITH_MARK_BY_COURSE_WORK} SQL query.
+     *
+     * @param courseId  course id.
+     * @param workTitle work title.
+     * @return all students with an average mark at the specific course.
+     * @throws DAOException if an SQL syntax or Connection Pool error occurred.
+     */
     @Override
     public Map<Student, Integer> getStudentWithMarkByCourseWork(int courseId, String workTitle) throws DAOException {
         Connection connection;
@@ -193,8 +252,7 @@ public class MarkDAOImpl implements MarkDAO {
             statement.setString(2, workTitle);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    Student student = new Student();
-                    UserCreator.install(student, resultSet);
+                    Student student = (Student) UserCreator.create(resultSet);
                     int mark = resultSet.getInt(Variable.MARK);
                     students.put(student, mark);
                 }

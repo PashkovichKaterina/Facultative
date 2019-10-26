@@ -17,7 +17,18 @@ import java.util.*;
 import java.util.Date;
 
 public class ArchiveDAOImpl implements ArchiveDAO {
-
+    /**
+     * Inserts information about the course taken by the student
+     * used {@code SqlQuery.INSERT_ARCHIVE} SQL query.
+     *
+     * @param studentId   student id.
+     * @param courseId    course id.
+     * @param averageMark student average mark.
+     * @param startDate   course start date.
+     * @param endDate     course end date.
+     * @param review      review about student work.
+     * @throws DAOException if an SQL syntax or Connection Pool error occurred.
+     */
     @Override
     public void insertArchive(int studentId, int courseId, int averageMark, Date startDate,
                               Date endDate, String review) throws DAOException {
@@ -46,6 +57,17 @@ public class ArchiveDAOImpl implements ArchiveDAO {
         }
     }
 
+    /**
+     * Inserts information about the course taken by the student
+     * used {@code SqlQuery.UPDATE_ARCHIVE} SQL query.
+     *
+     * @param studentId   student id.
+     * @param courseId    course id.
+     * @param averageMark student average mark.
+     * @param startDate   course start date.
+     * @param endDate     course end date.
+     * @throws DAOException if an SQL syntax or Connection Pool error occurred.
+     */
     @Override
     public void updateArchive(int studentId, int courseId, int averageMark, Date startDate, Date endDate) throws DAOException {
         Connection connection;
@@ -72,6 +94,15 @@ public class ArchiveDAOImpl implements ArchiveDAO {
         }
     }
 
+    /**
+     * Update review about student work on specific course
+     * used {@code SqlQuery.UPDATE_REVIEW} SQL query.
+     *
+     * @param studentId student id.
+     * @param courseId  course id.
+     * @param review    review about student work.
+     * @throws DAOException if an SQL syntax or Connection Pool error occurred.
+     */
     @Override
     public void updateReview(int studentId, int courseId, String review) throws DAOException {
         Connection connection;
@@ -96,6 +127,16 @@ public class ArchiveDAOImpl implements ArchiveDAO {
         }
     }
 
+    /**
+     * Checks if the archive contains information about the specified student
+     * at the specified course used {@code SqlQuery.IS_CONTAINS_ARCHIVE} SQL query.
+     *
+     * @param studentId student id.
+     * @param courseId  course id.
+     * @return {@code true} if the archive contains information about the specified student
+     * at the specified course, {@code false} otherwise.
+     * @throws DAOException if an SQL syntax or Connection Pool error occurred.
+     */
     @Override
     public boolean isContains(int studentId, int courseId) throws DAOException {
         Connection connection;
@@ -121,6 +162,15 @@ public class ArchiveDAOImpl implements ArchiveDAO {
         }
     }
 
+    /**
+     * Returns review about specific student by specific course
+     * used {@code SqlQuery.GET_REVIEW_ABOUT_STUDENT} SQL query.
+     *
+     * @param studentId student id.
+     * @param courseId  course id.
+     * @return review about specific student by specific course.
+     * @throws DAOException if an SQL syntax or Connection Pool error occurred.
+     */
     @Override
     public String getReview(int studentId, int courseId) throws DAOException {
         Connection connection;
@@ -150,16 +200,40 @@ public class ArchiveDAOImpl implements ArchiveDAO {
         }
     }
 
+    /**
+     * Returns all archive course on Russian language with average mark for specific student
+     * used {@code SqlQuery.GET_ARCHIVE_COURSE_BY_STUDENT_RU} SQL query.
+     *
+     * @param studentId student id.
+     * @return all archive course on Russian language with average mark for specific student.
+     * @throws DAOException if an SQL syntax or Connection Pool error occurred.
+     */
     @Override
     public Map<ArchiveCourse, Integer> getArchiveCourseWithMarkByStudentOnRu(int studentId) throws DAOException {
         return getArchiveCourseWithMarkByStudent(studentId, SqlQuery.GET_ARCHIVE_COURSE_BY_STUDENT_RU);
     }
 
+    /**
+     * Returns all archive course on English language with average mark for specific student
+     * used {@code SqlQuery.GET_ARCHIVE_COURSE_BY_STUDENT_EN} SQL query.
+     *
+     * @param studentId student id.
+     * @return all archive course on English language with average mark for specific student.
+     * @throws DAOException if an SQL syntax or Connection Pool error occurred.
+     */
     @Override
     public Map<ArchiveCourse, Integer> getArchiveCourseWithMarkByStudentOnEn(int studentId) throws DAOException {
         return getArchiveCourseWithMarkByStudent(studentId, SqlQuery.GET_ARCHIVE_COURSE_BY_STUDENT_EN);
     }
 
+    /**
+     * Returns all archive course with average mark for specific student used specific query.
+     *
+     * @param studentId student id.
+     * @param query     specific query.
+     * @return
+     * @throws DAOException if an SQL syntax or Connection Pool error occurred.
+     */
     private Map<ArchiveCourse, Integer> getArchiveCourseWithMarkByStudent(int studentId, String query) throws DAOException {
         Connection connection;
         try {
@@ -174,8 +248,7 @@ public class ArchiveDAOImpl implements ArchiveDAO {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     ArchiveCourse archiveCourse = new ArchiveCourse();
-                    Course course = new Course();
-                    CourseCreator.install(course, resultSet);
+                    Course course = CourseCreator.create(resultSet);
                     archiveCourse.setCourse(course);
                     archiveCourse.setBeginDate(resultSet.getDate(Variable.START_DATE));
                     archiveCourse.setEndDate(resultSet.getDate(Variable.END_DATE));

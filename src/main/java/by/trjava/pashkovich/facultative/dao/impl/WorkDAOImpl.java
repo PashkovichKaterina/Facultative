@@ -15,6 +15,14 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class WorkDAOImpl implements WorkDAO {
+    /**
+     * Inserts work with the specified title at the specified course into the database
+     * used {@code SqlQuery.INSERT_WORK} SQL query.
+     *
+     * @param courseId course id.
+     * @param title    work title.
+     * @throws DAOException if an SQL syntax or Connection Pool error occurred.
+     */
     @Override
     public void insertWork(int courseId, String title) throws DAOException {
         Connection connection;
@@ -38,6 +46,12 @@ public class WorkDAOImpl implements WorkDAO {
         }
     }
 
+    /**
+     * Delete all works from a specific course used {@code SqlQuery.DELETE_WORK_BY_COURSE} SQL query.
+     *
+     * @param courseId course id
+     * @throws DAOException if an SQL syntax or Connection Pool error occurred.
+     */
     @Override
     public void deleteWorkByCourse(int courseId) throws DAOException {
         Connection connection;
@@ -58,9 +72,15 @@ public class WorkDAOImpl implements WorkDAO {
                 throw new DAOException("Exception in Connection Pool: " + e.getMessage(), e);
             }
         }
-
     }
 
+    /**
+     * Returns all work title from a specific course used {@code SqlQuery.GET_WORK_TITLE_BY_COURSE} SQL query.
+     *
+     * @param courseId course id.
+     * @return all work title from a specific course.
+     * @throws DAOException if an SQL syntax or Connection Pool error occurred.
+     */
     @Override
     public Set<String> getWorkTitleByCourse(int courseId) throws DAOException {
         Connection connection;
@@ -90,6 +110,14 @@ public class WorkDAOImpl implements WorkDAO {
         }
     }
 
+    /**
+     * Returns work id which title equals with the specific used {@code SqlQuery.GET_WORK_ID} SQL query.
+     *
+     * @param courseId course id.
+     * @param title    work title.
+     * @return work id which title equals with the specific.
+     * @throws DAOException if an SQL syntax or Connection Pool error occurred.
+     */
     @Override
     public int getWorkId(int courseId, String title) throws DAOException {
         Connection connection;
@@ -119,6 +147,16 @@ public class WorkDAOImpl implements WorkDAO {
         }
     }
 
+    /**
+     * Checks if the specified work is fixed for the specified teacher
+     * used {@code SqlQuery.IS_WORK_AVAILABLE_FOR_TEACHER} Sql query.
+     *
+     * @param workId    work id.
+     * @param teacherId teacher id.
+     * @return {@code true} if the specified work is fixed for the specified teacher,
+     * {@code false} otherwise.
+     * @throws DAOException if an SQL syntax or Connection Pool error occurred.
+     */
     @Override
     public boolean isWorkAvailableForTeacher(int workId, int teacherId) throws DAOException {
         Connection connection;
@@ -144,6 +182,16 @@ public class WorkDAOImpl implements WorkDAO {
         }
     }
 
+    /**
+     * Checks if the specified work is available for the specified student
+     * used {@code SqlQuery.IS_WORK_AVAILABLE_FOR_STUDENT} Sql query.
+     *
+     * @param workId    work id.
+     * @param studentId student id.
+     * @return {@code true} if the specified work is available for the specified student,
+     * {@code false} otherwise.
+     * @throws DAOException if an SQL syntax or Connection Pool error occurred.
+     */
     @Override
     public boolean isWorkAvailableForStudent(int workId, int studentId) throws DAOException {
         Connection connection;

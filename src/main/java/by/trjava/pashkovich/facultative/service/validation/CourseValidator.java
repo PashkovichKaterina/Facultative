@@ -2,6 +2,7 @@ package by.trjava.pashkovich.facultative.service.validation;
 
 import by.trjava.pashkovich.facultative.constants.InformMessage;
 import by.trjava.pashkovich.facultative.constants.Variable;
+import by.trjava.pashkovich.facultative.dao.CategoryDAO;
 import by.trjava.pashkovich.facultative.dao.CourseDAO;
 import by.trjava.pashkovich.facultative.dao.DAOFactory;
 import by.trjava.pashkovich.facultative.dao.exception.DAOException;
@@ -55,12 +56,12 @@ public class CourseValidator {
      * @throws ServiceException if an exception occurred in the DAO layer.
      */
     public static boolean checkCategoryTitle(String category, String local) throws ServiceException {
-        CourseDAO courseDAO = DAOFactory.getCourseDAO();
+        CategoryDAO categoryDAO = DAOFactory.getCategoryDAO();
         int categoryId;
         try {
             categoryId = MessageManager.enLocal.equals(local)
-                    ? courseDAO.getCategoryIdByCategoryTitleOnEn(category)
-                    : courseDAO.getCategoryIdByCategoryTitleOnRu(category);
+                    ? categoryDAO.getCategoryIdByCategoryTitleOnEn(category)
+                    : categoryDAO.getCategoryIdByCategoryTitleOnRu(category);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
         }

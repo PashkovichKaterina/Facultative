@@ -7,17 +7,20 @@ import by.trjava.pashkovich.facultative.entity.Teacher;
 import by.trjava.pashkovich.facultative.entity.User;
 import by.trjava.pashkovich.facultative.entity.characteristic.UserRole;
 import by.trjava.pashkovich.facultative.dao.exception.CreatorException;
+import by.trjava.pashkovich.facultative.entity.factory.UserFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
 public class UserCreator {
-    public static void install(User user, ResultSet resultSet) throws CreatorException {
-        if (!Optional.ofNullable(user).isPresent() || !Optional.ofNullable(resultSet).isPresent()) {
+    public static User create(ResultSet resultSet) throws CreatorException {
+        if (!Optional.ofNullable(resultSet).isPresent()) {
             throw new CreatorException("Empty data for install User");
         }
+        User user;
         try {
+            user = UserFactory.createUser(UserRole.getRole(resultSet.getInt(Variable.ROLE_ID)));
             user.setId(resultSet.getInt(Variable.USER_ID));
             user.setLogin(resultSet.getString(Variable.LOGIN));
             user.setEmail(resultSet.getString(Variable.EMAIL));
@@ -33,13 +36,14 @@ public class UserCreator {
                 ((Student) user).setAddress(resultSet.getString(Variable.ADDRESS));
                 ((Student) user).setDateOfBirth(resultSet.getDate(Variable.DATE_OF_BIRTH));
                 user.setRole(UserRole.STUDENT);
-            }
-            if (user instanceof Teacher) {
+            } else if (user instanceof Teacher) {
                 ((Teacher) user).setPosition(resultSet.getString(Variable.POSITION));
                 user.setRole(UserRole.TEACHER);
             }
         } catch (SQLException e) {
-            throw new CreatorException("Invalid sql result", e);
+            System.out.println(e.getMessage());
+            throw new CreatorException("Invalid sql result: " + e.getMessage(), e);
         }
+        return user;
     }
 }

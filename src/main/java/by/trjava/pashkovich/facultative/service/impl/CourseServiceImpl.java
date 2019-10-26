@@ -72,11 +72,11 @@ public class CourseServiceImpl implements CourseService {
      */
     @Override
     public Set<String> getAllCategory(String local) throws ServiceException {
-        CourseDAO courseDAO = DAOFactory.getCourseDAO();
+        CategoryDAO categoryDAO = DAOFactory.getCategoryDAO();
         try {
             Set<String> categories = MessageManager.enLocal.equals(local)
-                    ? courseDAO.getAllCategoryOnEn()
-                    : courseDAO.getAllCategoryOnRu();
+                    ? categoryDAO.getAllCategoryOnEn()
+                    : categoryDAO.getAllCategoryOnRu();
             return new TreeSet<>(categories);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
@@ -218,6 +218,7 @@ public class CourseServiceImpl implements CourseService {
                 courseWithStatus.put(course, status);
             }
         } catch (DAOException e) {
+            System.out.println(e.getMessage());
             throw new ServiceException(e.getMessage(), e);
         }
         return courseWithStatus;
@@ -261,11 +262,11 @@ public class CourseServiceImpl implements CourseService {
      */
     @Override
     public int getCategoryIdByCategoryTitle(String categoryTitle, String local) throws ServiceException {
-        CourseDAO courseDAO = DAOFactory.getCourseDAO();
+        CategoryDAO categoryDAO = DAOFactory.getCategoryDAO();
         try {
             return MessageManager.enLocal.equals(local)
-                    ? courseDAO.getCategoryIdByCategoryTitleOnEn(categoryTitle)
-                    : courseDAO.getCategoryIdByCategoryTitleOnRu(categoryTitle);
+                    ? categoryDAO.getCategoryIdByCategoryTitleOnEn(categoryTitle)
+                    : categoryDAO.getCategoryIdByCategoryTitleOnRu(categoryTitle);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
         }
@@ -426,6 +427,7 @@ public class CourseServiceImpl implements CourseService {
                 return messageManager.getMessage(InformMessage.COURSE_IN_PROGRESS, local);
             }
         } catch (DAOException e) {
+            System.out.println("status " + e.getMessage());
             throw new ServiceException(e.getMessage(), e);
         }
         if (course.getAvailability()) {

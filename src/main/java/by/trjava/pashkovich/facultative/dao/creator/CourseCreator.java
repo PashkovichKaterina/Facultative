@@ -9,10 +9,11 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 public class CourseCreator {
-    public static void install(Course course, ResultSet resultSet) throws CreatorException {
-        if (!Optional.ofNullable(course).isPresent() || !Optional.ofNullable(resultSet).isPresent()) {
+    public static Course create(ResultSet resultSet) throws CreatorException {
+        if (!Optional.ofNullable(resultSet).isPresent()) {
             throw new CreatorException("Empty data for install Course");
         }
+        Course course = new Course();
         try {
             course.setId(resultSet.getInt(Variable.COURSE_ID));
             course.setTitle(resultSet.getString(Variable.TITLE));
@@ -24,5 +25,6 @@ public class CourseCreator {
         } catch (SQLException e) {
             throw new CreatorException("Invalid sql result", e);
         }
+        return course;
     }
 }
