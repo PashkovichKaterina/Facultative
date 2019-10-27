@@ -37,7 +37,7 @@ public class ShowAllStudentCommand implements Command {
         User user = (User) session.getAttribute(Variable.USER);
 
         try {
-            if (UserRoleValidator.isAdministratorLoggedIn(user)) {
+            if (UserRoleValidator.isUserLoggedIn(user) && UserRoleValidator.isAdministratorLoggedIn(user)) {
                 request.setAttribute(Variable.STUDENTS, userService.getAllStudent());
                 request.getRequestDispatcher(JspPath.ADMIN_STUDENT).forward(request, response);
             }

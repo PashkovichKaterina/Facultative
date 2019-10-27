@@ -38,7 +38,7 @@ public class ShowAllCourseForAdmin implements Command {
         User user = (User) session.getAttribute(Variable.USER);
 
         try {
-            if (UserRoleValidator.isAdministratorLoggedIn(user)) {
+            if (UserRoleValidator.isUserLoggedIn(user) && UserRoleValidator.isAdministratorLoggedIn(user)) {
                 request.setAttribute(Variable.COURSES, courseService.getAllCourseWithStatus(local));
                 request.getRequestDispatcher(JspPath.ADMIN_COURSE).forward(request, response);
             }

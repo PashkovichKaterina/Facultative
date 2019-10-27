@@ -40,7 +40,7 @@ public class ShowRejectApplyFormCommand implements Command {
         CourseService courseService = ServiceFactory.getCourseService();
 
         try {
-            if (UserRoleValidator.isAdministratorLoggedIn(user)) {
+            if (UserRoleValidator.isUserLoggedIn(user) && UserRoleValidator.isAdministratorLoggedIn(user)) {
                 int studentId = new Integer(request.getParameter(Variable.STUDENT));
                 int courseId = new Integer(request.getParameter(Variable.COURSE));
                 request.setAttribute(Variable.STUDENT, userService.getUserById(studentId, local));

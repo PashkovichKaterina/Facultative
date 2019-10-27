@@ -39,7 +39,7 @@ public class ShowAddCourseFormCommand implements Command {
         String local = (String) session.getAttribute(Variable.LOCAL);
 
         try {
-            if (UserRoleValidator.isAdministratorLoggedIn(user)) {
+            if (UserRoleValidator.isUserLoggedIn(user) && UserRoleValidator.isAdministratorLoggedIn(user)) {
                 request.setAttribute(Variable.CATEGORIES, courseService.getAllCategory(local));
                 request.setAttribute(Variable.TEACHERS, userService.getAllTeacher(local));
                 request.setAttribute(Variable.SKILLS, skillService.getAllSkill(local));

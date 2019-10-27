@@ -22,6 +22,7 @@ public class JspPath {
     public static final String EDIT_STUDENT_PAGE = "/WEB-INF/jsp/editStudent.jsp";
     public static final String ADD_CLASS_PAGE = "/WEB-INF/jsp/addClass.jsp";
     public static final String ADD_WORK_PAGE = "/WEB-INF/jsp/addWork.jsp";
+    public static final String LEAVE_REVIEW = "/WEB-INF/jsp/leaveReview.jsp";
     public static final String ACCOUNT_STUDENT_PAGE = "/WEB-INF/jsp/student.jsp";
     public static final String ACCOUNT_TEACHER_PAGE = "/WEB-INF/jsp/teacher.jsp";
     public static final String ADMIN_SKILL = "/WEB-INF/jsp/admin/adminSkill.jsp";
@@ -32,5 +33,7 @@ public class JspPath {
     public static final String ADMIN_APPLY = "/WEB-INF/jsp/admin/adminApply.jsp";
     public static final String ADD_COURSE_PAGE = "/WEB-INF/jsp/admin/addCourse.jsp";
     public static final String REJECT_APPLY_PAGE = "/WEB-INF/jsp/admin/rejectApply.jsp";
-    public static final String LEAVE_REVIEW = "/WEB-INF/jsp/leaveReview.jsp";
+    public static final String STUDENT_INFO_PAGE = "/WEB-INF/jsp/admin/studentInfo.jsp";
+    public static final String TEACHER_INFO_PAGE = "/WEB-INF/jsp/admin/teacherInfo.jsp";
+    public static final String COURSE_ADMIN_INFO_PAGE = "/WEB-INF/jsp/admin/courseInfo.jsp";
 }

@@ -41,7 +41,7 @@ public class AddCourseCommand implements Command {
         User user = (User) session.getAttribute(Variable.USER);
 
         try {
-            if (UserRoleValidator.isAdministratorLoggedIn(user)) {
+            if (UserRoleValidator.isUserLoggedIn(user) && UserRoleValidator.isAdministratorLoggedIn(user)) {
                 courseService.insertCourse(request);
                 response.sendRedirect(request.getContextPath() + "/mainController?command=" + CommandVariety.SHOW_ALL_COURSE_FOR_ADMIN);
             }

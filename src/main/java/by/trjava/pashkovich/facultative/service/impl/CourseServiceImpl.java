@@ -427,7 +427,6 @@ public class CourseServiceImpl implements CourseService {
                 return messageManager.getMessage(InformMessage.COURSE_IN_PROGRESS, local);
             }
         } catch (DAOException e) {
-            System.out.println("status " + e.getMessage());
             throw new ServiceException(e.getMessage(), e);
         }
         if (course.getAvailability()) {
@@ -466,8 +465,25 @@ public class CourseServiceImpl implements CourseService {
             classDAO.deleteClassByCourse(courseId);
             applyDAO.deleteAllLearnApplyByCourse(courseId);
         } catch (DAOException e) {
-            System.out.println(e.getMessage());
             throw new ServiceException(e.getMessage(), e);
         }
+    }
+
+    @Override
+    public Map<Course, String> getCourseWithStatusByPartialMatchTitle(String courseTitle, String local) throws ServiceException {
+        CourseDAO courseDAO = DAOFactory.getCourseDAO();
+        Map<Course, String> courseWithStatus = new HashMap<>();
+        try {
+            Set<Course> courses = MessageManager.enLocal.equals(local)
+                    ? courseDAO.getCourseByPartialMatchTitleOnEn(courseTitle)
+                    : courseDAO.getCourseByPartialMatchTitleOnRu(courseTitle);
+            for (Course course : courses) {
+                String status = getCourseStatus(course, local);
+                courseWithStatus.put(course, status);
+            }
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+        return courseWithStatus;
     }
 }

@@ -38,7 +38,7 @@ public class ShowAllSkillCommand implements Command {
         User user = (User) session.getAttribute(Variable.USER);
 
         try {
-            if (UserRoleValidator.isAdministratorLoggedIn(user)) {
+            if (UserRoleValidator.isUserLoggedIn(user) && UserRoleValidator.isAdministratorLoggedIn(user)) {
                 request.setAttribute(Variable.SKILLS, skillService.getAllSkillWithCourseCount(local));
                 request.getRequestDispatcher(JspPath.ADMIN_SKILL).forward(request, response);
             }

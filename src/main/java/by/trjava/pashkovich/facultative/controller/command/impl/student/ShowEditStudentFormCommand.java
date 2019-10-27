@@ -26,7 +26,7 @@ public class ShowEditStudentFormCommand implements Command {
         User user = (User) session.getAttribute(Variable.USER);
 
         try {
-            if (UserRoleValidator.isStudentLoggedIn(user)) {
+            if (UserRoleValidator.isUserLoggedIn(user) && UserRoleValidator.isStudentLoggedIn(user)) {
                 Student student = (Student) user;
                 request.setAttribute(Variable.SURNAME, student.getSurname());
                 request.setAttribute(Variable.NAME, student.getName());

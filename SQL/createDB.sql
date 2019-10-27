@@ -183,33 +183,32 @@ ENGINE = InnoDB;
 -- Table `facultative`.`archives`
 -- The table contains archive of student courses.
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `facultative`.`archives` (
+CREATE TABLE IF NOT EXISTS `mydb`.`archives` (
   `student_id` INT NOT NULL,
   `course_id` INT NOT NULL,
   `average_mark` INT NOT NULL,
-  `start_date` DATE NOT NULL,
-  `end_date` DATE NOT NULL,
+  `start_date` DATE NULL,
+  `end_date` DATE NULL,
   `review` VARCHAR(100) NOT NULL,
   INDEX `fk_Users_ListenerArchive_idx` (`student_id` ASC) VISIBLE,
   INDEX `fk_Courses_ListenerArchive_idx` (`course_id` ASC) VISIBLE,
   CONSTRAINT `fk_Users_ListenerArchive`
     FOREIGN KEY (`student_id`)
-    REFERENCES `facultative`.`users` (`user_id`)
+    REFERENCES `mydb`.`users` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Courses_ListenerArchive`
     FOREIGN KEY (`course_id`)
-    REFERENCES `facultative`.`courses` (`course_id`)
+    REFERENCES `mydb`.`courses` (`course_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `facultative`.`positions`
--- The table contains all the job position for teachers.
+-- Table `mydb`.`positions`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `facultative`.`positions` (
+CREATE TABLE IF NOT EXISTS `mydb`.`positions` (
   `position_id` INT NOT NULL AUTO_INCREMENT,
   `title_ru` VARCHAR(30) NOT NULL,
   `title_en` VARCHAR(30) NOT NULL,

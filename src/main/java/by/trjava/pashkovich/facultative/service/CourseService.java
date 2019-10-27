@@ -147,4 +147,13 @@ public interface CourseService {
      * @throws ServiceException if an exception occurred in the DAO layer.
      */
     void endCourse(int courseId) throws ServiceException;
+
+    /**
+     * Returns all course with specific partial course title.
+     *
+     * @param courseTitle partial course title.
+     * @return all course with specific partial course title.
+     * @throws ServiceException if an exception occurred in the DAO layer.
+     */
+    Map<Course, String> getCourseWithStatusByPartialMatchTitle(String courseTitle, String local) throws ServiceException;
 }

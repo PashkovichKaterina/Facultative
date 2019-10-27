@@ -35,7 +35,7 @@ public class ViewSearchApplyResultCommand implements Command {
         User user = (User) session.getAttribute(Variable.USER);
 
         try {
-            if (UserRoleValidator.isAdministratorLoggedIn(user)) {
+            if (UserRoleValidator.isUserLoggedIn(user) && UserRoleValidator.isAdministratorLoggedIn(user)) {
                 String courseTitle = request.getParameter(Variable.COURSE);
                 String studentName = request.getParameter(Variable.NAME);
                 String url = null;

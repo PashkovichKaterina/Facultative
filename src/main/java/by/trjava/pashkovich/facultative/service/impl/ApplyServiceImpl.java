@@ -173,7 +173,11 @@ public class ApplyServiceImpl implements ApplyService {
             if (!CourseValidator.checkCourseId(courseId) || applyDAO.isContains(studentId, courseId)) {
                 throw new ServiceException("Invalid data for reject apply");
             }
-            archiveDAO.insertArchive(studentId, courseId, 0, null, null, review);
+            if (archiveDAO.isContains(studentId, courseId)) {
+                archiveDAO.updateArchive(studentId, courseId, 0, null, null);
+            } else {
+                archiveDAO.insertArchive(studentId, courseId, 0, null, null, review);
+            }
             applyDAO.deleteApply(studentId, courseId);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);

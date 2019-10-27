@@ -58,6 +58,9 @@ public class CommandProvider {
         commands.put(CommandVariety.SHOW_LEAVE_REVIEW_FORM, new ShowLeaveReviewFormCommand());
         commands.put(CommandVariety.LEAVE_REVIEW, new LeaveReviewCommand());
         commands.put(CommandVariety.END_COURSE, new EndCourseCommand());
+        commands.put(CommandVariety.SHOW_USER_ACCOUNT, new ShowUserAccountCommand());
+        commands.put(CommandVariety.SHOW_COURSE_INFO_FOR_ADMIN, new ShowCourseInfoForAdmin());
+        commands.put(CommandVariety.SEARCH_COURSE_BY_ADMIN, new SearchCourseByAdminCommand());
     }
 
     public static CommandProvider getInstance() {

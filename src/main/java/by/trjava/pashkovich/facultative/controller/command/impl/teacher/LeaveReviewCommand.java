@@ -33,17 +33,14 @@ public class LeaveReviewCommand implements Command {
         ApplyService applyService = ServiceFactory.getApplyService();
 
         try {
-            if (UserRoleValidator.isAdministratorLoggedIn(user)) {
+            if (UserRoleValidator.isUserLoggedIn(user)) {
                 applyService.leaveReview(studentId, courseId, review);
                 response.sendRedirect(request.getContextPath() + "/mainController?command=" + CommandVariety.FIXED_COURSE + "&id=" + courseId);
             }
         } catch (AuthenticationException e) {
             LOGGER.warn("Unauthenticated user tried to access the page " + request.getRequestURI());
             response.sendRedirect(request.getContextPath() + JspPath.LOGIN_PAGE);
-        } catch (AuthorizationException e) {
-            LOGGER.warn("User " + user.getId() + " tried to access the page " + request.getRequestURI());
-            response.sendError(404);
-        } catch (InvalidDataTypeException e) {
+        }  catch (InvalidDataTypeException e) {
             LOGGER.error(e.getMessage());
             response.sendError(500);
         } catch (ServiceException e) {

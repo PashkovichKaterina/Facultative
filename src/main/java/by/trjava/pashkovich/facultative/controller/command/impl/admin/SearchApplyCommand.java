@@ -40,7 +40,7 @@ public class SearchApplyCommand implements Command {
         String studentName = request.getParameter(Variable.NAME);
 
         try {
-            if (UserRoleValidator.isAdministratorLoggedIn(user)) {
+            if (UserRoleValidator.isUserLoggedIn(user) && UserRoleValidator.isAdministratorLoggedIn(user)) {
                 request.setAttribute(Variable.APPLIES, applyService.searchApply(studentName, courseTitle, local));
                 request.getRequestDispatcher(JspPath.ADMIN_APPLY).forward(request, response);
             }

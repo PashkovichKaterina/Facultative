@@ -38,7 +38,7 @@ public class ShowAllCategoryCommand implements Command {
         String local = (String) session.getAttribute(Variable.LOCAL);
 
         try {
-            if (UserRoleValidator.isAdministratorLoggedIn(user)) {
+            if (UserRoleValidator.isUserLoggedIn(user) && UserRoleValidator.isAdministratorLoggedIn(user)) {
                 request.setAttribute(Variable.CATEGORIES, categoryService.getAllCategoryWithCourseCount(local));
                 request.getRequestDispatcher(JspPath.ADMIN_CATEGORY).forward(request, response);
             }

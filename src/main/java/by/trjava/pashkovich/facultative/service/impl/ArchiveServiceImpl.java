@@ -4,11 +4,14 @@ import by.trjava.pashkovich.facultative.dao.ArchiveDAO;
 import by.trjava.pashkovich.facultative.dao.DAOFactory;
 import by.trjava.pashkovich.facultative.dao.exception.DAOException;
 import by.trjava.pashkovich.facultative.entity.ArchiveCourse;
+import by.trjava.pashkovich.facultative.entity.Course;
+import by.trjava.pashkovich.facultative.entity.Student;
 import by.trjava.pashkovich.facultative.service.ArchiveService;
 import by.trjava.pashkovich.facultative.service.comparator.ArchiveComparator;
 import by.trjava.pashkovich.facultative.service.exception.ServiceException;
 import by.trjava.pashkovich.facultative.util.MessageManager;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -47,5 +50,22 @@ public class ArchiveServiceImpl implements ArchiveService {
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
         }
+    }
+
+    @Override
+    public Map<Course, String> getAllCourseWithReviewByStudent(int studentId, String local) throws ServiceException {
+        Map<Course, String> review = new HashMap<>();
+        ArchiveDAO archiveDAO = DAOFactory.getArchiveDAO();
+        try {
+            Map<ArchiveCourse, Integer> archive = MessageManager.enLocal.equals(local)
+                    ? archiveDAO.getArchiveCourseWithMarkByStudentOnEn(studentId)
+                    : archiveDAO.getArchiveCourseWithMarkByStudentOnRu(studentId);
+            for (Map.Entry<ArchiveCourse, Integer> i : archive.entrySet()) {
+                review.put(i.getKey().getCourse(), archiveDAO.getReview(studentId, i.getKey().getCourse().getId()));
+            }
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+        return review;
     }
 }

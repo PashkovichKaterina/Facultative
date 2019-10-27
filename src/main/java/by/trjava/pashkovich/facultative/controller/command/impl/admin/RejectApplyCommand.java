@@ -39,7 +39,7 @@ public class RejectApplyCommand implements Command {
         User user = (User) session.getAttribute(Variable.USER);
 
         try {
-            if (UserRoleValidator.isAdministratorLoggedIn(user)) {
+            if (UserRoleValidator.isUserLoggedIn(user) && UserRoleValidator.isAdministratorLoggedIn(user)) {
                 applyService.rejectApply(studentId, courseId, review);
             }
         } catch (AuthenticationException e) {

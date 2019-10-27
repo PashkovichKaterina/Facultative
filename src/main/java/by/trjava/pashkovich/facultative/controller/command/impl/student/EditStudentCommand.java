@@ -28,7 +28,7 @@ public class EditStudentCommand implements Command {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(Variable.USER);
         try {
-            if (UserRoleValidator.isStudentLoggedIn(user)) {
+            if (UserRoleValidator.isUserLoggedIn(user) && UserRoleValidator.isStudentLoggedIn(user)) {
                 userService.editStudent(request);
                 response.sendRedirect(request.getContextPath() + "/mainController?command=" + CommandVariety.ACCOUNT);
             }

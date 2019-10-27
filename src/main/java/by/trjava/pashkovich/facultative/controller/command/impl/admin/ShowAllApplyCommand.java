@@ -37,7 +37,7 @@ public class ShowAllApplyCommand implements Command {
         User user = (User) session.getAttribute(Variable.USER);
 
         try {
-            if (UserRoleValidator.isAdministratorLoggedIn(user)) {
+            if (UserRoleValidator.isUserLoggedIn(user) && UserRoleValidator.isAdministratorLoggedIn(user)) {
                 request.setAttribute(Variable.APPLIES, applyService.getAllApply(local));
                 request.getRequestDispatcher(JspPath.ADMIN_APPLY).forward(request, response);
             }
