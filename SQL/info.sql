@@ -1,4 +1,4 @@
-/*insert into facultative.roles(title) values ('Администратор'), ('Преподаватель'), ('Студент');
+﻿insert into facultative.roles(title) values ('Администратор'), ('Преподаватель'), ('Студент');
 
 insert into facultative.levels(title_ru, title_en) values 
 ('Пользователь', 'User'), (
@@ -225,4 +225,4 @@ insert into facultative.marks(student_id, work_id, mark) values
 (15, 5, 9),
 (15, 6, 7),
 (15, 7, 6),
-(15, 8, 7);*/
+(15, 8, 7);
