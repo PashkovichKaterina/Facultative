@@ -55,11 +55,9 @@
                 <h1><fmt:message key="local.header.categories" bundle="${loc}"/></h1>
             </div>
             <input type="button" class="admin-button" value="<fmt:message key="local.button.add" bundle="${loc}"/>">
-            <input type="button" class="admin-button" value="<fmt:message key="local.button.delete" bundle="${loc}"/>">
             <table class="table">
                 <tr>
                     <th>#</th>
-                    <th></th>
                     <th><fmt:message key="local.course.category" bundle="${loc}"/></th>
                     <th><fmt:message key="local.courses.count" bundle="${loc}"/></th>
                 </tr>
@@ -67,8 +65,7 @@
                 <c:set var="i" value="${1}"/>
                 <c:forEach var="category" items="${categories.entrySet()}">
                     <tr>
-                        <th scope="row">${i} <i class="fa fa-pencil" aria-hidden="true"></i></th>
-                        <td><input type="checkbox" name="adminCourse"></td>
+                        <th scope="row">${i}</th>
                         <td>${category.key}</td>
                         <td>${category.value}</td>
                     </tr>

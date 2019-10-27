@@ -33,7 +33,7 @@ public class AccountCommand implements Command {
         try {
             switch (user.getRole()) {
                 case ADMINISTRATOR:
-                    response.sendRedirect(request.getContextPath() + "/mainController?command=" + CommandVariety.SHOW_ALL_SKILL);
+                    response.sendRedirect(request.getContextPath() + "/mainController?command=" + CommandVariety.SHOW_ALL_COURSE_FOR_ADMIN);
                     break;
                 case STUDENT:
                     request.setAttribute(Variable.ARCHIVE, archiveService.getArchiveCourseWithMarkByStudent(user.getId(), local));

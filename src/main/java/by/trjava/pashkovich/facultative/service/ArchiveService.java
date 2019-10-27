@@ -1,5 +1,6 @@
 package by.trjava.pashkovich.facultative.service;
 
+import by.trjava.pashkovich.facultative.dao.exception.DAOException;
 import by.trjava.pashkovich.facultative.entity.ArchiveCourse;
 import by.trjava.pashkovich.facultative.service.exception.ServiceException;
 
@@ -16,4 +17,14 @@ public interface ArchiveService {
      * @throws ServiceException if an exception occurred in the DAO layer.
      */
     Map<ArchiveCourse, Integer> getArchiveCourseWithMarkByStudent(int studentId, String local) throws ServiceException;
+
+    /**
+     * Returns review about specific student by specific course.
+     *
+     * @param studentId student id.
+     * @param courseId  course id.
+     * @return review about specific student by specific course.
+     * @throws DAOException if an SQL syntax or Connection Pool error occurred.
+     */
+    String getReview(int studentId, int courseId) throws ServiceException;
 }

@@ -2,9 +2,6 @@ package by.trjava.pashkovich.facultative.controller.command.impl.student;
 
 import by.trjava.pashkovich.facultative.constants.JspPath;
 import by.trjava.pashkovich.facultative.constants.Variable;
-import by.trjava.pashkovich.facultative.dao.CourseDAO;
-import by.trjava.pashkovich.facultative.dao.DAOFactory;
-import by.trjava.pashkovich.facultative.entity.Course;
 import by.trjava.pashkovich.facultative.entity.User;
 import by.trjava.pashkovich.facultative.controller.command.Command;
 import by.trjava.pashkovich.facultative.service.ClassService;

@@ -38,4 +38,14 @@ public class ArchiveServiceImpl implements ArchiveService {
             throw new ServiceException(e.getMessage(), e);
         }
     }
+
+    @Override
+    public String getReview(int studentId, int courseId) throws ServiceException {
+        ArchiveDAO archiveDAO = DAOFactory.getArchiveDAO();
+        try {
+            return archiveDAO.getReview(studentId, courseId);
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+    }
 }

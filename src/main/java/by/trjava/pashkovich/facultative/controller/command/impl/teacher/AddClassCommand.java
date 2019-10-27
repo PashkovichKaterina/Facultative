@@ -34,7 +34,6 @@ public class AddClassCommand implements Command {
             classService.addClass(date, time, courseId, user.getId(), request);
             response.sendRedirect(request.getContextPath() + "/mainController?command=" + CommandVariety.FIXED_COURSE + "&id=" + courseId);
         } catch (AddClassException e) {
-            System.out.println(e.getMessage());
             request.setAttribute(Variable.DATE, date);
             request.setAttribute(Variable.TIME, time);
             request.getRequestDispatcher(JspPath.ADD_CLASS_PAGE).forward(request, response);

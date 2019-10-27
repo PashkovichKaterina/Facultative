@@ -3,6 +3,9 @@ package by.trjava.pashkovich.facultative.controller.command.impl.admin;
 import by.trjava.pashkovich.facultative.constants.JspPath;
 import by.trjava.pashkovich.facultative.constants.Variable;
 import by.trjava.pashkovich.facultative.controller.command.Command;
+import by.trjava.pashkovich.facultative.controller.command.exception.AuthenticationException;
+import by.trjava.pashkovich.facultative.controller.command.exception.AuthorizationException;
+import by.trjava.pashkovich.facultative.controller.command.validation.UserRoleValidator;
 import by.trjava.pashkovich.facultative.controller.command.variety.CommandVariety;
 import by.trjava.pashkovich.facultative.entity.User;
 import by.trjava.pashkovich.facultative.service.*;
@@ -16,6 +19,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Command is used to add course by admin.
+ *
+ * @author Katsiaryna Pashkovich
+ * @version 1.0
+ * @see Command
+ * @since JDK1.0
+ */
 public class AddCourseCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(AddCourseCommand.class);
 
@@ -26,28 +37,36 @@ public class AddCourseCommand implements Command {
         SkillService skillService = ServiceFactory.getSkillService();
         ClassService classService = ServiceFactory.getClassService();
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute(Variable.USER);
         String local = (String) session.getAttribute(Variable.LOCAL);
+        User user = (User) session.getAttribute(Variable.USER);
+
         try {
-            courseService.insertCourse(request);
-            response.sendRedirect(request.getContextPath() + "/mainController?command=" + CommandVariety.SHOW_ALL_COURSE_FOR_ADMIN);
+            if (UserRoleValidator.isAdministratorLoggedIn(user)) {
+                courseService.insertCourse(request);
+                response.sendRedirect(request.getContextPath() + "/mainController?command=" + CommandVariety.SHOW_ALL_COURSE_FOR_ADMIN);
+            }
         } catch (AddCourseException e) {
             LOGGER.info("Incorrect data to add course");
             try {
                 request.setAttribute(Variable.CATEGORIES, courseService.getAllCategory(local));
                 request.setAttribute(Variable.TEACHERS, userService.getAllTeacher(local));
                 request.setAttribute(Variable.SKILLS, skillService.getAllSkill(local));
-                request.setAttribute(Variable.LEVELS, skillService.getAllSkillLevel(local));
                 request.setAttribute(Variable.DAYS, classService.getAllDays(local));
+                request.setAttribute(Variable.LEVELS, skillService.getAllSkillLevel(local));
                 request.getRequestDispatcher(JspPath.ADD_COURSE_PAGE).forward(request, response);
             } catch (ServiceException ex) {
-
+                LOGGER.warn("Exception to add course: " + e.getMessage());
+                response.sendError(500);
             }
+        } catch (AuthenticationException e) {
+            LOGGER.warn("Unauthenticated user tried to access the page " + request.getRequestURI());
+            response.sendRedirect(request.getContextPath() + JspPath.LOGIN_PAGE);
+        } catch (AuthorizationException e) {
+            LOGGER.warn("User " + user.getId() + " tried to access the page " + request.getRequestURI());
+            response.sendError(404);
         } catch (ServiceException e) {
             LOGGER.warn("Exception to add course: " + e.getMessage());
             response.sendError(500);
         }
     }
-
-
 }
