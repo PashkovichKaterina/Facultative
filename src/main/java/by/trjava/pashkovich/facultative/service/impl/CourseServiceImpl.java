@@ -218,7 +218,6 @@ public class CourseServiceImpl implements CourseService {
                 courseWithStatus.put(course, status);
             }
         } catch (DAOException e) {
-            System.out.println(e.getMessage());
             throw new ServiceException(e.getMessage(), e);
         }
         return courseWithStatus;

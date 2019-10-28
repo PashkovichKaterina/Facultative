@@ -297,7 +297,6 @@ public class ApplyDAOImpl implements ApplyDAO {
                 return applies;
             }
         } catch (SQLException | CreatorException e) {
-            System.out.println(e.getMessage());
             throw new DAOException("Exception in SQL: " + e.getMessage(), e);
         } finally {
             try {

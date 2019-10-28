@@ -5,6 +5,14 @@ import by.trjava.pashkovich.facultative.constants.Variable;
 import javax.servlet.*;
 import java.io.IOException;
 
+/**
+ * Filter is used to change the standard encoding of the http request to the necessary.
+ *
+ * @author Katsiaryna Pashkovich
+ * @version 1.0
+ * @see Filter
+ * @since JDK1.0
+ */
 public class EncodingFilter implements Filter {
     private String encoding;
 

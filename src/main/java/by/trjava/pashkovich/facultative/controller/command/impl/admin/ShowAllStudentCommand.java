@@ -48,7 +48,6 @@ public class ShowAllStudentCommand implements Command {
             LOGGER.warn("User " + user.getId() + " tried to access the page " + request.getRequestURI());
             response.sendError(404);
         } catch (ServiceException e) {
-            System.out.println(e.getMessage());
             LOGGER.error("Exception to show student for administrator: " + e.getMessage());
             response.sendError(500);
         }
