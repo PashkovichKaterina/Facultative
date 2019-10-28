@@ -16,7 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-public class MarkDAOImpl implements MarkDAO {
+public class DatabaseMarkDAOImpl implements MarkDAO {
     /**
      * Inserts the grade to the specified student for the specified work in the database
      * used {@code SqlQuery.INSERT_MARK} SQL query.

@@ -19,7 +19,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class ApplyDAOImpl implements ApplyDAO {
+public class DatabaseApplyDAOImpl implements ApplyDAO {
     /**
      * Inserts apply specific student on specific course with specific status
      * used {@code SqlQuery.INSERT_APPLY} SQL query.

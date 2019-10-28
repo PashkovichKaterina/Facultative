@@ -3,15 +3,15 @@ package by.trjava.pashkovich.facultative.dao;
 import by.trjava.pashkovich.facultative.dao.impl.*;
 
 public class DAOFactory {
-    private static final UserDAO userDAO = new UserDaoImpl();
-    private static final CourseDAO courseDAO = new CourseDAOImpl();
-    private static final ApplyDAO applyDAO = new ApplyDAOImpl();
-    private static final ClassDAO classDAO = new ClassDAOImpl();
-    private static final WorkDAO workDAO = new WorkDAOImpl();
-    private static final MarkDAO markDAO = new MarkDAOImpl();
-    private static final ArchiveDAO archiveDAO = new ArchiveDAOImpl();
-    private static final SkillDAO skillDAO = new SkillDAOImpl();
-    private static final CategoryDAO categoryDAO = new CategoryDAOImpl();
+    private static final UserDAO userDAO = new DatabaseUserDaoImpl();
+    private static final CourseDAO courseDAO = new DatabaseCourseDAOImpl();
+    private static final ApplyDAO applyDAO = new DatabaseApplyDAOImpl();
+    private static final ClassDAO classDAO = new DatabaseClassDAOImpl();
+    private static final WorkDAO workDAO = new DatabaseWorkDAOImpl();
+    private static final MarkDAO markDAO = new DatabaseMarkDAOImpl();
+    private static final ArchiveDAO archiveDAO = new DatabaseArchiveDAOImpl();
+    private static final SkillDAO skillDAO = new DatabaseSkillDAOImpl();
+    private static final CategoryDAO categoryDAO = new DatabaseCategoryDAOImpl();
 
     private DAOFactory() {
     }

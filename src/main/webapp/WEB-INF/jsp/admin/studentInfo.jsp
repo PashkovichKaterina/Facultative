@@ -123,7 +123,7 @@
                             <tr>
                                 <th scope="row">${i}</th>
                                 <td>
-                                    <a href="${pageContext.request.contextPath}/mainController?command=${CommandVariety.CURRENT_COURSE}&id=${current.course.id}">
+                                    <a href="${pageContext.request.contextPath}/mainController?command=${CommandVariety.SHOW_COURSE_INFO_FOR_ADMIN}&id=${current.course.id}">
                                             ${current.course.title}
                                     </a>
                                 </td>

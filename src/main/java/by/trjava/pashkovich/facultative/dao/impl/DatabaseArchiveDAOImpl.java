@@ -16,7 +16,7 @@ import java.sql.*;
 import java.util.*;
 import java.util.Date;
 
-public class ArchiveDAOImpl implements ArchiveDAO {
+public class DatabaseArchiveDAOImpl implements ArchiveDAO {
     /**
      * Inserts information about the course taken by the student
      * used {@code SqlQuery.INSERT_ARCHIVE} SQL query.

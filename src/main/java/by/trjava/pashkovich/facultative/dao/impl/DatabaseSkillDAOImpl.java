@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class SkillDAOImpl implements SkillDAO {
+public class DatabaseSkillDAOImpl implements SkillDAO {
     /**
      * Returns all skill on Russian language which are stored in the database
      * used {@code SqlQuery.GET_ALL_SKILL_RU} SQL query.

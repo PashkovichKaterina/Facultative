@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class CategoryDAOImpl implements CategoryDAO {
+public class DatabaseCategoryDAOImpl implements CategoryDAO {
     /**
      * Returns all categories on Russian language with the number of classes for each
      * used {@code SqlQuery.GET_ALL_CATEGORY_WITH_COURSE_COUNT_RU} SQL query.

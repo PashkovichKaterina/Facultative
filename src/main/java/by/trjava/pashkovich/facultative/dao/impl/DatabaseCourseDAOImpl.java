@@ -15,7 +15,7 @@ import java.sql.*;
 import java.util.*;
 import java.util.Date;
 
-public class CourseDAOImpl implements CourseDAO {
+public class DatabaseCourseDAOImpl implements CourseDAO {
     /**
      * Returns all course on Russian are stored in the database,
      * used {@code SqlQuery.GET_ALL_COURSE_RU} SQL query.

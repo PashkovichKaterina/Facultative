@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class WorkDAOImpl implements WorkDAO {
+public class DatabaseWorkDAOImpl implements WorkDAO {
     /**
      * Inserts work with the specified title at the specified course into the database
      * used {@code SqlQuery.INSERT_WORK} SQL query.

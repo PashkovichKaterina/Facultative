@@ -17,7 +17,7 @@ import java.sql.*;
 import java.util.*;
 
 
-public class UserDaoImpl implements UserDAO {
+public class DatabaseUserDaoImpl implements UserDAO {
     /**
      * Insert user into database with the specific parameters
      * used {@code SqlQuery.INSERT_USER} SQL query.

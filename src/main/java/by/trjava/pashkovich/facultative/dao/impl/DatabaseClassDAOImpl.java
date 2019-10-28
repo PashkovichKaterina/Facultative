@@ -11,7 +11,7 @@ import java.sql.*;
 import java.util.*;
 import java.util.Date;
 
-public class ClassDAOImpl implements ClassDAO {
+public class DatabaseClassDAOImpl implements ClassDAO {
     /**
      * Inserts class for specific course
      * used {@code SqlQuery.INSERT_CLASS} SQL query.

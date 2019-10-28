@@ -98,7 +98,7 @@
                     <tr>
                         <th scope="row">${i}</th>
                         <td>
-                            <a href="${pageContext.request.contextPath}/mainController?command=${CommandVariety.FIXED_COURSE}&id=${course.key.id}">
+                            <a href="${pageContext.request.contextPath}/mainController?command=${CommandVariety.SHOW_COURSE_INFO_FOR_ADMIN}&id=${course.key.id}">
                                     ${course.key.title}
                             </a>
                         </td>
