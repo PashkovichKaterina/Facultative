@@ -16,6 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Command is used to show course information for user.
+ *
+ * @author Katsiaryna Pashkovich
+ * @version 1.0
+ * @see Command
+ * @since JDK1.0
+ */
 public class ViewCourseInfoCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(ViewCourseInfoCommand.class);
 

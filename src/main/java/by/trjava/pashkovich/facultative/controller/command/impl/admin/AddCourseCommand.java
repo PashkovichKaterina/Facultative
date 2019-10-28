@@ -6,7 +6,7 @@ import by.trjava.pashkovich.facultative.controller.command.Command;
 import by.trjava.pashkovich.facultative.controller.command.exception.AuthenticationException;
 import by.trjava.pashkovich.facultative.controller.command.exception.AuthorizationException;
 import by.trjava.pashkovich.facultative.controller.command.validation.UserRoleValidator;
-import by.trjava.pashkovich.facultative.controller.command.variety.CommandVariety;
+import by.trjava.pashkovich.facultative.controller.command.provider.CommandVariety;
 import by.trjava.pashkovich.facultative.entity.User;
 import by.trjava.pashkovich.facultative.service.*;
 import by.trjava.pashkovich.facultative.service.exception.AddCourseException;
@@ -55,7 +55,7 @@ public class AddCourseCommand implements Command {
                 request.setAttribute(Variable.LEVELS, skillService.getAllSkillLevel(local));
                 request.getRequestDispatcher(JspPath.ADD_COURSE_PAGE).forward(request, response);
             } catch (ServiceException ex) {
-                LOGGER.warn("Exception to add course: " + e.getMessage());
+                LOGGER.error("Exception to add course: " + e.getMessage());
                 response.sendError(500);
             }
         } catch (AuthenticationException e) {
@@ -65,7 +65,7 @@ public class AddCourseCommand implements Command {
             LOGGER.warn("User " + user.getId() + " tried to access the page " + request.getRequestURI());
             response.sendError(404);
         } catch (ServiceException e) {
-            LOGGER.warn("Exception to add course: " + e.getMessage());
+            LOGGER.error("Exception to add course: " + e.getMessage());
             response.sendError(500);
         }
     }

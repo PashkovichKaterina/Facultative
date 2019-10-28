@@ -1,4 +1,4 @@
-package by.trjava.pashkovich.facultative.controller.command.variety;
+package by.trjava.pashkovich.facultative.controller.command.provider;
 
 public enum CommandVariety {
     //general

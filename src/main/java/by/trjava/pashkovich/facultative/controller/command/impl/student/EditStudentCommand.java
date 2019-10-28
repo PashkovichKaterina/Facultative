@@ -6,7 +6,7 @@ import by.trjava.pashkovich.facultative.controller.command.Command;
 import by.trjava.pashkovich.facultative.controller.command.exception.AuthenticationException;
 import by.trjava.pashkovich.facultative.controller.command.exception.AuthorizationException;
 import by.trjava.pashkovich.facultative.controller.command.validation.UserRoleValidator;
-import by.trjava.pashkovich.facultative.controller.command.variety.CommandVariety;
+import by.trjava.pashkovich.facultative.controller.command.provider.CommandVariety;
 import by.trjava.pashkovich.facultative.entity.User;
 import by.trjava.pashkovich.facultative.service.UserService;
 import by.trjava.pashkovich.facultative.service.exception.ServiceException;
@@ -19,6 +19,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Command is used to edit account information by student.
+ *
+ * @author Katsiaryna Pashkovich
+ * @version 1.0
+ * @see Command
+ * @since JDK1.0
+ */
 public class EditStudentCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(EditStudentCommand.class);
 

@@ -9,7 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-
+/**
+ * Command is used to change language.
+ *
+ * @author Katsiaryna Pashkovich
+ * @version 1.0
+ * @see Command
+ * @since JDK1.0
+ */
 public class ChangeLanguageCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(ChangeLanguageCommand.class);
 

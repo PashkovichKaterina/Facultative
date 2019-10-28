@@ -17,6 +17,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Command is used to show edit account information form to student.
+ *
+ * @author Katsiaryna Pashkovich
+ * @version 1.0
+ * @see Command
+ * @since JDK1.0
+ */
 public class ShowEditStudentFormCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(ShowEditStudentFormCommand.class);
 

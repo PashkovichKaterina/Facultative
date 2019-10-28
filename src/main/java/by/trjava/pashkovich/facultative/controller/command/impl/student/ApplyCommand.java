@@ -4,7 +4,7 @@ import by.trjava.pashkovich.facultative.constants.InformMessage;
 import by.trjava.pashkovich.facultative.constants.Variable;
 import by.trjava.pashkovich.facultative.entity.User;
 import by.trjava.pashkovich.facultative.controller.command.Command;
-import by.trjava.pashkovich.facultative.controller.command.variety.CommandVariety;
+import by.trjava.pashkovich.facultative.controller.command.provider.CommandVariety;
 import by.trjava.pashkovich.facultative.service.ApplyService;
 import by.trjava.pashkovich.facultative.service.ServiceFactory;
 import by.trjava.pashkovich.facultative.service.exception.NotLoginException;
@@ -20,6 +20,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Command is used to process a request for a course.
+ *
+ * @author Katsiaryna Pashkovich
+ * @version 1.0
+ * @see Command
+ * @since JDK1.0
+ */
 public class ApplyCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(ApplyCommand.class);
 

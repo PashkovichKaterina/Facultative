@@ -2,9 +2,10 @@ package by.trjava.pashkovich.facultative.controller.command.impl;
 
 import by.trjava.pashkovich.facultative.constants.JspPath;
 import by.trjava.pashkovich.facultative.constants.Variable;
-import by.trjava.pashkovich.facultative.controller.command.variety.CommandVariety;
+import by.trjava.pashkovich.facultative.controller.command.exception.AuthenticationException;
+import by.trjava.pashkovich.facultative.controller.command.validation.UserRoleValidator;
+import by.trjava.pashkovich.facultative.controller.command.provider.CommandVariety;
 import by.trjava.pashkovich.facultative.entity.*;
-import by.trjava.pashkovich.facultative.entity.characteristic.UserRole;
 import by.trjava.pashkovich.facultative.controller.command.Command;
 import by.trjava.pashkovich.facultative.service.ApplyService;
 import by.trjava.pashkovich.facultative.service.ArchiveService;
@@ -19,6 +20,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Command is used to show account page for user.
+ *
+ * @author Katsiaryna Pashkovich
+ * @version 1.0
+ * @see Command
+ * @since JDK1.0
+ */
 public class AccountCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(AccountCommand.class);
 
@@ -31,6 +40,7 @@ public class AccountCommand implements Command {
         User user = (User) session.getAttribute(Variable.USER);
         String local = (String) session.getAttribute(Variable.LOCAL);
         try {
+            UserRoleValidator.isUserLoggedIn(user);
             switch (user.getRole()) {
                 case ADMINISTRATOR:
                     response.sendRedirect(request.getContextPath() + "/mainController?command=" + CommandVariety.SHOW_ALL_COURSE_FOR_ADMIN);
@@ -48,6 +58,9 @@ public class AccountCommand implements Command {
                     LOGGER.debug("Account page for teacher: " + user.getLogin());
                     break;
             }
+        } catch (AuthenticationException e) {
+            LOGGER.warn("Unauthenticated user tried to access the page " + request.getRequestURI());
+            response.sendRedirect(request.getContextPath() + JspPath.LOGIN_PAGE);
         } catch (ServiceException e) {
             LOGGER.error("Unsuccessful redirect to account page: " + e.getMessage());
             response.sendError(500);

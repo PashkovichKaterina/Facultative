@@ -5,7 +5,7 @@
 <%@ taglib prefix="custom" uri="http://trjava.by/pashkovich/facultative" %>
 
 <%@ page import="by.trjava.pashkovich.facultative.constants.JspPath" %>
-<%@ page import="by.trjava.pashkovich.facultative.controller.command.variety.CommandVariety" %>
+<%@ page import="by.trjava.pashkovich.facultative.controller.command.provider.CommandVariety" %>
 <%@ page import="by.trjava.pashkovich.facultative.util.ReplacingEscapedCharacter" %>
 
 <fmt:setLocale value="${sessionScope.local}"/>

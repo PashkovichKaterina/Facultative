@@ -17,6 +17,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Command is used to show course by user.
+ *
+ * @author Katsiaryna Pashkovich
+ * @version 1.0
+ * @see Command
+ * @since JDK1.0
+ */
 public class SearchCourseCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(SearchCourseCommand.class);
 

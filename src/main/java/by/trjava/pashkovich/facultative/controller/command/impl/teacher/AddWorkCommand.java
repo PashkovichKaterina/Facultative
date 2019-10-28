@@ -4,7 +4,9 @@ import by.trjava.pashkovich.facultative.constants.InformMessage;
 import by.trjava.pashkovich.facultative.constants.JspPath;
 import by.trjava.pashkovich.facultative.constants.Variable;
 import by.trjava.pashkovich.facultative.controller.command.Command;
-import by.trjava.pashkovich.facultative.controller.command.variety.CommandVariety;
+import by.trjava.pashkovich.facultative.controller.command.exception.AuthenticationException;
+import by.trjava.pashkovich.facultative.controller.command.validation.UserRoleValidator;
+import by.trjava.pashkovich.facultative.controller.command.provider.CommandVariety;
 import by.trjava.pashkovich.facultative.entity.User;
 import by.trjava.pashkovich.facultative.service.ServiceFactory;
 import by.trjava.pashkovich.facultative.service.WorkService;
@@ -21,6 +23,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Command is used to add work on course by teacher.
+ *
+ * @author Katsiaryna Pashkovich
+ * @version 1.0
+ * @see Command
+ * @since JDK1.0
+ */
 public class AddWorkCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(AddWorkCommand.class);
 
@@ -35,6 +45,7 @@ public class AddWorkCommand implements Command {
         String workTitle = request.getParameter(Variable.TITLE);
         request.setAttribute(Variable.TITLE, workTitle);
         try {
+            UserRoleValidator.isUserLoggedIn(user);
             int courseId = new Integer(request.getParameter(Variable.ID));
             workService.addWork(workTitle, courseId, user.getId());
             response.sendRedirect(request.getContextPath() + "/mainController?command=" + CommandVariety.FIXED_COURSE + "&id=" + courseId);
@@ -50,6 +61,9 @@ public class AddWorkCommand implements Command {
             request.setAttribute(Variable.TITLE_ERROR, messageManager.getMessage(InformMessage.TEXT_FIELD_INVALID_TYPE, local));
             request.getRequestDispatcher(JspPath.ADD_WORK_PAGE).forward(request, response);
             LOGGER.debug("Invalid data type to add work: " + e.getMessage());
+        } catch (AuthenticationException e) {
+            LOGGER.warn("Unauthenticated user tried to access the page " + request.getRequestURI());
+            response.sendRedirect(request.getContextPath() + JspPath.LOGIN_PAGE);
         } catch (NumberFormatException | ServiceException e) {
             response.sendError(500);
             LOGGER.error("Error to add work by teacher " + user.getLogin() + ": " + e.getMessage());

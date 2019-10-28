@@ -22,6 +22,14 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Command is used to enroll student in learning by admin.
+ *
+ * @author Katsiaryna Pashkovich
+ * @version 1.0
+ * @see Command
+ * @since JDK1.0
+ */
 public class EnrollInLearningCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(EnrollInLearningCommand.class);
 
@@ -32,19 +40,20 @@ public class EnrollInLearningCommand implements Command {
         String local = (String) session.getAttribute(Variable.LOCAL);
         MessageManager messageManager = MessageManager.getInstance();
 
+        request.setAttribute(Variable.INFORM_MESSAGE, messageManager.getMessage(InformMessage.SUCCESSFULLY_OPERATION, local));
         for (Map.Entry<Integer, Integer> map : getParameter(request).entrySet()) {
             try {
                 applyService.enrollInLearning(map.getKey(), map.getValue());
             } catch (InvalidDataTypeException e) {
                 LOGGER.error(e.getMessage());
-                response.sendError(500);
+                request.setAttribute(Variable.INFORM_MESSAGE, messageManager.getMessage(InformMessage.UNSUCCESSFULLY_OPERATION, local));
             } catch (ServiceException e) {
                 LOGGER.warn(e.getMessage());
                 response.sendError(500);
+                return;
             }
         }
         try {
-            request.setAttribute(Variable.INFORM_MESSAGE, messageManager.getMessage(InformMessage.SUCCESSFULLY_OPERATION, local));
             request.setAttribute(Variable.APPLIES, applyService.getAllApply(local));
             request.getRequestDispatcher(JspPath.ADMIN_APPLY).forward(request, response);
         } catch (ServiceException e) {

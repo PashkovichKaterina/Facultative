@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ page import="by.trjava.pashkovich.facultative.constants.JspPath" %>
-<%@ page import="by.trjava.pashkovich.facultative.controller.command.variety.CommandVariety" %>
+<%@ page import="by.trjava.pashkovich.facultative.controller.command.provider.CommandVariety" %>
 
 <fmt:setLocale value="${sessionScope.local}"/>
 <fmt:setBundle basename="local" var="loc"/>

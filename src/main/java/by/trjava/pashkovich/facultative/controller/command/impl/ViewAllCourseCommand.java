@@ -3,7 +3,6 @@ package by.trjava.pashkovich.facultative.controller.command.impl;
 import by.trjava.pashkovich.facultative.constants.JspPath;
 import by.trjava.pashkovich.facultative.constants.Variable;
 import by.trjava.pashkovich.facultative.controller.command.Command;
-import by.trjava.pashkovich.facultative.entity.Course;
 import by.trjava.pashkovich.facultative.service.CourseService;
 import by.trjava.pashkovich.facultative.service.ServiceFactory;
 import by.trjava.pashkovich.facultative.service.exception.ServiceException;
@@ -15,6 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Command is used to show all course for user.
+ *
+ * @author Katsiaryna Pashkovich
+ * @version 1.0
+ * @see Command
+ * @since JDK1.0
+ */
 public class ViewAllCourseCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(ViewAllCourseCommand.class);
 

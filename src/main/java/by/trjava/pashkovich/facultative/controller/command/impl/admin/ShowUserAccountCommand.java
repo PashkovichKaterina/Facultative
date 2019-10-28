@@ -3,22 +3,28 @@ package by.trjava.pashkovich.facultative.controller.command.impl.admin;
 import by.trjava.pashkovich.facultative.constants.JspPath;
 import by.trjava.pashkovich.facultative.constants.Variable;
 import by.trjava.pashkovich.facultative.controller.command.Command;
-import by.trjava.pashkovich.facultative.controller.command.variety.CommandVariety;
-import by.trjava.pashkovich.facultative.entity.ArchiveCourse;
-import by.trjava.pashkovich.facultative.entity.Student;
 import by.trjava.pashkovich.facultative.entity.User;
 import by.trjava.pashkovich.facultative.service.*;
 import by.trjava.pashkovich.facultative.service.exception.ServiceException;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
+/**
+ * Command is used to show information about user to admin.
+ *
+ * @author Katsiaryna Pashkovich
+ * @version 1.0
+ * @see Command
+ * @since JDK1.0
+ */
 public class ShowUserAccountCommand implements Command {
+    private static final Logger LOGGER = Logger.getLogger(ShowUserAccountCommand.class);
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         CourseService courseService = ServiceFactory.getCourseService();
@@ -47,6 +53,7 @@ public class ShowUserAccountCommand implements Command {
             }
         } catch (NumberFormatException | ServiceException e) {
             response.sendError(500);
+            LOGGER.error(e.getMessage());
         }
     }
 }

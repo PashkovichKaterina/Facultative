@@ -27,4 +27,11 @@ public class UserRoleValidator {
         }
         return true;
     }
+
+    public static boolean isTeacherLoggedIn(User user) throws AuthorizationException {
+        if (user.getRole() != UserRole.TEACHER) {
+            throw new AuthorizationException("User role is not " + UserRole.TEACHER);
+        }
+        return true;
+    }
 }

@@ -15,6 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Command is used to registration on system.
+ *
+ * @author Katsiaryna Pashkovich
+ * @version 1.0
+ * @see Command
+ * @since JDK1.0
+ */
 public class RegistrationCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(RegistrationCommand.class);
 

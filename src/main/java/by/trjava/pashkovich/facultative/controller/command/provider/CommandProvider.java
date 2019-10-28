@@ -1,6 +1,7 @@
 package by.trjava.pashkovich.facultative.controller.command.provider;
 
 import by.trjava.pashkovich.facultative.controller.command.Command;
+import by.trjava.pashkovich.facultative.controller.command.exception.NoSuchCommandException;
 import by.trjava.pashkovich.facultative.controller.command.impl.*;
 import by.trjava.pashkovich.facultative.controller.command.impl.admin.*;
 import by.trjava.pashkovich.facultative.controller.command.impl.student.CurrentCourseCommand;
@@ -8,7 +9,6 @@ import by.trjava.pashkovich.facultative.controller.command.impl.student.EditStud
 import by.trjava.pashkovich.facultative.controller.command.impl.student.ApplyCommand;
 import by.trjava.pashkovich.facultative.controller.command.impl.student.ShowEditStudentFormCommand;
 import by.trjava.pashkovich.facultative.controller.command.impl.teacher.*;
-import by.trjava.pashkovich.facultative.controller.command.variety.CommandVariety;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -67,14 +67,14 @@ public class CommandProvider {
         return instance;
     }
 
-    public Command getCommand(String commandName) {
+    public Command getCommand(String commandName) throws NoSuchCommandException {
         CommandVariety commandType;
-        Command command = null;
+        Command command;
         try {
             commandType = CommandVariety.valueOf(commandName);
             command = commands.get(commandType);
         } catch (IllegalArgumentException e) {
-
+            throw new NoSuchCommandException("No such command as " + commandName);
         }
         return command;
     }

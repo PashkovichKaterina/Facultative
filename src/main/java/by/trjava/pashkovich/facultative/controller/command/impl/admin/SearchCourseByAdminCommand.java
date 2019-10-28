@@ -19,6 +19,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Command is search course by admin.
+ *
+ * @author Katsiaryna Pashkovich
+ * @version 1.0
+ * @see Command
+ * @since JDK1.0
+ */
 public class SearchCourseByAdminCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(SearchCourseByAdminCommand.class);
 

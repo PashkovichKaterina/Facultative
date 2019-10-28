@@ -308,11 +308,20 @@ public class CourseServiceImpl implements CourseService {
                 int categoryId = getCategoryIdByCategoryTitle(category, local);
                 courseDAO.insertCourse(titleRu, titleEn, teacherId, courseCount, categoryId, true, descriptionRu, descriptionEn);
                 int courseId = courseDAO.getCourseIdByRuTitle(titleRu);
-                for (Map.Entry<String, String> s : requirementSkills(request).entrySet()) {
-                    courseDAO.insertRequirementElementOnRu(courseId, s.getKey(), s.getValue());
-                }
-                for (Map.Entry<String, String> s : timetableElements(request).entrySet()) {
-                    courseDAO.insertTimetableElementOnRu(courseId, s.getKey(), s.getValue());
+                if (MessageManager.enLocal.equals(local)) {
+                    for (Map.Entry<String, String> s : requirementSkills(request).entrySet()) {
+                        courseDAO.insertRequirementElementOnEn(courseId, s.getKey(), s.getValue());
+                    }
+                    for (Map.Entry<String, String> s : timetableElements(request).entrySet()) {
+                        courseDAO.insertTimetableElementOnEn(courseId, s.getKey(), s.getValue());
+                    }
+                } else {
+                    for (Map.Entry<String, String> s : requirementSkills(request).entrySet()) {
+                        courseDAO.insertRequirementElementOnRu(courseId, s.getKey(), s.getValue());
+                    }
+                    for (Map.Entry<String, String> s : timetableElements(request).entrySet()) {
+                        courseDAO.insertTimetableElementOnRu(courseId, s.getKey(), s.getValue());
+                    }
                 }
             } catch (DAOException e) {
                 throw new ServiceException(e.getMessage(), e);
@@ -469,6 +478,13 @@ public class CourseServiceImpl implements CourseService {
         }
     }
 
+    /**
+     * Returns all course with status.
+     *
+     * @param courseTitle partial course title.
+     * @return all course with status.
+     * @throws ServiceException if an exception occurred in the DAO layer.
+     */
     @Override
     public Map<Course, String> getCourseWithStatusByPartialMatchTitle(String courseTitle, String local) throws ServiceException {
         CourseDAO courseDAO = DAOFactory.getCourseDAO();

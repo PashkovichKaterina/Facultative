@@ -7,7 +7,6 @@ import by.trjava.pashkovich.facultative.controller.command.exception.Authenticat
 import by.trjava.pashkovich.facultative.controller.command.exception.AuthorizationException;
 import by.trjava.pashkovich.facultative.controller.command.validation.UserRoleValidator;
 import by.trjava.pashkovich.facultative.entity.User;
-import by.trjava.pashkovich.facultative.entity.characteristic.UserRole;
 import by.trjava.pashkovich.facultative.service.CategoryService;
 import by.trjava.pashkovich.facultative.service.ServiceFactory;
 import by.trjava.pashkovich.facultative.service.exception.ServiceException;

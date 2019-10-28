@@ -2,6 +2,7 @@ package by.trjava.pashkovich.facultative.controller;
 
 import by.trjava.pashkovich.facultative.constants.Variable;
 import by.trjava.pashkovich.facultative.controller.command.Command;
+import by.trjava.pashkovich.facultative.controller.command.exception.NoSuchCommandException;
 import by.trjava.pashkovich.facultative.controller.command.provider.CommandProvider;
 import by.trjava.pashkovich.facultative.dao.exception.ConnectionPoolException;
 import by.trjava.pashkovich.facultative.dao.pool.ConnectionPool;
@@ -42,11 +43,14 @@ public class Controller extends HttpServlet {
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String commandName = request.getParameter(Variable.COMMAND);
-        LOGGER.trace("Parameter value \"command\" is " + commandName);
-        Command command = CommandProvider.getInstance().getCommand(commandName);
-        LOGGER.debug("Call execute() method of the class " + command.getClass().getName());
-        command.execute(request, response);
-        LOGGER.debug("Method execute() finished work");
+        Command command;
+        try {
+            command = CommandProvider.getInstance().getCommand(commandName);
+            command.execute(request, response);
+        } catch (NoSuchCommandException e) {
+            LOGGER.error(e.getMessage());
+            response.sendError(500);
+        }
     }
 
     @Override

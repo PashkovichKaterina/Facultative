@@ -6,9 +6,8 @@ import by.trjava.pashkovich.facultative.controller.command.Command;
 import by.trjava.pashkovich.facultative.controller.command.exception.AuthorizationException;
 import by.trjava.pashkovich.facultative.controller.command.exception.AuthenticationException;
 import by.trjava.pashkovich.facultative.controller.command.validation.UserRoleValidator;
-import by.trjava.pashkovich.facultative.controller.command.variety.CommandVariety;
+import by.trjava.pashkovich.facultative.controller.command.provider.CommandVariety;
 import by.trjava.pashkovich.facultative.entity.User;
-import by.trjava.pashkovich.facultative.entity.characteristic.UserRole;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;

@@ -149,10 +149,10 @@ public interface CourseService {
     void endCourse(int courseId) throws ServiceException;
 
     /**
-     * Returns all course with specific partial course title.
+     * Returns all course with status.
      *
      * @param courseTitle partial course title.
-     * @return all course with specific partial course title.
+     * @return all course with status.
      * @throws ServiceException if an exception occurred in the DAO layer.
      */
     Map<Course, String> getCourseWithStatusByPartialMatchTitle(String courseTitle, String local) throws ServiceException;
