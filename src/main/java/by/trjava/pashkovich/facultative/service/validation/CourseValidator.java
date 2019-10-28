@@ -205,7 +205,7 @@ public class CourseValidator {
             request.setAttribute(Variable.DESCRIPTION_RU_ERROR, messageManager.getMessage(InformMessage.REQUIRE_FIELD, local));
             return false;
         }
-        if (!FieldValidator.checkTextFieldFormat(description)) {
+        if (!FieldValidator.checkFormatForTextField(description)) {
             request.setAttribute(Variable.DESCRIPTION_RU_ERROR, messageManager.getMessage(InformMessage.TEXT_FIELD_INVALID_TYPE, local));
             return false;
         }
@@ -237,7 +237,7 @@ public class CourseValidator {
             request.setAttribute(Variable.DESCRIPTION_EN_ERROR, messageManager.getMessage(InformMessage.REQUIRE_FIELD, local));
             return false;
         }
-        if (!FieldValidator.checkTextFieldFormat(description)) {
+        if (!FieldValidator.checkFormatForTextField(description)) {
             request.setAttribute(Variable.DESCRIPTION_EN_ERROR, messageManager.getMessage(InformMessage.TEXT_FIELD_INVALID_TYPE, local));
             return false;
         }

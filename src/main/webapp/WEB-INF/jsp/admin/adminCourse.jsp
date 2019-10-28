@@ -56,7 +56,8 @@
                 <h1><fmt:message key="local.header.courses" bundle="${loc}"/></h1>
                 <form class="search-line d1">
                     <input type="hidden" name="command" value="${CommandVariety.SEARCH_COURSE_BY_ADMIN}">
-                    <input type="text" name="title" placeholder="<fmt:message key="local.course.title" bundle="${loc}"/>...">
+                    <input type="text" name="title"
+                           placeholder="<fmt:message key="local.course.title" bundle="${loc}"/>...">
                     <button type="submit"></button>
                 </form>
             </div>
@@ -80,9 +81,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href="${pageContext.request.contextPath}/mainController?command=${CommandVariety.SHOW_USER_ACCOUNT}&id=${teacher.key.id}">
                                     ${course.key.teacher}
-                            </a>
                         </td>
                         <td>${course.value}</td>
                     </tr>

@@ -309,6 +309,7 @@ public class CourseServiceImpl implements CourseService {
                 int courseId = courseDAO.getCourseIdByRuTitle(titleRu);
                 if (MessageManager.enLocal.equals(local)) {
                     for (Map.Entry<String, String> s : requirementSkills(request).entrySet()) {
+                        System.out.println(s.getKey() + " - " + s.getValue());
                         courseDAO.insertRequirementElementOnEn(courseId, s.getKey(), s.getValue());
                     }
                     for (Map.Entry<String, String> s : timetableElements(request).entrySet()) {

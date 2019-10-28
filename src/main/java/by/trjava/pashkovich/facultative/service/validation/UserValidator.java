@@ -39,7 +39,7 @@ public class UserValidator {
             request.setAttribute(Variable.LOGIN_ERROR, messageManager.getMessage(InformMessage.REQUIRE_FIELD, local));
             return false;
         }
-        if (!FieldValidator.checkTextFieldFormat(login)) {
+        if (!FieldValidator.checkFormatForTextField(login)) {
             request.setAttribute(Variable.LOGIN_ERROR, messageManager.getMessage(InformMessage.TEXT_FIELD_INVALID_TYPE, local));
             return false;
         }

@@ -183,7 +183,7 @@ ENGINE = InnoDB;
 -- Table `facultative`.`archives`
 -- The table contains archive of student courses.
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`archives` (
+CREATE TABLE IF NOT EXISTS `facultative`.`archives` (
   `student_id` INT NOT NULL,
   `course_id` INT NOT NULL,
   `average_mark` INT NOT NULL,
@@ -194,21 +194,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`archives` (
   INDEX `fk_Courses_ListenerArchive_idx` (`course_id` ASC) VISIBLE,
   CONSTRAINT `fk_Users_ListenerArchive`
     FOREIGN KEY (`student_id`)
-    REFERENCES `mydb`.`users` (`user_id`)
+    REFERENCES `facultative`.`users` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Courses_ListenerArchive`
     FOREIGN KEY (`course_id`)
-    REFERENCES `mydb`.`courses` (`course_id`)
+    REFERENCES `facultative`.`courses` (`course_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`positions`
+-- Table `facultative`.`positions`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`positions` (
+CREATE TABLE IF NOT EXISTS `facultative`.`positions` (
   `position_id` INT NOT NULL AUTO_INCREMENT,
   `title_ru` VARCHAR(30) NOT NULL,
   `title_en` VARCHAR(30) NOT NULL,

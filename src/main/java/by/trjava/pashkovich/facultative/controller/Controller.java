@@ -17,6 +17,7 @@ import java.io.IOException;
 
 
 public class Controller extends HttpServlet {
+    private static final long serialVersionUID = 8647447377079418773L;
     private static final Logger LOGGER = Logger.getLogger(Controller.class);
 
     @Override
@@ -31,13 +32,11 @@ public class Controller extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.trace("Call doGet() method in Controller");
         process(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.trace("Call doPost() method in Controller");
         process(request, response);
     }
 
@@ -58,7 +57,7 @@ public class Controller extends HttpServlet {
         try {
             BaseConnectionPool.getInstance().destroyPool();
         } catch (ConnectionPoolException e) {
-            LOGGER.info("Connection pool cannot destroy: " + e.getMessage());
+            LOGGER.error("Connection pool cannot destroy: " + e.getMessage());
         }
     }
 }

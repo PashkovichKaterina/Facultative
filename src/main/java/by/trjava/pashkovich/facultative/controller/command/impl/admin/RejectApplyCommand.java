@@ -5,6 +5,7 @@ import by.trjava.pashkovich.facultative.constants.Variable;
 import by.trjava.pashkovich.facultative.controller.command.Command;
 import by.trjava.pashkovich.facultative.controller.command.exception.AuthenticationException;
 import by.trjava.pashkovich.facultative.controller.command.exception.AuthorizationException;
+import by.trjava.pashkovich.facultative.controller.command.provider.CommandVariety;
 import by.trjava.pashkovich.facultative.controller.command.validation.UserRoleValidator;
 import by.trjava.pashkovich.facultative.entity.User;
 import by.trjava.pashkovich.facultative.service.ApplyService;
@@ -41,6 +42,7 @@ public class RejectApplyCommand implements Command {
         try {
             if (UserRoleValidator.isUserLoggedIn(user) && UserRoleValidator.isAdministratorLoggedIn(user)) {
                 applyService.rejectApply(studentId, courseId, review);
+                response.sendRedirect(request.getContextPath() + "/mainController?command=" + CommandVariety.SHOW_ALL_APPLY);
             }
         } catch (AuthenticationException e) {
             LOGGER.warn("Unauthenticated user tried to access the page " + request.getRequestURI());
