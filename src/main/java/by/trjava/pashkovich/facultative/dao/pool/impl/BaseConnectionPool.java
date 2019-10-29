@@ -12,7 +12,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 public class BaseConnectionPool implements ConnectionPool {
-    public static final int POOL_SIZE = 20;
+    private static final int POOL_SIZE = 20;
 
     private static final BaseConnectionPool instance = new BaseConnectionPool();
 

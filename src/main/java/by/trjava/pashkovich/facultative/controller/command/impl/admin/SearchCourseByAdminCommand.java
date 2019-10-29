@@ -35,7 +35,7 @@ public class SearchCourseByAdminCommand implements Command {
         CourseService courseService = ServiceFactory.getCourseService();
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(Variable.USER);
-        String local = request.getParameter(Variable.LOCAL);
+        String local = (String)session.getAttribute(Variable.LOCAL);
         String title = request.getParameter(Variable.TITLE);
 
         try {

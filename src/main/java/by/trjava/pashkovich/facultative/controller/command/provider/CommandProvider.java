@@ -68,14 +68,11 @@ public class CommandProvider {
     }
 
     public Command getCommand(String commandName) throws NoSuchCommandException {
-        CommandVariety commandType;
-        Command command;
         try {
-            commandType = CommandVariety.valueOf(commandName);
-            command = commands.get(commandType);
+            CommandVariety commandType = CommandVariety.valueOf(commandName);
+            return commands.get(commandType);
         } catch (IllegalArgumentException e) {
             throw new NoSuchCommandException("No such command as " + commandName);
         }
-        return command;
     }
 }

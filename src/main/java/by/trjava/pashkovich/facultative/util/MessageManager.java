@@ -3,6 +3,7 @@ package by.trjava.pashkovich.facultative.util;
 import by.trjava.pashkovich.facultative.constants.Variable;
 
 import java.util.Locale;
+import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 /**

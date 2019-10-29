@@ -15,6 +15,7 @@ import by.trjava.pashkovich.facultative.service.validation.CourseValidator;
 import by.trjava.pashkovich.facultative.service.validation.FieldValidator;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -149,25 +150,21 @@ public class CourseServiceImpl implements CourseService {
         if (FieldValidator.isEmpty(courseTitle) && FieldValidator.isEmpty(category)) {
             return getAllCourse(local);
         }
-        if (!FieldValidator.isEmpty(courseTitle)) {
-            try {
+        try {
+            if (!FieldValidator.isEmpty(courseTitle)) {
                 courses = MessageManager.enLocal.equals(local)
                         ? courseDAO.getCourseByPartialMatchTitleOnEn(courseTitle)
                         : courseDAO.getCourseByPartialMatchTitleOnRu(courseTitle);
-            } catch (DAOException e) {
-                throw new ServiceException(e.getMessage(), e);
-            }
-        } else {
-            if (!CourseValidator.checkCategoryTitle(category, local)) {
-                throw new NoSuchCategoryException("Invalid category");
-            }
-            try {
+            } else {
+                if (!CourseValidator.checkCategoryTitle(category, local)) {
+                    throw new NoSuchCategoryException("Invalid category");
+                }
                 courses = MessageManager.enLocal.equals(local)
                         ? courseDAO.getCourseByCategoryOnEn(category)
                         : courseDAO.getCourseByCategoryOnRu(category);
-            } catch (DAOException e) {
-                throw new ServiceException(e.getMessage(), e);
             }
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage(), e);
         }
         if (FieldValidator.isEmpty(courses)) {
             throw new NoSuchCourseException("Invalid course id");
