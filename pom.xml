@@ -54,7 +54,9 @@
         </dependency>
     </dependencies>
 
-    <build>
+    <build>             
+        <sourceDirectory>src/main/java/</sourceDirectory>
+        <testSourceDirectory>src/main/test/</testSourceDirectory>
         <finalName>facultative</finalName>
         <pluginManagement>
             <plugins>
